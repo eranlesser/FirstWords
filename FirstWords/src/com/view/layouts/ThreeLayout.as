@@ -12,8 +12,9 @@ package com.view.layouts
 		}
 		
 		private function init():void{
+			var itemWidth:int = (Dimentions.WIDTH-100)/numItems;
 			for(var i:uint=0;i<numItems;i++){
-				addPlaceHolder(((Dimentions.WIDTH-100)/numItems)*i,Dimentions.HEIGHT*2/3);
+				addPlaceHolder(itemWidth*i+50,Dimentions.HEIGHT*1/2,itemWidth,Dimentions.HEIGHT*1/2);
 			}
 		}
 	}
