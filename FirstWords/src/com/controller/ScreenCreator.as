@@ -22,7 +22,8 @@ package com.controller
 			
 			_view.clear();
 			_model.clear();
-			if(_counter>=8){
+			if(_counter>=_model.numItems){
+				_view.complete();
 				return;
 			}
 			_view.setWhoIs(_model.whoIsItem,Assets.getAtlas(_model.groupName));

@@ -36,5 +36,9 @@ package com.model
 		public function clear():void{
 			_groupsInScreen = new Vector.<String>();
 		}
+		
+		public function get numItems():int{
+			return _items.length;
+		}
 	}
 }
