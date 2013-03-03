@@ -6,6 +6,7 @@ package com.model.rawData
 	<whereIs>
 		<screens>
 			{Toys.data}
+			{Fruits.data}
 		</screens>
 	</whereIs>
 		

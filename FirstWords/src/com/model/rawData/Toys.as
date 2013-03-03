@@ -3,7 +3,7 @@ package com.model.rawData
 	public class Toys
 	{
 		public static var data:XML = 
-			<toys>
+			<data groupName="toys" thumbNail="airplane1">
 				<item image="airplane1" sound="toys/plane.mp3" groupId="airplane"  />
 				<item image="ball1" sound="toys/ball.mp3"  groupId="balls"/>
 				
@@ -21,7 +21,7 @@ package com.model.rawData
 				
 				<item image="train1" sound="toys/train.mp3" groupId="trians"/>
 				
-			</toys>
+			</data>
 		
 		public function Toys()
 		{

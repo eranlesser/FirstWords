@@ -1,29 +1,47 @@
 package com.controller
 {
 	import com.Assets;
+	import com.Dimentions;
 	import com.model.Item;
-	import com.model.ItemsGroup;
+	import com.model.ScreenModel;
 	import com.view.WhereIsScreen;
+	
+	import org.osflash.signals.Signal;
+	
+	import starling.display.Image;
+	import starling.textures.Texture;
 
 	public class ScreenCreator
 	{
 		private var _view:WhereIsScreen;
-		private var _model:ItemsGroup;
+		private var _model:ScreenModel;
 		private var _counter:uint=0;
-		public function ScreenCreator(model:ItemsGroup,view:WhereIsScreen){
+		public var done:Signal = new Signal();
+		public function ScreenCreator(view:WhereIsScreen){
 			_view = view;
-			_model=model;
 			_view.refresh.add(setItems);
-			//view.setWhoIs(new Item(<item image="airplane1" sound="airplane.mp3"  />),Assets.getAtlas("toys"));
+			
+		}
+		
+		public function set model(group:ScreenModel):void{
+			_model=group;
 			setItems();
 		}
 		
-		private function setItems():void{
-			
+		private function reset():void{
 			_view.clear();
 			_model.clear();
+			var bg:Image = new Image(Texture.fromBitmap(new Assets.Bg()));
+			_view.addChild(bg);
+			bg.width = Dimentions.WIDTH;
+			bg.height = Dimentions.HEIGHT;
+		}
+		
+		private function setItems():void{
+			reset();
 			if(_counter>=_model.numItems){
 				_view.complete();
+				done.dispatch();
 				return;
 			}
 			_view.setWhoIs(_model.whoIsItem,Assets.getAtlas(_model.groupName));

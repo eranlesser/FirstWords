@@ -87,6 +87,18 @@ class PlaceHolder{
 		if(_height>_image.height){
 			_image.y = _y+(_height-_image.height)/2;
 		}
+
+		if(_image.height>(_height-2)){
+			var yratio:Number = (_height-2)/_image.height;
+			_image.height = (_height-2);
+			_image.width = _image.height*yratio;
+			
+		}else if((_height-2)>_image.height){
+			_image.y = _y+((_height-2)-_image.height)/2;
+		}
+		if(_width>_image.width){
+			_image.x = _x+(_width-_image.width)/2;
+		}
 		img.bg.x=_x;
 		img.bg.y=_y;
 	}

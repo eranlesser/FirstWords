@@ -16,8 +16,6 @@ package com.view
 	
 	import starling.core.Starling;
 	import starling.display.Sprite;
-	import starling.events.TouchEvent;
-	import starling.events.TouchPhase;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
