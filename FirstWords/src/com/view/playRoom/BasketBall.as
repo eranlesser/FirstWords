@@ -1,7 +1,6 @@
 package com.view.playRoom
 {
-	import com.Assets;
-	
+	import nape.callbacks.CbType;
 	import nape.geom.Vec2;
 	import nape.phys.Body;
 	import nape.phys.BodyType;
@@ -20,16 +19,16 @@ package com.view.playRoom
 		private static const BALL_RADIUS : Number = 51.5; // TODO make dynamic
 		private static const BALL_ELASTICITY : Number = 1.5;
 		
-		public function BasketBall(space:Space,updateFunction:Function)
+		public function BasketBall(space:Space,updateFunction:Function,cbType:CbType,xx:int,yy:int)
 		{
-			super(space,updateFunction);
+			super(space,updateFunction,cbType,xx,yy);
 			
 		}
 		
-		override protected function createBody(updateFunction:Function):void{
-			_body = new Body( BodyType.DYNAMIC, new Vec2( 500, 100 ) );
+		override protected function createBody(updateFunction:Function,cbType:CbType,xx:int,yy:int):void{
+			_body = new Body( BodyType.DYNAMIC, new Vec2( xx, yy ) );
 			_body.shapes.add( new Circle( BALL_RADIUS, null, new Material( BALL_ELASTICITY ) ) );
-			super.createBody(updateFunction);
+			super.createBody(updateFunction,cbType,xx,yy);
 			
 		}
 		

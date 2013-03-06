@@ -47,8 +47,8 @@
   <buildCSSFiles/>
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
   <buildTargets>
-    <buildTarget buildTargetName="com.adobe.flexide.multiplatform.ios.platform" iosSettingsVersion="1" provisioningFile="/Users/eranlesser/Desktop/certificates/whereIs/WhereIs.mobileprovision" releasePackageType="">
-      <airSettings airCertificatePath="/Users/eranlesser/Desktop/certificates/dev/Certificates.p12" airTimestamp="true" anePathSet="true" version="1">
+    <buildTarget buildTargetName="com.adobe.flexide.multiplatform.ios.platform" iosSettingsVersion="1" provisioningFile="/Users/eranlesser/Desktop/certificates/whereIs/Dev_whereIs.mobileprovision" releasePackageType="">
+      <airSettings airCertificatePath="/Users/eranlesser/Desktop/certificates/TB_dev/dev_2013.p12" airTimestamp="true" anePathSet="true" version="1">
         <airExcludes/>
         <anePaths/>
       </airSettings>
