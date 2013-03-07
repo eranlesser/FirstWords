@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:5f911b87fd06382e63eb025eacdd40bf$ -->
+<TextureAtlas imagePath="animals.jpg">
+    <SubTexture name="monkey" x="0" y="0" width="100" height="100"/>
+    <SubTexture name="hipo" x="100" y="0" width="100" height="100"/>
+    <SubTexture name="cow" x="200" y="0" width="100" height="100"/>
+    <SubTexture name="bird" x="0" y="100" width="100" height="100"/>
+    <SubTexture name="elaphen" x="100" y="0" width="100" height="100"/>
+    <SubTexture name="zebra" x="200" y="100" width="100" height="100"/>
+    <SubTexture name="cat" x="0" y="200" width="100" height="100"/>
+    <SubTexture name="giraph" x="100" y="200" width="100" height="100"/>
+    <SubTexture name="lion" x="200" y="200" width="100" height="100"/>
+    
+</TextureAtlas>

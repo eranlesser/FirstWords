@@ -3,25 +3,20 @@ package com.model.rawData
 	public class Fruits
 	{
 		public static var data:XML = 
-			<data groupName="fruits" thumbNail="ball1">
-				<item image="airplane1" sound="toys/plane.mp3" groupId="airplane"  />
-				<item image="ball1" sound="toys/ball.mp3"  groupId="balls"/>
+			<data groupName="fruits" thumbNail="apple">
+				<item image="redapple" sound="toys/plane.mp3" groupId="apple"  />
+				<item image="lemon" sound="toys/ball.mp3"  groupId="lemon"/>
+				<item image="plum" sound="toys/baloon.mp3" groupId="plum"/>
+				<item image="banana" sound="toys/bike.mp3" groupId="banana"/>
+				<item image="strawberry" sound="toys/book.mp3" groupId="strawberry"/>
+				<item image="pear" sound="toys/car.mp3" groupId="pear" />
+				<item image="orange" sound="toys/cart.mp3" groupId="orange"/>
+				<item image="apple" sound="toys/cubes.mp3" groupId="apple"/>
+				<item image="cherry" sound="toys/doll.mp3" groupId="cherry"/>
 				
-				<item image="baloon2" sound="toys/baloon.mp3" groupId="baloons"/>
-				<item image="bike1" sound="toys/bike.mp3" groupId="bike"/>
-				
-				<item image="book3" sound="toys/book.mp3" groupId="books"/>
-				<item image="car1" sound="toys/car.mp3" groupId="cars" />
-				
-				<item image="cart2" sound="toys/cart.mp3" groupId="carts"/>
-				<item image="cubes1" sound="toys/cubes.mp3" groupId="cubes"/>
-				
-				<item image="doll1" sound="toys/doll.mp3" groupId="dolls"/>
-				<item image="ted1" sound="toys/ted.mp3" groupId="teds"/>
-				
-				<item image="train1" sound="toys/train.mp3" groupId="trians"/>
-				
-			</data>
+			</data>;
+			
+			
 		
 	}
 }

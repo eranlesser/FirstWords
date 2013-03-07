@@ -19,9 +19,13 @@ package com.view
 	public class HomeScreen extends Sprite
 	{
 		private var _menu:Sprite;
+		private var _playBut:Button;
 		public var gotoSignal:Signal = new Signal();
+		[Embed(source="../../assets/play.jpg")]
+		private var playBt : Class;
 		public function HomeScreen(screens:ScreensModel)
 		{
+			
 			var bg:Image = new Image(Texture.fromBitmap(new Assets.BackgroundImage()))
 			addChild(bg);
 			bg.width = Dimentions.WIDTH;
@@ -33,12 +37,12 @@ package com.view
 		{
 			_menu = new Sprite();
 			var i:int=0;
-			var wdt:uint=120;
-			var gap:uint=5;
+			var wdt:uint=100;
+			var gap:uint=10;
 			for each(var screen:ScreenModel in screens.screens){
 				var menuThmb:ThumbNail = new ThumbNail(Assets.getAtlas(screen.groupName).getTexture(screen.thumbNail),i);
 				menuThmb.x = i*wdt + i*gap;
-				menuThmb.y = Math.round(i/3)*(40+gap);
+				menuThmb.y = Math.floor(i/3)*(40+gap);
 				menuThmb.width = wdt;
 				menuThmb.height = wdt;
 				var frame:Image = new Image(Texture.fromBitmap(new Assets.Frame))
@@ -54,9 +58,13 @@ package com.view
 				i++;
 			}
 			addChild(_menu);
-			_menu.x=300;
-			_menu.y=200;
-			
+			_menu.x=600;
+			_menu.y=250;
+			var playBut:Button = new Button( Texture.fromBitmap(new playBt()) );
+			addChild(playBut);
+			playBut.x=80;
+			playBut.y=180;
+			playBut.addEventListener(Event.TRIGGERED,function():void{gotoSignal.dispatch(0)});
 		}
 	}
 }

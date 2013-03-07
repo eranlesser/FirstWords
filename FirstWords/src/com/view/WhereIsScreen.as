@@ -1,7 +1,9 @@
 package com.view
 {
+	import com.Assets;
 	import com.Dimentions;
 	import com.model.Item;
+	import com.model.ScreenModel;
 	import com.view.components.ImageItem;
 	import com.view.components.ParticlesEffect;
 	import com.view.layouts.Layout;
@@ -15,7 +17,10 @@ package com.view
 	import org.osflash.signals.Signal;
 	
 	import starling.core.Starling;
+	import starling.display.Button;
+	import starling.display.Image;
 	import starling.display.Sprite;
+	import starling.events.Event;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
@@ -26,76 +31,40 @@ package com.view
 		private var _goodSound:Sound;
 		private var _particlesEffect:ParticlesEffect;
 		private var _enabled:Boolean;
+		private var _model:ScreenModel;
+		private var _counter:uint=0;
 		public var refresh:Signal = new Signal();
+		[Embed(source="../../assets/home.jpg")]
+		private var homeBt : Class;
+		public var goHome:Signal = new Signal();
+		public var done:Signal = new Signal();
 		public function WhereIsScreen()
 		{
 			_layout = new ThreeLayout(this);
-			_whereSound = new Sound(new URLRequest("../assets/sounds/where.mp3"))
+			_whereSound = new Sound(new URLRequest("../assets/sounds/where.mp3"));
 			
-		}
-		
-		public function setDistractors(items:Vector.<Item>, atlas:TextureAtlas):void{
-			var images:Vector.<ImageItem> = new Vector.<ImageItem>();
-			for each(var item:Item in items){
-				var img:ImageItem = addDistractor(item.image,item.sound, atlas)
-				images.push(img);
-				img.touched.add(onDistractorTouch);
-			}
-			_layout.layout(images);
-		}
-		
-		private function  onDistractorTouch(imageItem:ImageItem):void{
-			if(!_enabled){
-				return;
-			}
-			var sound:Sound = new Sound(new URLRequest("../assets/sounds/"+imageItem.sound));
-			sound.play();
-		}
-		
-		public function setWhoIs(item:Item,atlas:TextureAtlas):void{
-			_whoIs = item;
-			var img:ImageItem = new ImageItem(atlas.getTexture(_whoIs.image),item.sound) 
-			var images:Vector.<ImageItem> = new Vector.<ImageItem>();
-			images.push(img);
-			_layout.layout(images);
-			_enabled = true;
-			//addChild(img);
+			var bg:Image = new Image(Texture.fromBitmap(new Assets.Bg()));
+			addChild(bg);
+			bg.width = Dimentions.WIDTH;
+			bg.height = Dimentions.HEIGHT;
 			
-			img.touched.add(onClick);
-			var chanel:SoundChannel = _whereSound.play();
-			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
+			var homeBut:Button = new Button( Texture.fromBitmap(new homeBt()) );
+			addChild(homeBut);
+			homeBut.x=4;
+			homeBut.y=4;
+			homeBut.addEventListener(starling.events.Event.TRIGGERED , function():void{goHome.dispatch()});
 		}
 		
-		private function onWhereIsPlayed(e:flash.events.Event):void{
-			var sound:Sound = new Sound(new URLRequest("../assets/sounds/"+_whoIs.sound));
-			sound.play(); 
-		}
 		
-		public function complete():void{
-			_particlesEffect = new ParticlesEffect();
-			addChild(_particlesEffect);
-			_particlesEffect.x=Dimentions.WIDTH/2;
-			_particlesEffect.y=Dimentions.HEIGHT;
-			_particlesEffect.width=Dimentions.WIDTH;
-			_particlesEffect.start("drug");
+		
+		private function complete():void{
+			_model.reset();
 		}
 		
 		private function onClick(img:ImageItem):void{ 
-//			var shp:Shape = new Shape();
-//			shp.graphics.lineStyle(1);
-//			shp.graphics.drawRect(0,0,img.width+2,img.height+2);
-//			shp.graphics.endFill();
-//			var bmd:BitmapData = new BitmapData(shp.width,shp.height);
-//			bmd.draw(shp);
-//			var txture:Texture = Texture.fromBitmapData(bmd);
-//			_frame= new Image(txture);
-//			_frame.x=img.x-1;
-//			_frame.y=img.y-1;
-//			addChild(_frame);
 			if(!_enabled){
 				return;
 			}
-			
 			var soundFile:String;
 			if(Math.random()>0.2)
 				soundFile = "../assets/sounds/goodA"+Math.ceil(Math.random()*4)+".mp3";
@@ -114,6 +83,13 @@ package com.view
 			_enabled=false;
 		}
 		
+		public function set model(group:ScreenModel):void{
+			_counter=0;
+			_model=group;
+			setItems();
+		}
+		
+		
 		private function goodSoundComplete(e:flash.events.Event):void{
 			Starling.juggler.delayCall(moveNext,2);
 			
@@ -121,24 +97,74 @@ package com.view
 		}
 		
 		private function moveNext():void{
-			refresh.dispatch() ;
+			setItems();
 		}
 		
-		public function clear():void{
+		private function clear():void{
 			_layout.clear();
 			if(_particlesEffect){
 				_particlesEffect.stop();
 			}
 		}
 		
+		private function setItems():void{
+			clear();
+			_model.clear();
+			if(_counter>=_model.numItems){
+				complete();
+				done.dispatch();
+				return;
+			}
+			setWhoIs(_model.whoIsItem,Assets.getAtlas(_model.groupName));
+			var items:Vector.<Item> = new Vector.<Item>();
+			items.push(_model.distractor);
+			items.push(_model.distractor);
+			setDistractors(items,Assets.getAtlas(_model.groupName));
+			_counter++;
+		}
+		
+		private function setDistractors(items:Vector.<Item>, atlas:TextureAtlas):void{
+			var images:Vector.<ImageItem> = new Vector.<ImageItem>();
+			for each(var item:Item in items){
+				var img:ImageItem = addDistractor(item.image,item.sound, atlas)
+				images.push(img);
+				img.touched.add(onDistractorTouch);
+			}
+			_layout.layout(images);
+		}
+		
 		private function addDistractor(itemName:String,sound:String,atlas:TextureAtlas):ImageItem
 		{
 			var airplane:Texture = atlas.getTexture(itemName);
 			var img:ImageItem = new ImageItem(airplane,sound);
-			//addChild(img);
-			
 			return img;
-			
 		}
+		
+		private function  onDistractorTouch(imageItem:ImageItem):void{
+			if(!_enabled){
+				return;
+			}
+			var sound:Sound = new Sound(new URLRequest("../assets/sounds/"+imageItem.sound));
+			sound.play();
+		}
+		
+		private function setWhoIs(item:Item,atlas:TextureAtlas):void{
+			_whoIs = item;
+			var img:ImageItem = new ImageItem(atlas.getTexture(_whoIs.image),item.sound) 
+			var images:Vector.<ImageItem> = new Vector.<ImageItem>();
+			images.push(img);
+			_layout.layout(images);
+			_enabled = true;
+			img.touched.add(onClick);
+			var chanel:SoundChannel = _whereSound.play();
+			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
+		}
+		
+		private function onWhereIsPlayed(e:flash.events.Event):void{
+			var sound:Sound = new Sound(new URLRequest("../assets/sounds/"+_whoIs.sound));
+			sound.play(); 
+		}
+		
+		
 	}
 }

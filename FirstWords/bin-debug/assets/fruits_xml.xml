@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:5f911b87fd06382e63eb025eacdd40bf$ -->
+<TextureAtlas imagePath="fruits.jpg">
+    <SubTexture name="apple" x="0" y="0" width="100" height="100"/>
+    <SubTexture name="lemon" x="100" y="0" width="100" height="100"/>
+    <SubTexture name="plum" x="200" y="0" width="100" height="100"/>
+    <SubTexture name="banana" x="0" y="100" width="100" height="100"/>
+    <SubTexture name="strawberry" x="100" y="0" width="100" height="100"/>
+    <SubTexture name="pear" x="200" y="100" width="100" height="100"/>
+    <SubTexture name="orange" x="0" y="200" width="100" height="100"/>
+    <SubTexture name="apple" x="100" y="200" width="100" height="100"/>
+    <SubTexture name="cherry" x="200" y="200" width="100" height="100"/>
+    
+</TextureAtlas>

@@ -21,21 +21,24 @@ package com.model
 		}
 
 		public function get whoIsItem():Item{
-			var item:Item = _items[Math.round(Math.random()*(_items.length-1))];
-			while(item.wasWho==true){
-				item = _items[Math.round(Math.random()*(_items.length-1))];
+			var item:Item = _items[Math.floor(Math.random()*(_items.length))];
+			if(item.wasWho==true){
+				item = whoIsItem;
 			}
 			item.wasWho=true;
 			_groupsInScreen.push(item.groupId);
 			return item;
 		}
+		
 		public function get distractor():Item{
-			var item:Item = _items[Math.round(Math.random()*(_items.length-1))];
-			while(_groupsInScreen.indexOf(item.groupId)>=0){
-				item = _items[Math.round(Math.random()*(_items.length-1))];
+			var item:Item = _items[Math.floor(Math.random()*(_items.length))];
+			if(_groupsInScreen.indexOf(item.groupId)==-1){
+				_groupsInScreen.push(item.groupId);
+				return item;
+			}else{
+				return distractor;
 			}
-			_groupsInScreen.push(item.groupId);
-			return item;
+			
 		}
 		
 		public function get groupName():String{
@@ -44,6 +47,14 @@ package com.model
 		
 		public function clear():void{
 			_groupsInScreen = new Vector.<String>();
+		}
+		
+		public function reset():void{
+			_groupsInScreen = new Vector.<String>();
+			for each(var item:Item in _items){
+				item.wasWho = false;
+			}
+			
 		}
 		
 		public function get numItems():int{

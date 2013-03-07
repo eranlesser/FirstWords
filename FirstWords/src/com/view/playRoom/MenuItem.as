@@ -3,6 +3,7 @@ package com.view.playRoom{
 	
 	import starling.display.Image;
 	import starling.display.Stage;
+	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
@@ -23,14 +24,18 @@ package com.view.playRoom{
 		}
 	
 	private function onTouch(t:TouchEvent):void{
-		if(t.getTouch(stage).phase == TouchPhase.BEGAN){
+		var touch:Touch = t.getTouch(stage);
+		if(touch == null){
+			return;
+		}
+		if((touch.phase == TouchPhase.BEGAN)){
 			_isDragging = true;
 		}
-		if(t.getTouch(stage).phase == TouchPhase.MOVED && _isDragging){
-			this.x = t.getTouch(stage).globalX - this.width/2;
-			this.y = t.getTouch(stage).globalY - this.height/2;
+		if(touch.phase == TouchPhase.MOVED && _isDragging){
+			this.x = touch.globalX - this.width/2;
+			this.y = touch.globalY - this.height/2;
 		}
-		if(t.getTouch(stage).phase == TouchPhase.ENDED){
+		if(touch.phase == TouchPhase.ENDED){
 			_isDragging = false;
 			dropped.dispatch(x,y,this);
 		}

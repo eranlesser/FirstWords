@@ -1,11 +1,6 @@
 package
 {
 	import com.controller.Progressor;
-	import com.controller.ScreenCreator;
-	import com.model.ScreenModel;
-	import com.model.rawData.Toys;
-	import com.view.HomeScreen;
-	import com.view.WhereIsScreen;
 	
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -21,8 +16,8 @@ package
 		private function init(e:Event):void
 		{
 			var progressor:Progressor = new Progressor(this);
-			//progressor.goHome();
-			progressor.goPlay();
+			progressor.goHome();
+			//progressor.goPlay();
 		}
 		
 		

@@ -13,8 +13,8 @@ package com.model
 		}
 		
 		public function getNext():ScreenModel{
-			var  scr:ScreenModel = _screens[_index];
 			_index++;
+			var  scr:ScreenModel = _screens[_index];
 			return scr;
 		}
 		

@@ -9,10 +9,12 @@ package com.view
 	import flash.display.Stage;
 	import flash.events.AccelerometerEvent;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.net.URLRequest;
 	import flash.sensors.Accelerometer;
+	import flash.utils.Timer;
 	
 	import nape.callbacks.CbEvent;
 	import nape.callbacks.CbType;
@@ -20,6 +22,7 @@ package com.view
 	import nape.callbacks.InteractionListener;
 	import nape.callbacks.InteractionType;
 	import nape.constraint.PivotJoint;
+	import nape.dynamics.Arbiter;
 	import nape.geom.Vec2;
 	import nape.phys.Body;
 	import nape.phys.BodyList;
@@ -27,10 +30,14 @@ package com.view
 	import nape.shape.Polygon;
 	import nape.space.Space;
 	
+	import org.osflash.signals.Signal;
+	
 	import starling.core.Starling;
+	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.textures.Texture;
 	
 	public class PlayRoom extends Sprite
 	{
@@ -42,6 +49,8 @@ package com.view
 		
 		[Embed(source="../../assets/background.png")]
 		private var Background:Class;
+		[Embed(source="../../assets/right_arrow.jpg")]
+		private var arrow:Class;
 		
 		private var _nativeStage : Stage;
 		private var _space : Space;
@@ -50,8 +59,7 @@ package com.view
 		private var _ballCollisionType:CbType = new CbType();
 		private var _cubeCollisionType:CbType = new CbType();
 		private var _floorCollisionType:CbType = new CbType();
-		private var _ballSound:SoundChannel;
-		
+		public var done:Signal = new Signal();
 		private var _menu:Menu;
 		public function PlayRoom()
 		{
@@ -70,7 +78,7 @@ package com.view
 			listenForMouseUp();
 			listenForEnterFrame();
 			useAccelerometer();
-			//_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_floorCollisionType,_cubeCollisionType,ballToCube));
+			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_floorCollisionType,_cubeCollisionType,ballToCube));
 			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_ballCollisionType,_cubeCollisionType,ballToFloor));
 			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_ballCollisionType,_floorCollisionType,ballToFloor));
 			
@@ -78,6 +86,18 @@ package com.view
 			addChild(_menu);
 			_menu.x = (Dimentions.WIDTH - _menu.width)/2;
 			_menu.itemDropped.add(onMenuItemDropped);
+			
+			var arrow:Button = new Button(Texture.fromBitmap(new arrow()));
+			addChild(arrow);
+			arrow.x = Dimentions.WIDTH - arrow.width-8;
+			arrow.y=4;
+			arrow.addEventListener(Event.TRIGGERED,function():void{done.dispatch()});
+			
+			var tmr:Timer = new Timer(20000,1);
+			tmr.addEventListener(TimerEvent.TIMER_COMPLETE,function onComplete(e:TimerEvent):void{
+				done.dispatch()
+			});
+			//tmr.start();
 		}
 		
 		private function onMenuItemDropped(x:int,y:int,id:String):void{
@@ -86,19 +106,28 @@ package com.view
 					addBall(x,y);
 					break;
 				case "cubes1":
-					addCube(x,y)
+					addCube(x-40,y)
+					addCube(x+40,y)
+					addCube(x,y-80)
 					break;
 			}
 			trace(id)
 		}
 		
 		private function ballToCube(collision:InteractionCallback):void {
-			new Sound(new URLRequest("../../assets/sounds/playroom/bounce.mp3")).play();
+			collision.arbiters.foreach(function(arb:Arbiter):void {
+				if(Math.abs(arb.collisionArbiter.body2.velocity.x)>300 || Math.abs(arb.collisionArbiter.body2.velocity.y)>120){
+					new Sound(new URLRequest("../../assets/sounds/playroom/cube.mp3")).play();
+				}
+			});
 		}
 		private function ballToFloor(collision:InteractionCallback):void {
-			if(_ballSound)
-				_ballSound.stop();
-			_ballSound = new Sound(new URLRequest("../../assets/sounds/playroom/boing.mp3")).play();
+			collision.arbiters.foreach(function(arb:Arbiter):void {
+				if(Math.abs(arb.collisionArbiter.body2.velocity.x)>400 || Math.abs(arb.collisionArbiter.body2.velocity.y)>400){
+					new Sound(new URLRequest("../../assets/sounds/playroom/boing.mp3")).play();
+				}
+			});
+			
 		}
 		
 		private function addBackground() : void
@@ -116,10 +145,10 @@ package com.view
 			const floor:Body = new Body( BodyType.STATIC );
 			
 			// what are all these things?
-			floor.shapes.add( new Polygon( Polygon.rect( 0, 768 - Menu.HEIGHT - 2, 1024, 80 ) ) );
-			floor.shapes.add( new Polygon( Polygon.rect( 1024, 0, 200, 768 ) ) );
+			floor.shapes.add( new Polygon( Polygon.rect( 0, 768 - Menu.HEIGHT - 2-30, 1024, 200 ) ) );
+			floor.shapes.add( new Polygon( Polygon.rect( 1024-80, 0, 80, 768 ) ) );
 			floor.shapes.add( new Polygon( Polygon.rect( 0, -20, 1024, 180 ) ) );
-			floor.shapes.add( new Polygon( Polygon.rect( -200, 0, 200, 768 ) ) );
+			floor.shapes.add( new Polygon( Polygon.rect( 0, 0, 80, 768 ) ) );
 			
 			floor.space = _space;
 			floor.cbTypes.add(_floorCollisionType);
