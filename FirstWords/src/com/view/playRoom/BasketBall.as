@@ -13,22 +13,22 @@ package com.view.playRoom
 	
 	public class BasketBall extends PlayItem
 	{
-		[Embed(source="../../../assets/basketball.png")]
+		[Embed(source="../../../assets/playroom/basketball.png")]
 		private var basketball : Class;
 		
 		private static const BALL_RADIUS : Number = 51.5; // TODO make dynamic
 		private static const BALL_ELASTICITY : Number = 1.5;
 		
-		public function BasketBall(space:Space,updateFunction:Function,cbType:CbType,xx:int,yy:int)
+		public function BasketBall(space:Space,cbType:CbType,xx:int,yy:int)
 		{
-			super(space,updateFunction,cbType,xx,yy);
+			super(space,cbType,xx,yy);
 			
 		}
 		
-		override protected function createBody(updateFunction:Function,cbType:CbType,xx:int,yy:int):void{
+		override protected function createBody(cbType:CbType,xx:int,yy:int):void{
 			_body = new Body( BodyType.DYNAMIC, new Vec2( xx, yy ) );
 			_body.shapes.add( new Circle( BALL_RADIUS, null, new Material( BALL_ELASTICITY ) ) );
-			super.createBody(updateFunction,cbType,xx,yy);
+			super.createBody(cbType,xx,yy);
 			
 		}
 		

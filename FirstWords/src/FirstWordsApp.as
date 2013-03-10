@@ -16,8 +16,8 @@ package
 		private function init(e:Event):void
 		{
 			var progressor:Progressor = new Progressor(this);
-			progressor.goHome();
-			//progressor.goPlay();
+			//progressor.goHome();
+			progressor.goPlay();
 		}
 		
 		

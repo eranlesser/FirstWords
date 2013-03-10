@@ -43,7 +43,7 @@ package com.view
 			_layout = new ThreeLayout(this);
 			_whereSound = new Sound(new URLRequest("../assets/sounds/where.mp3"));
 			
-			var bg:Image = new Image(Texture.fromBitmap(new Assets.Bg()));
+			var bg:Image = new Image(Texture.fromBitmap(new Assets.BackgroundImage()));
 			addChild(bg);
 			bg.width = Dimentions.WIDTH;
 			bg.height = Dimentions.HEIGHT;
@@ -52,7 +52,10 @@ package com.view
 			addChild(homeBut);
 			homeBut.x=4;
 			homeBut.y=4;
-			homeBut.addEventListener(starling.events.Event.TRIGGERED , function():void{goHome.dispatch()});
+			homeBut.addEventListener(starling.events.Event.TRIGGERED , function():void{
+				complete();
+				goHome.dispatch()
+			});
 		}
 		
 		
@@ -154,7 +157,7 @@ package com.view
 			var images:Vector.<ImageItem> = new Vector.<ImageItem>();
 			images.push(img);
 			_layout.layout(images);
-			_enabled = true;
+			
 			img.touched.add(onClick);
 			var chanel:SoundChannel = _whereSound.play();
 			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
@@ -162,7 +165,8 @@ package com.view
 		
 		private function onWhereIsPlayed(e:flash.events.Event):void{
 			var sound:Sound = new Sound(new URLRequest("../assets/sounds/"+_whoIs.sound));
-			sound.play(); 
+			var chanel:SoundChannel = sound.play(); 
+			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,function():void{_enabled = true});
 		}
 		
 		

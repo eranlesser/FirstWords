@@ -11,17 +11,18 @@ package com.view.playRoom
 		protected var _body:Body;
 		protected var _material:Sprite;
 		protected var _space:Space;
-		public function PlayItem(space:Space,updateFunction:Function,cbType:CbType,xx:int,yy:int)
+		public function PlayItem(space:Space,cbType:CbType,xx:int,yy:int)
 		{
 			_space = space;
 			createMaterial();
-			createBody(updateFunction,cbType,xx,yy);
+			createBody(cbType,xx,yy);
 		}
 		
-		protected function createBody(updateFunction:Function,cbType:CbType,xx:int,yy:int):void{
+		protected function createBody(cbType:CbType,xx:int,yy:int):void{
 			_body.space = _space;
 			_body.userData.graphic = _material;
-			_body.userData.graphicUpdate = updateFunction;
+			_body.userData.graphicUpdate = updateGraphics;
+			if(cbType)
 			_body.cbTypes.add(cbType);
 		}
 		
@@ -36,5 +37,13 @@ package com.view.playRoom
 		public function get material():Sprite{
 			return _material;
 		}
+		
+		protected function updateGraphics( body : Body ) : void
+		{
+			body.userData.graphic.x = body.position.x;
+			body.userData.graphic.y = body.position.y;
+			body.userData.graphic.rotation = body.rotation;
+		}
+		
 	}
 }

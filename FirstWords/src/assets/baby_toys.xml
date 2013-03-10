@@ -48,5 +48,5 @@
     <SubTexture name="train5" x="384" y="1089" width="380" height="323"/>
     <SubTexture name="train6" x="1148" y="671" width="380" height="253"/>
     <SubTexture name="train7" x="1403" y="1444" width="380" height="228"/>
-    <SubTexture name="train8" x="2" y="2" width="380" height="380"/>
+    <SubTexture name="flyBaloon" x="2" y="2" width="380" height="380"/>
 </TextureAtlas>

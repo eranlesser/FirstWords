@@ -18,7 +18,7 @@ package com.model.rawData
 				<item image="book3" />
 				<item image="car1" />
 				
-				<item image="cart2" />
+				<item image="flyBaloon" />
 				<item image="cubes1" />
 				
 				<item image="doll1" />

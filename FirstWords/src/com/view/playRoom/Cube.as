@@ -1,13 +1,10 @@
 package com.view.playRoom
 {
-	import com.Assets;
-	
 	import nape.callbacks.CbType;
 	import nape.geom.Vec2;
 	import nape.phys.Body;
 	import nape.phys.BodyType;
 	import nape.phys.Material;
-	import nape.shape.Circle;
 	import nape.shape.Polygon;
 	import nape.space.Space;
 	
@@ -16,20 +13,20 @@ package com.view.playRoom
 	
 	public class Cube extends PlayItem
 	{
-		[Embed(source="../../../assets/cube.png")]
+		[Embed(source="../../../assets/playroom/cube.png")]
 		private var cube : Class;
 		
 		
-		public function Cube(space:Space,updateFunction:Function,cbType:CbType,xx:int,yy:int)
+		public function Cube(space:Space,cbType:CbType,xx:int,yy:int)
 		{
-			super(space,updateFunction,cbType,xx,yy);
+			super(space,cbType,xx,yy);
 			
 		}
 		
-		override protected function createBody(updateFunction:Function,cbType:CbType,xx:int,yy:int):void{
+		override protected function createBody(cbType:CbType,xx:int,yy:int):void{
 			_body = new Body( BodyType.DYNAMIC, new Vec2( xx, yy ) );
 			_body.shapes.add( new Polygon( Polygon.rect(0,0,_material.width,_material.height), Material.wood() ) );
-			super.createBody(updateFunction,cbType,xx,yy);
+			super.createBody(cbType,xx,yy);
 			
 		}
 		

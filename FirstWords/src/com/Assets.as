@@ -23,13 +23,11 @@ package com
 		[Embed(source="assets/animals.jpg")]
 		public static const animals:Class;
 		
-		[Embed(source = "assets/background.jpg")] 
+		[Embed(source = "assets/bgStripe1.jpg")] 
 		public static const BackgroundImage:Class;
 		
 		[Embed(source = "assets/frames1.jpg")] 
 		public static const Frame:Class;
-		[Embed(source = "assets/bg1.jpg")] 
-		public static const Bg:Class;
 		
 		private static var _toysAtlas:TextureAtlas;
 		private static var _fruitsAtlas:TextureAtlas;

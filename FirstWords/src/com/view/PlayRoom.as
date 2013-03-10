@@ -2,16 +2,18 @@ package com.view
 {
 	import com.Dimentions;
 	import com.model.rawData.PlayRoomData;
+	import com.view.playRoom.Baloon;
 	import com.view.playRoom.BasketBall;
 	import com.view.playRoom.Cube;
+	import com.view.playRoom.FlyBaloon;
 	import com.view.playRoom.Menu;
+	import com.view.playRoom.PlayItem;
 	
 	import flash.display.Stage;
 	import flash.events.AccelerometerEvent;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.media.Sound;
-	import flash.media.SoundChannel;
 	import flash.net.URLRequest;
 	import flash.sensors.Accelerometer;
 	import flash.utils.Timer;
@@ -37,6 +39,8 @@ package com.view
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 	import starling.textures.Texture;
 	
 	public class PlayRoom extends Sprite
@@ -72,7 +76,6 @@ package com.view
 			
 			addBackground();
 			createSpace();
-			createFloor();
 			createHand();
 			listenForMouseDown();
 			listenForMouseUp();
@@ -97,18 +100,32 @@ package com.view
 			tmr.addEventListener(TimerEvent.TIMER_COMPLETE,function onComplete(e:TimerEvent):void{
 				done.dispatch()
 			});
+			createFloor();
 			//tmr.start();
 		}
 		
 		private function onMenuItemDropped(x:int,y:int,id:String):void{
 			switch(id){
 				case "ball1":
-					addBall(x,y);
+					var ball:BasketBall = new BasketBall(_space,_ballCollisionType,x,y);
+					addChild( ball.material);
 					break;
 				case "cubes1":
-					addCube(x-40,y)
-					addCube(x+40,y)
-					addCube(x,y-80)
+					addChild(new Cube(_space,_cubeCollisionType,x-40,y).material);
+					addChild(new Cube(_space,_cubeCollisionType,x+40,y).material);
+					addChild(new Cube(_space,_cubeCollisionType,x,y-80).material);
+					break;
+				case "baloon2":
+					var baloon:Baloon = new Baloon(_space,null,x,y);
+					addChild(baloon.material);
+					baloon.material.addEventListener(TouchEvent.TOUCH,function onTouch(e:TouchEvent):void{
+						if(baloon.material.stage == null){
+							_hand.active = false;
+						}
+					});
+					break;
+				case "flyBaloon":
+					addChild(new FlyBaloon(_space,_cubeCollisionType,x,y).material);
 					break;
 			}
 			trace(id)
@@ -147,7 +164,7 @@ package com.view
 			// what are all these things?
 			floor.shapes.add( new Polygon( Polygon.rect( 0, 768 - Menu.HEIGHT - 2-30, 1024, 200 ) ) );
 			floor.shapes.add( new Polygon( Polygon.rect( 1024-80, 0, 80, 768 ) ) );
-			floor.shapes.add( new Polygon( Polygon.rect( 0, -20, 1024, 180 ) ) );
+			floor.shapes.add( new Polygon( Polygon.rect( 0, -20, 1024, 80 ) ) );
 			floor.shapes.add( new Polygon( Polygon.rect( 0, 0, 80, 768 ) ) );
 			
 			floor.space = _space;
@@ -213,22 +230,17 @@ package com.view
 			});
 		}
 		
-		private function addBall(xx:int,yy:int):void
+		private function addItem(item:PlayItem,xx:int,yy:int):void
 		{
-			var ball:BasketBall = new BasketBall(_space,updateGraphics,_ballCollisionType,xx,yy);
+			var ball:BasketBall = new BasketBall(_space,_ballCollisionType,xx,yy);
 			addChild( ball.material);
 		}
 		private function addCube(xx:int,yy:int):void
 		{
-			var cube:Cube = new Cube(_space,updateGraphics,_cubeCollisionType,xx,yy);
+			var cube:Cube = new Cube(_space,_cubeCollisionType,xx,yy);
 			addChild( cube.material);
 		}
 		
-		private function updateGraphics( body : Body ) : void
-		{
-			body.userData.graphic.x = body.position.x;
-			body.userData.graphic.y = body.position.y;
-			body.userData.graphic.rotation = body.rotation;
-		}
+		
 	}
 }
