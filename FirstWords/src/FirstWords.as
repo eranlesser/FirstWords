@@ -11,6 +11,7 @@ package
 	
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
+	
 
 	[SWF(width="1024", height="768", frameRate="60", backgroundColor="#FFFFFF")]
 	public class FirstWords extends Sprite
@@ -21,7 +22,7 @@ package
 		public function FirstWords()
 		{
 			super();
-			
+			addChild(new Stats());
 			// support autoOrients
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;

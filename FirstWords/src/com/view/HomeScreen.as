@@ -4,6 +4,7 @@ package com.view
 	import com.Dimentions;
 	import com.model.ScreenModel;
 	import com.model.ScreensModel;
+	import com.view.components.Clouds;
 	
 	import flash.display.Stage;
 	
@@ -21,8 +22,12 @@ package com.view
 		private var _menu:Sprite;
 		private var _playBut:Button;
 		public var gotoSignal:Signal = new Signal();
-		[Embed(source="../../assets/play.jpg")]
+		[Embed(source="../../assets/home/playBtn.png")]
 		private var playBt : Class;
+		[Embed(source="../../assets/home/flowersBg.png")]
+		private var flowersBg : Class;
+		[Embed(source="../../assets/home/grass_bg.png")]
+		private var grassBg : Class;
 		public function HomeScreen(screens:ScreensModel)
 		{
 			
@@ -31,6 +36,11 @@ package com.view
 			bg.width = Dimentions.WIDTH;
 			bg.height = Dimentions.HEIGHT;
 			initMenu(screens);
+			var flowers:Image = new Image(Texture.fromBitmap(new flowersBg()))
+			addChild(flowers);
+			flowers.y = Dimentions.HEIGHT-flowers.height;
+			var clouds:Clouds = new Clouds();
+			addChild(clouds);
 		}
 		
 		private function initMenu(screens:ScreensModel):void

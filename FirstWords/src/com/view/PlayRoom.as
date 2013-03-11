@@ -9,6 +9,8 @@ package com.view
 	import com.view.playRoom.Menu;
 	import com.view.playRoom.PlayItem;
 	
+	import flash.display.BitmapData;
+	import flash.display.Shape;
 	import flash.display.Stage;
 	import flash.events.AccelerometerEvent;
 	import flash.events.MouseEvent;
@@ -39,6 +41,7 @@ package com.view
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
@@ -49,10 +52,28 @@ package com.view
 		private static const GRAVITY_Y : Number = 3000;
 		
 		private static const STEP_TIME : Number = 0.01;
+		private var _room:Sprite;
 		
-		
-		[Embed(source="../../assets/background.png")]
+		[Embed(source="../../assets/playroom/play_room_bg.png")]
 		private var Background:Class;
+		[Embed(source="../../assets/playroom/play_room_bed.png")]
+		private var bed:Class;
+		[Embed(source="../../assets/playroom/play_room_box.png")]
+		private var box:Class;
+		[Embed(source="../../assets/playroom/play_room_lamp.png")]
+		private var lamp:Class;
+		[Embed(source="../../assets/playroom/play_room_light.png")]
+		private var light:Class;
+		[Embed(source="../../assets/playroom/play_room_shelf.png")]
+		private var shelf:Class;
+		[Embed(source="../../assets/playroom/play_room_leftBoard.png")]
+		private var leftBoard:Class;
+		[Embed(source="../../assets/playroom/play_room_rightBoard.png")]
+		private var rightBoard:Class;
+		[Embed(source="../../assets/playroom/play_room_win.png")]
+		private var win:Class;
+		[Embed(source="../../assets/playroom/play_room_winBg.png")]
+		private var winBg:Class;
 		[Embed(source="../../assets/right_arrow.jpg")]
 		private var arrow:Class;
 		
@@ -108,16 +129,16 @@ package com.view
 			switch(id){
 				case "ball1":
 					var ball:BasketBall = new BasketBall(_space,_ballCollisionType,x,y);
-					addChild( ball.material);
+					_room.addChild( ball.material);
 					break;
 				case "cubes1":
-					addChild(new Cube(_space,_cubeCollisionType,x-40,y).material);
-					addChild(new Cube(_space,_cubeCollisionType,x+40,y).material);
-					addChild(new Cube(_space,_cubeCollisionType,x,y-80).material);
+					_room.addChild(new Cube(_space,_cubeCollisionType,x-40,y).material);
+					_room.addChild(new Cube(_space,_cubeCollisionType,x+40,y).material);
+					_room.addChild(new Cube(_space,_cubeCollisionType,x,y-80).material);
 					break;
 				case "baloon2":
 					var baloon:Baloon = new Baloon(_space,null,x,y);
-					addChild(baloon.material);
+					_room.addChild(baloon.material);
 					baloon.material.addEventListener(TouchEvent.TOUCH,function onTouch(e:TouchEvent):void{
 						if(baloon.material.stage == null){
 							_hand.active = false;
@@ -125,10 +146,9 @@ package com.view
 					});
 					break;
 				case "flyBaloon":
-					addChild(new FlyBaloon(_space,_cubeCollisionType,x,y).material);
+					_room.addChild(new FlyBaloon(_space,_cubeCollisionType,x,y).material);
 					break;
 			}
-			trace(id)
 		}
 		
 		private function ballToCube(collision:InteractionCallback):void {
@@ -149,7 +169,50 @@ package com.view
 		
 		private function addBackground() : void
 		{
-			addChild( Image.fromBitmap( new Background() ) );
+			drawDarkBg();
+			_room = new Sprite();
+			_room.addChild( Image.fromBitmap( new Background() ) );
+			_room.addChild( Image.fromBitmap( new bed() ) );
+			_room.addChild( Image.fromBitmap( new shelf() ) );
+			_room.addChild( Image.fromBitmap( new lamp() ) );
+			_room.addChild( Image.fromBitmap( new light() ) );
+			_room.addChild( Image.fromBitmap( new leftBoard() ) );
+			_room.addChild( Image.fromBitmap( new winBg() ) );
+			_room.addChild( Image.fromBitmap( new win() ) );
+			_room.addChild( Image.fromBitmap( new box() ) );
+			//var rightBoard:Image = addChild( Image.fromBitmap( new rightBoard() ) ) as Image;
+			addChild(_room);
+			//_room.alpha=0.1;
+			//rightBoard.addEventListener(TouchEvent.TOUCH,onRightBoardTouch);
+		}
+		
+		private function drawDarkBg():void{
+			var shp:Shape = new Shape();
+			shp.graphics.beginFill(0x333333);
+			shp.graphics.drawRect(0,0,Dimentions.WIDTH,Dimentions.HEIGHT);
+			shp.graphics.endFill();
+			var bmp:BitmapData = new BitmapData(Dimentions.WIDTH,Dimentions.HEIGHT,true,0x333333);
+			bmp.draw(shp)
+			var txture:Texture = Texture.fromBitmapData(bmp);
+			var img:Image = new Image(txture);
+			addChild(img);
+		}
+		
+		private function onRightBoardTouch(e:TouchEvent):void{
+			var touch:Touch = e.getTouch(stage);
+			if(touch.phase == TouchPhase.MOVED){
+				var shp:Shape = new Shape();
+				shp.graphics.beginFill(0x333333);
+				shp.graphics.drawCircle(0,0,2);
+				shp.graphics.endFill();
+				var bmp:BitmapData = new BitmapData(4,4,true,0x333333);
+				bmp.draw(shp)
+				var txture:Texture = Texture.fromBitmapData(bmp);
+				var img:Image = new Image(txture);
+				addChild(img);
+				img.x=touch.globalX;
+				img.y=touch.globalY;
+			}
 		}
 		
 		private function createSpace():void
@@ -230,16 +293,7 @@ package com.view
 			});
 		}
 		
-		private function addItem(item:PlayItem,xx:int,yy:int):void
-		{
-			var ball:BasketBall = new BasketBall(_space,_ballCollisionType,xx,yy);
-			addChild( ball.material);
-		}
-		private function addCube(xx:int,yy:int):void
-		{
-			var cube:Cube = new Cube(_space,_cubeCollisionType,xx,yy);
-			addChild( cube.material);
-		}
+		
 		
 		
 	}

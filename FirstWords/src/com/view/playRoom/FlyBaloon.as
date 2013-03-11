@@ -58,13 +58,10 @@ package com.view.playRoom
 				if(!_climbing){
 					_climbing = true;
 					_body.gravMass = -2;
-					_particlesEffect.width=_material.width/10;
-					_particlesEffect.height=_material.height/10;
 					_particlesEffect.x=_material.width/2;
 					_particlesEffect.y=_material.height/2;
-					_particlesEffect.rotation=180;
 					_material.addChild(_particlesEffect);
-					_particlesEffect.start("fire");
+					_particlesEffect.start("baloon");
 					_sound.play();
 					var ref:IAnimatable = Starling.juggler.delayCall(function removeParticles():void{
 						_body.gravMassMode = GravMassMode.DEFAULT;

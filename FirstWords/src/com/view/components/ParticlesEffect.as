@@ -16,6 +16,8 @@ package com.view.components
 		private static const SunConfig:Class;
 		[Embed(source="../../../assets/media/jellyfish.pex", mimeType="application/octet-stream")]
 		private static const JellyfishConfig:Class;
+		[Embed(source="../../../assets/media/baloon.pex", mimeType="application/octet-stream")]
+		private static const balloonConfig:Class;
 		[Embed(source = "../../../assets/media/drugs_particle.png")]
 		private static const DrugsParticle:Class;
 		[Embed(source = "../../../assets/media/fire_particle.png")]
@@ -24,6 +26,8 @@ package com.view.components
 		private static const SunParticle:Class;
 		[Embed(source = "../../../assets/media/jellyfish_particle.png")]
 		private static const JellyfishParticle:Class;
+		[Embed(source = "../../../assets/media/baloon.png")]
+		private static const baloonAsset:Class;
 		
 		private var _mParticleSystem:ParticleSystem;
 		public function ParticlesEffect()
@@ -56,6 +60,12 @@ package com.view.components
 					var jellyTexture:Texture = Texture.fromBitmap(new JellyfishParticle());
 					_mParticleSystem = new PDParticleSystem(jellyConfig, jellyTexture);
 					alpha=0.4;
+					break;
+				case "baloon":
+					var balloonXml:XML = XML(new balloonConfig());
+					var balloonTexture:Texture = Texture.fromBitmap(new baloonAsset());
+					_mParticleSystem = new PDParticleSystem(balloonXml, balloonTexture);
+					alpha=0.8;
 					break;
 			}
 			
