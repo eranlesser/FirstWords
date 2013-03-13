@@ -1,5 +1,7 @@
 package com
 {	
+	import flash.display.Bitmap;
+	
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 
@@ -29,9 +31,16 @@ package com
 		[Embed(source = "assets/frames1.jpg")] 
 		public static const Frame:Class;
 		
+		[Embed(source = "assets/home/room_backround.PNG")] 
+		public static const roomThumb:Class;
+		
+		[Embed(source = "assets/whereIsScene/animals1.jpg")] 
+		private static const animals1:Class;
+		
 		private static var _toysAtlas:TextureAtlas;
 		private static var _fruitsAtlas:TextureAtlas;
 		private static var _animalsAtlas:TextureAtlas;
+		private static var _assets:Vector.<Asset>;
 		public static function getAtlas(groupName:String):TextureAtlas{
 			var atlas:TextureAtlas;
 			var texture:Texture;
@@ -62,8 +71,36 @@ package com
 			return atlas;
 		}
 		
+		public static function getImage(name:String):Bitmap{
+			var btmp:Bitmap;
+			for each(var asset:Asset in _assets){
+				if(asset.name == name){
+					btmp = asset.bitMap;
+					break;
+				}
+			}
+			return btmp;
+		}
+		
+		public static function load():void{
+			_assets = new Vector.<Asset>()
+			_assets.push(new Asset("animals1",new animals1()));
+		}
+		
 		public function Assets()
 		{
+			
 		}
+	}
+}
+import flash.display.Bitmap;
+
+
+class Asset{
+	public var name:String;
+	public var bitMap:Bitmap;
+	public function Asset(nme:String,btmp:Bitmap){
+		name = nme;
+		bitMap = btmp;
 	}
 }

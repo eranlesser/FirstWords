@@ -1,18 +1,14 @@
 package com.model.rawData
 {
-	public class Animals
+	public class AnimalsScene
 	{
 		public static var data:XML = 
-			<data type="whereIsScreen" groupName="animals" thumbNail="lion">
-				<item image="monkey" sound="toys/plane.mp3" groupId="monkey"  />
-				<item image="hipo" sound="toys/ball.mp3"  groupId="hipo"/>
-				<item image="cow" sound="toys/baloon.mp3" groupId="cow"/>
-				<item image="bird" sound="toys/bike.mp3" groupId="bird"/>
-				<item image="elaphen" sound="toys/book.mp3" groupId="elaphen"/>
-				<item image="zebra" sound="toys/car.mp3" groupId="zebra" />
-				<item image="cat" sound="toys/cart.mp3" groupId="cat"/>
-				<item image="giraph" sound="toys/cubes.mp3" groupId="giraph"/>
-				<item image="lion" sound="toys/doll.mp3" groupId="lion"/>
+			<data type="whereScene" groupName="animals" thumbNail="monkey" backGround="animals1">
+				<item  sound="toys/train.mp3" groupId="train" rect="210,270,710,180"  />
+				<item  sound="toys/ball.mp3"  groupId="elaphant" rect="12,445,382,117"/>
+				<item sound="toys/baloon.mp3" groupId="rabit" rect="43,635,143,75"/>
+				<item sound="toys/bike.mp3" groupId="tiger" rect="322,594,175,115"/>
+				<item sound="toys/cart.mp3" groupId="lion" rect="492,493,147,109"/>
 				
 			</data>;
 		

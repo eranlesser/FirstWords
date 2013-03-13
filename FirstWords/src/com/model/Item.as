@@ -1,15 +1,25 @@
 package com.model
 {
+	import flash.geom.Rectangle;
+	
+	import nape.geom.Vec2;
+
 	public class Item
 	{
 		private var _image:String;
 		private var _sound:String;
 		private var _groupId:String;
+		private var _rect:Rectangle;
 		private var _wasWho:Boolean=false;
+		
 		public function Item(data:XML){
 			_image = data.@image;
 			_sound = data.@sound;
 			_groupId = data.@groupId;
+			if(String(data.@rect)!=""){
+				var rectInfo:Array = String(data.@rect).split(",");
+				_rect = new Rectangle(rectInfo[0],rectInfo[1],rectInfo[2],rectInfo[3]);
+			}
 		}
 
 		public function get groupId():String
@@ -35,6 +45,10 @@ package com.model
 		public function get image():String
 		{
 			return _image;
+		}
+		
+		public function get rect():Rectangle{
+			return _rect;
 		}
 
 	}

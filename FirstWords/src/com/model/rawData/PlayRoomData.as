@@ -7,8 +7,8 @@ package com.model.rawData
 		}
 		
 		public static var data:XML = 
-			<playroom>
-			<menu atlas="toys">
+			<data type="playRoom" groupName="toys">
+			<menu>
 				<item image="airplane1" />
 				<item image="ball1" />
 				
@@ -27,6 +27,6 @@ package com.model.rawData
 				<item image="train1" />
 			</menu>
 				
-			</playroom>
+			</data>
 	}
 }

@@ -1,6 +1,7 @@
 package com.view
 {
 	import com.Dimentions;
+	import com.model.ScreenModel;
 	import com.model.rawData.PlayRoomData;
 	import com.view.playRoom.Baloon;
 	import com.view.playRoom.BasketBall;
@@ -46,7 +47,7 @@ package com.view
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
 	
-	public class PlayRoom extends Sprite
+	public class PlayRoom extends AbstractScreen
 	{
 		private static const GRAVITY_X : Number = 0;
 		private static const GRAVITY_Y : Number = 3000;
@@ -84,15 +85,21 @@ package com.view
 		private var _ballCollisionType:CbType = new CbType();
 		private var _cubeCollisionType:CbType = new CbType();
 		private var _floorCollisionType:CbType = new CbType();
-		public var done:Signal = new Signal();
 		private var _menu:Menu;
 		public function PlayRoom()
 		{
-			addEventListener( Event.ADDED_TO_STAGE, init );
 		}
 		
-		private function init( event : Event ) : void
+		override public function get diposable():Boolean{
+			return false;
+		}
+		
+		private function init() : void
 		{
+			if(_menu){
+				_menu.visible = true;
+				return; // inited
+			}
 			_nativeStage = Starling.current.nativeStage;
 			
 			addBackground();
@@ -106,8 +113,8 @@ package com.view
 			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_ballCollisionType,_cubeCollisionType,ballToFloor));
 			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_ballCollisionType,_floorCollisionType,ballToFloor));
 			
-			_menu = new Menu(PlayRoomData.data);
-			addChild(_menu);
+			_menu = new Menu();
+			_screenLayer.addChild(_menu);
 			_menu.x = (Dimentions.WIDTH - _menu.width)/2;
 			_menu.itemDropped.add(onMenuItemDropped);
 			
@@ -123,6 +130,11 @@ package com.view
 			});
 			createFloor();
 			//tmr.start();
+		}
+		
+		override public function set model(screenModel:ScreenModel):void{
+			init();
+			_menu.model = screenModel;
 		}
 		
 		private function onMenuItemDropped(x:int,y:int,id:String):void{
@@ -149,6 +161,8 @@ package com.view
 					_room.addChild(new FlyBaloon(_space,_cubeCollisionType,x,y).material);
 					break;
 			}
+			
+			_menu.visible = false;
 		}
 		
 		private function ballToCube(collision:InteractionCallback):void {
@@ -181,7 +195,7 @@ package com.view
 			_room.addChild( Image.fromBitmap( new win() ) );
 			_room.addChild( Image.fromBitmap( new box() ) );
 			//var rightBoard:Image = addChild( Image.fromBitmap( new rightBoard() ) ) as Image;
-			addChild(_room);
+			_screenLayer.addChild(_room);
 			//_room.alpha=0.1;
 			//rightBoard.addEventListener(TouchEvent.TOUCH,onRightBoardTouch);
 		}
@@ -195,7 +209,7 @@ package com.view
 			bmp.draw(shp)
 			var txture:Texture = Texture.fromBitmapData(bmp);
 			var img:Image = new Image(txture);
-			addChild(img);
+			_screenLayer.addChild(img);
 		}
 		
 		private function onRightBoardTouch(e:TouchEvent):void{
@@ -209,7 +223,7 @@ package com.view
 				bmp.draw(shp)
 				var txture:Texture = Texture.fromBitmapData(bmp);
 				var img:Image = new Image(txture);
-				addChild(img);
+				_screenLayer.addChild(img);
 				img.x=touch.globalX;
 				img.y=touch.globalY;
 			}
@@ -293,7 +307,8 @@ package com.view
 			});
 		}
 		
-		
+		override public function destroy():void{
+		}
 		
 		
 	}

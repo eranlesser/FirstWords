@@ -2,6 +2,7 @@ package com.view.playRoom
 {
 	import com.Assets;
 	import com.Dimentions;
+	import com.model.ScreenModel;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -16,24 +17,26 @@ package com.view.playRoom
 	
 	public class Menu extends Sprite
 	{
-		private var _data:XML;
 		private var _items:Vector.<MenuItem>;
 		private var _atlas:TextureAtlas;
 		public var itemDropped:Signal = new Signal();
 		public static const HEIGHT:int = 90;
-		public function Menu(data:XML)
+		public function Menu()
 		{
-			_data = data;
 			init()
+		}
+		
+		public function set model(data:ScreenModel):void{
+			_atlas = Assets.getAtlas(data.groupName);
+			for each(var item:XML in data.menu.item){
+				addMenuItem(item);
+			}
 		}
 		
 		private function init():void{
 			addBg();
-			_atlas = Assets.getAtlas(_data.menu.@atlas);
 			_items = new Vector.<MenuItem>();
-			for each(var item:XML in _data.menu.item){
-				addMenuItem(item);
-			}
+			
 		}
 		
 		private function addMenuItem(item:XML):void{
@@ -46,8 +49,9 @@ package com.view.playRoom
 		}
 		private function dropped(x:int,y:int,item:MenuItem):void{
 			itemDropped.dispatch(x,y,item.id);
-			item.x = _items.indexOf(item) * (Menu.HEIGHT+2);
-			item.y = Dimentions.HEIGHT - HEIGHT - 2;
+			//item.x = _items.indexOf(item) * (Menu.HEIGHT+2);
+			//item.y = Dimentions.HEIGHT - HEIGHT - 2;
+			item.removeFromParent(true);
 		}
 		
 		private function addBg():void{

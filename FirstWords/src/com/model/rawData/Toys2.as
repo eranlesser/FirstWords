@@ -1,23 +1,34 @@
 package com.model.rawData
 {
-	public class Animals
+	public class Toys2
 	{
 		public static var data:XML = 
-			<data type="whereIsScreen" groupName="animals" thumbNail="lion">
-				<item image="monkey" sound="toys/plane.mp3" groupId="monkey"  />
-				<item image="hipo" sound="toys/ball.mp3"  groupId="hipo"/>
-				<item image="cow" sound="toys/baloon.mp3" groupId="cow"/>
-				<item image="bird" sound="toys/bike.mp3" groupId="bird"/>
-				<item image="elaphen" sound="toys/book.mp3" groupId="elaphen"/>
-				<item image="zebra" sound="toys/car.mp3" groupId="zebra" />
-				<item image="cat" sound="toys/cart.mp3" groupId="cat"/>
-				<item image="giraph" sound="toys/cubes.mp3" groupId="giraph"/>
-				<item image="lion" sound="toys/doll.mp3" groupId="lion"/>
-				
-			</data>;
+			<data type="whereIsScreen" groupName="toys" thumbNail="train1">
+		<item image="cart2" sound="toys/cart.mp3" groupId="carts"/>
+		<item image="cubes1" sound="toys/cubes.mp3" groupId="cubes"/>
 		
+		<item image="doll1" sound="toys/doll.mp3" groupId="dolls"/>
+		<item image="ted1" sound="toys/ted.mp3" groupId="teds"/>
+		
+		<item image="train1" sound="toys/train.mp3" groupId="trians"/>
+				
+			</data>
+		
+		public function Toys2()
+		{
+		}
 	}
 }
+
+/*
+	<item image="cart2" sound="toys/cart.mp3" groupId="carts"/>
+		<item image="cubes1" sound="toys/cubes.mp3" groupId="cubes"/>
+		
+		<item image="doll1" sound="toys/doll.mp3" groupId="dolls"/>
+		<item image="ted1" sound="toys/ted.mp3" groupId="teds"/>
+		
+		<item image="train1" sound="toys/train.mp3" groupId="trians"/>
+		
 
 /*
 <item image="train2" sound="toys/train.mp3" groupId="trians"/>

@@ -63,7 +63,7 @@ package com.view.components
 				cloud.x = xx;
 				cloud.y = Math.random()*Dimentions.HEIGHT/10;
 				cloud.alpha=Math.random();
-				Starling.juggler.tween(cloud,Math.random()*4+22,{x:xx-Dimentions.WIDTH});
+				Starling.juggler.tween(cloud,Math.random()*4+22,{x:xx-Dimentions.WIDTH-200, onComplete: function():void { cloud.removeFromParent(true); }});
 			}
 		}
 		

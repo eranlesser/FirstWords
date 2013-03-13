@@ -105,6 +105,7 @@ class PlaceHolder{
 	
 	public function clear():void{
 		if(_image){
+			_image.touched.removeAll();
 			_image.removeFromParent(true);
 			_image.bg.removeFromParent(true);
 			_image=null;

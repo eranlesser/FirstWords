@@ -22,7 +22,7 @@ package
 		public function FirstWords()
 		{
 			super();
-			addChild(new Stats());
+			//addChild(new Stats());
 			// support autoOrients
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;

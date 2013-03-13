@@ -3,7 +3,7 @@ package com.model.rawData
 	public class Fruits
 	{
 		public static var data:XML = 
-			<data groupName="fruits" thumbNail="apple">
+			<data type="whereIsScreen" groupName="fruits" thumbNail="apple">
 				<item image="redapple" sound="toys/plane.mp3" groupId="apple"  />
 				<item image="lemon" sound="toys/ball.mp3"  groupId="lemon"/>
 				<item image="plum" sound="toys/baloon.mp3" groupId="plum"/>

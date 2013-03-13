@@ -2,10 +2,15 @@ package com.model
 {
 	public class ScreenModel
 	{
-		private var _items:Vector.<Item>;
-		private var _groupName:String;
-		private var _groupsInScreen:Vector.<String>;
-		private var _thumbNail:String;
+		private var _items:				Vector.<Item>;
+		private var _groupName:			String;
+		private var _groupsInScreen:	Vector.<String>;
+		private var _thumbNail:			String;
+		private var _type:				String;
+		private var _backGround:		String;
+		private var _menu:				XMLList;
+		
+		
 		public function ScreenModel(data:XML){
 			_items = new Vector.<Item>();
 			for each(var itemData:XML in data.item){
@@ -13,11 +18,31 @@ package com.model
 			}
 			_groupName = data.@groupName;
 			_thumbNail = data.@thumbNail;
+			_type = data.@type;
+			_backGround = data.@backGround;
+			if(XMLList(data.menu).length()>0){
+				_menu = data.menu;
+			}
+			_groupsInScreen = new Vector.<String>();
 		}
 		
+		public function get backGround():String
+		{
+			return _backGround;
+		}
+
+		public function get type():String
+		{
+			return _type;
+		}
+
 		public function get thumbNail():String
 		{
 			return _thumbNail;
+		}
+		
+		public function get menu():XMLList{
+			return _menu;
 		}
 
 		public function get whoIsItem():Item{
@@ -45,7 +70,7 @@ package com.model
 			return _groupName;
 		}
 		
-		public function clear():void{
+		public function resetDistractors():void{
 			_groupsInScreen = new Vector.<String>();
 		}
 		
@@ -54,7 +79,6 @@ package com.model
 			for each(var item:Item in _items){
 				item.wasWho = false;
 			}
-			
 		}
 		
 		public function get numItems():int{

@@ -17,7 +17,7 @@ package com.view
 	import starling.textures.Texture;
 	import starling.utils.AssetManager;
 	
-	public class HomeScreen extends Sprite
+	public class HomeScreen extends AbstractScreen
 	{
 		private var _menu:Sprite;
 		private var _playBut:Button;
@@ -30,51 +30,58 @@ package com.view
 		private var grassBg : Class;
 		public function HomeScreen(screens:ScreensModel)
 		{
-			
+			Assets.load();
 			var bg:Image = new Image(Texture.fromBitmap(new Assets.BackgroundImage()))
-			addChild(bg);
+			_screenLayer.addChild(bg);
 			bg.width = Dimentions.WIDTH;
 			bg.height = Dimentions.HEIGHT;
 			initMenu(screens);
 			var flowers:Image = new Image(Texture.fromBitmap(new flowersBg()))
-			addChild(flowers);
+			_screenLayer.addChild(flowers);
 			flowers.y = Dimentions.HEIGHT-flowers.height;
 			var clouds:Clouds = new Clouds();
-			addChild(clouds);
+			_screenLayer.addChild(clouds);
 		}
 		
 		private function initMenu(screens:ScreensModel):void
 		{
 			_menu = new Sprite();
+			
 			var i:int=0;
-			var wdt:uint=100;
+			var wdt:uint=55;
 			var gap:uint=10;
 			for each(var screen:ScreenModel in screens.screens){
-				var menuThmb:ThumbNail = new ThumbNail(Assets.getAtlas(screen.groupName).getTexture(screen.thumbNail),i);
-				menuThmb.x = i*wdt + i*gap;
-				menuThmb.y = Math.floor(i/3)*(40+gap);
-				menuThmb.width = wdt;
-				menuThmb.height = wdt;
-				var frame:Image = new Image(Texture.fromBitmap(new Assets.Frame))
-				_menu.addChild(frame);
-				frame.width = wdt+4;
-				frame.height = wdt+4;
-				frame.x = menuThmb.x-2;
-				frame.y = menuThmb.y-2;
-				_menu.addChild(menuThmb);
-				menuThmb.addEventListener(Event.TRIGGERED,function onTriggered(e:Event):void{
-					gotoSignal.dispatch(ThumbNail(e.target).index);
-				});
-				i++;
-			}
-			addChild(_menu);
-			_menu.x=600;
-			_menu.y=250;
+				if(screen.thumbNail!=""){
+					var menuThmb:ThumbNail = new ThumbNail(Assets.getAtlas(screen.groupName).getTexture(screen.thumbNail),i);
+					menuThmb.x = (i%3)*wdt + (i%3)*gap;
+					menuThmb.y = Math.floor(i/3)*(wdt+gap);
+					menuThmb.width = wdt;
+					menuThmb.height = wdt;
+					var frame:Image = new Image(Texture.fromBitmap(new Assets.Frame))
+					_menu.addChild(frame);
+					frame.width = wdt+4;
+					frame.height = wdt+4;
+					frame.x = menuThmb.x-2;
+					frame.y = menuThmb.y-2;
+					_menu.addChild(menuThmb);
+					menuThmb.addEventListener(Event.TRIGGERED,function onTriggered(e:Event):void{
+						gotoSignal.dispatch(ThumbNail(e.target).index);
+					});
+					i++;
+				}//if
+			}//for
+			_screenLayer.addChild(_menu);
+			_menu.x=700;
+			_menu.y=350;
 			var playBut:Button = new Button( Texture.fromBitmap(new playBt()) );
-			addChild(playBut);
+			_screenLayer.addChild(playBut);
 			playBut.x=80;
 			playBut.y=180;
 			playBut.addEventListener(Event.TRIGGERED,function():void{gotoSignal.dispatch(0)});
+		}//function
+		
+		override public function destroy():void{
+			
 		}
 	}
 }
