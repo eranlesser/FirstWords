@@ -43,6 +43,10 @@ package com.view
 			_screenLayer.addChild(clouds);
 		}
 		
+		override protected function addNavigation():void{
+			
+		}
+		
 		private function initMenu(screens:ScreensModel):void
 		{
 			_menu = new Sprite();

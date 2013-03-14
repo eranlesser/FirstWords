@@ -11,8 +11,9 @@ package com.view.playRoom{
 	public class MenuItem extends Image{
 		private var _isDragging:Boolean = false;
 		private var _id:String;
+		private var _recycled:Boolean;
 		public var dropped:Signal = new Signal();
-		public function MenuItem(texture:Texture,id:String)
+		public function MenuItem(texture:Texture,id:String,isRecycled:Boolean)
 		{
 			super(texture);
 			_id = id;
@@ -20,9 +21,15 @@ package com.view.playRoom{
 			this.height=Menu.HEIGHT-4;
 			this.x=2;
 			this.y=2;
+			_recycled = isRecycled;
 			addEventListener(TouchEvent.TOUCH,onTouch);
 		}
 	
+		public function get recycled():Boolean
+		{
+			return _recycled;
+		}
+
 	private function onTouch(t:TouchEvent):void{
 		var touch:Touch = t.getTouch(stage);
 		if(touch == null){

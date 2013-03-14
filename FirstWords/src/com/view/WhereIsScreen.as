@@ -4,6 +4,7 @@ package com.view
 	import com.Dimentions;
 	import com.model.Item;
 	import com.model.ScreenModel;
+	import com.view.components.Clouds;
 	import com.view.components.ImageItem;
 	import com.view.components.ParticlesEffect;
 	import com.view.layouts.Layout;
@@ -23,7 +24,10 @@ package com.view
 		
 		private var _layout:			Layout;
 		private var _goodSound:			Sound;
-		
+		[Embed(source="../../assets/home/flowersBg.png")]
+		private var flowersBg : Class;
+		[Embed(source="../../assets/home/grass_bg.png")]
+		private var grassBg : Class;
 		
 		public function WhereIsScreen()
 		{
@@ -37,6 +41,14 @@ package com.view
 			_screenLayer.addChild(bg);
 			bg.width = Dimentions.WIDTH;
 			bg.height = Dimentions.HEIGHT;
+			_screenLayer.addChild(new Clouds());
+			var flowers:Image;
+			if(Math.random()>0.5)
+				flowers = new Image(Texture.fromBitmap(new flowersBg()))
+			else
+				flowers = new Image(Texture.fromBitmap(new grassBg()))
+			_screenLayer.addChild(flowers);
+			flowers.y = Dimentions.HEIGHT-flowers.height;
 		}
 		
 		override protected function complete():void{

@@ -24,7 +24,7 @@ package com.view
 		protected var _whereSound:		Sound;
 		public var goHome:Signal = new Signal();
 		public var done:Signal = new Signal();
-		[Embed(source="../../assets/home.jpg")]
+		[Embed(source="../../assets/home/homeBtn.png")]
 		private var homeBt : 			Class;
 		protected var _particlesEffect:	ParticlesEffect;
 		protected var _model:			ScreenModel;
@@ -39,6 +39,9 @@ package com.view
 			addChild(_screenLayer);
 			_guiLayer = new Sprite();
 			addChild(_guiLayer);
+			addNavigation();
+		}
+		protected function addNavigation():void{
 			_whereSound = new Sound(new URLRequest("../assets/sounds/where.mp3"));
 			var homeBut:Button = new Button( Texture.fromBitmap(new homeBt()) );
 			_guiLayer.addChild(homeBut);
@@ -49,7 +52,6 @@ package com.view
 				goHome.dispatch()
 			});
 		}
-		
 		public function get screenLayer():Sprite{
 			return _screenLayer;
 		}

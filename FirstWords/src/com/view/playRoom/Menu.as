@@ -40,7 +40,7 @@ package com.view.playRoom
 		}
 		
 		private function addMenuItem(item:XML):void{
-			var menuItem:MenuItem = new MenuItem(_atlas.getTexture(item.@image),item.@image);
+			var menuItem:MenuItem = new MenuItem(_atlas.getTexture(item.@image),item.@image,item.@recycled=="true");
 			addChild(menuItem);
 			menuItem.x = _items.length * (Menu.HEIGHT+2);
 			menuItem.y = Dimentions.HEIGHT - HEIGHT - 2;
@@ -49,9 +49,12 @@ package com.view.playRoom
 		}
 		private function dropped(x:int,y:int,item:MenuItem):void{
 			itemDropped.dispatch(x,y,item.id);
-			//item.x = _items.indexOf(item) * (Menu.HEIGHT+2);
-			//item.y = Dimentions.HEIGHT - HEIGHT - 2;
-			item.removeFromParent(true);
+			if(item.recycled){
+				item.x = _items.indexOf(item) * (Menu.HEIGHT+2);
+				item.y = Dimentions.HEIGHT - HEIGHT - 2;
+			}else{
+				item.removeFromParent(true);
+			}
 		}
 		
 		private function addBg():void{
