@@ -4,6 +4,7 @@ package com.view
 	import com.Dimentions;
 	import com.model.Item;
 	import com.model.ScreenModel;
+	import com.view.components.ParticlesEffect;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -93,12 +94,20 @@ package com.view
 			_whereIsBtn.addEventListener(starling.events.Event.TRIGGERED,function onGood():void{
 				if(onGoodClick()){
 					_whereIsBtn.removeEventListener(starling.events.Event.TRIGGERED, onGood);
+					_particlesEffect = new ParticlesEffect();
+					_particlesEffect.width=img.width/10;
+					_particlesEffect.height=img.height/10;
+					_particlesEffect.x=img.x+img.width/2;
+					_particlesEffect.y=img.y+img.height/2;
+					_screenLayer.addChild(_particlesEffect);
+					_particlesEffect.start("drug");
 				}
 			});
-			_whereIsBtn.alpha=0.1;
+			_whereIsBtn.alpha=0.3;
 			
 			
 		}
+		
 		
 		private function addItem(item:Item):void{
 			var shp:Shape = new Shape();

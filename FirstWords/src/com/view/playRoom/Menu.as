@@ -27,10 +27,17 @@ package com.view.playRoom
 		}
 		
 		public function set model(data:ScreenModel):void{
+			if(_atlas){
+				return;
+			}
 			_atlas = Assets.getAtlas(data.groupName);
 			for each(var item:XML in data.menu.item){
 				addMenuItem(item);
 			}
+		}
+		
+		public function set enabled(bool:Boolean):void{
+			this.alpha = 0.5;
 		}
 		
 		private function init():void{
@@ -42,8 +49,8 @@ package com.view.playRoom
 		private function addMenuItem(item:XML):void{
 			var menuItem:MenuItem = new MenuItem(_atlas.getTexture(item.@image),item.@image,item.@recycled=="true");
 			addChild(menuItem);
-			menuItem.x = _items.length * (Menu.HEIGHT+2);
-			menuItem.y = Dimentions.HEIGHT - HEIGHT - 2;
+			menuItem.x = menuItem.x + _items.length * (Menu.HEIGHT+2);
+			menuItem.y = menuItem.y  +Dimentions.HEIGHT - HEIGHT - 2;
 			_items.push(menuItem);
 			menuItem.dropped.add(dropped);
 		}

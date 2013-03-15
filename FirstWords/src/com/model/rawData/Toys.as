@@ -3,15 +3,16 @@ package com.model.rawData
 	public class Toys
 	{
 		public static var data:XML = 
-			<data type="whereIsScreen" groupName="toys" thumbNail="airplane1">
-				<item image="airplane1" sound="toys/plane.mp3" groupId="airplane"  />
-				<item image="ball1" sound="toys/ball.mp3"  groupId="balls"/>
-				
-				<item image="baloon2" sound="toys/baloon.mp3" groupId="baloons"/>
-				<item image="bike1" sound="toys/bike.mp3" groupId="bike"/>
-				
-				<item image="book3" sound="toys/book.mp3" groupId="books"/>
-				<item image="car1" sound="toys/car.mp3" groupId="cars" />
+			<data type="whereIsScreen" groupName="toys1" thumbNail="train">
+				<item image="ball" sound="toys/ball.mp3" groupId="ball"  />
+				<item image="book" sound="toys/book.mp3"  groupId="book"/>
+				<item image="bucket" sound="toys/baloon.mp3" groupId="bucket"/>
+				<item image="cubes" sound="toys/bike.mp3" groupId="cubes"/>
+				<item image="guitar" sound="toys/book.mp3" groupId="guitar"/>
+				<item image="pencils" sound="toys/car.mp3" groupId="pencils" />
+				<item image="train" sound="toys/train.mp3" groupId="train" />
+				<item image="trolly" sound="toys/car.mp3" groupId="trolly" />
+				<item image="truck" sound="toys/car.mp3" groupId="truck" />
 				
 			</data>
 		

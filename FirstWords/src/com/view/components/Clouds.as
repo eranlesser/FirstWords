@@ -26,11 +26,19 @@ package com.view.components
 		private var clouds6:Class;
 		[Embed(source="../../../assets/home/cloud7.png")]
 		private var clouds7:Class;
+		
+		private var _juggler:DelayedCall;
 		public function Clouds()
 		{
-			var call:DelayedCall = Starling.juggler.delayCall(addCloud,5);
-			call.repeatCount = 0;
+			_juggler = Starling.juggler.delayCall(addCloud,5);
+			_juggler.repeatCount = 0;
 			setClouds();
+		}
+		
+		public function stop():void{
+			_juggler.repeatCount=1;
+			this.removeChildren();
+			this.removeEventListeners();
 		}
 		
 		private function setClouds():void{
@@ -63,7 +71,10 @@ package com.view.components
 				cloud.x = xx;
 				cloud.y = Math.random()*Dimentions.HEIGHT/10;
 				cloud.alpha=Math.random();
-				Starling.juggler.tween(cloud,Math.random()*4+22,{x:xx-Dimentions.WIDTH-200, onComplete: function():void { cloud.removeFromParent(true); }});
+				Starling.juggler.tween(cloud,Math.random()*4+22,{x:xx-Dimentions.WIDTH-200, onComplete: function():void { 
+					Starling.juggler.removeTweens(cloud);
+					removeChild(cloud); 
+				}});
 			}
 		}
 		
@@ -95,7 +106,10 @@ package com.view.components
 			cloud.x = Dimentions.WIDTH;
 			cloud.y = Math.random()*Dimentions.HEIGHT/10;
 			cloud.alpha=Math.random();
-			Starling.juggler.tween(cloud,Math.random()*4+22,{x:-cloud.width,onComplete: function():void { cloud.removeFromParent(true); }});
+			Starling.juggler.tween(cloud,Math.random()*4+22,{x:-cloud.width, onComplete: function():void { 
+				Starling.juggler.removeTweens(cloud);
+				removeChild(cloud); 
+			}});
 		}
 	}
 }

@@ -2,6 +2,7 @@ package com.view.playRoom
 {
 	import com.view.components.ParticlesEffect;
 	
+	import flash.display.Bitmap;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.net.URLRequest;
@@ -23,8 +24,19 @@ package com.view.playRoom
 	
 	public class Baloon extends PlayItem
 	{
-		[Embed(source="../../../assets/playroom/baloon.jpg")]
-		private var baloon : Class;
+		[Embed(source="../../../assets/balloons/bluBln.png")]
+		private var bluBln : Class;
+		[Embed(source="../../../assets/balloons/greenBln.png")]
+		private var greenBln : Class;
+		[Embed(source="../../../assets/balloons/orangeBln.png")]
+		private var orangeBln : Class;
+		[Embed(source="../../../assets/balloons/redBln.png")]
+		private var redBln : Class;
+		[Embed(source="../../../assets/balloons/turkuizeBln.png")]
+		private var turkuizeBln : Class;
+		[Embed(source="../../../assets/balloons/yellowBln.png")]
+		private var yellowBln : Class;
+		
 		private var _sound:Sound;
 		public function Baloon(space:Space, cbType:CbType, xx:int, yy:int)
 		{
@@ -41,7 +53,27 @@ package com.view.playRoom
 		
 		override protected function createMaterial():void{
 			_material = new Sprite();
-			_material.addChild( Image.fromBitmap( new baloon() ) ) as Sprite;
+			var btnmp:Bitmap;
+			var rand:Number = Math.random()*6;
+			if(rand<1){
+				btnmp = new bluBln();
+			}else if(rand<2){
+				btnmp = new greenBln();
+				
+			}else if(rand<3){
+				btnmp = new orangeBln();
+				
+			}else if(rand<4){
+				btnmp = new redBln();
+				
+			}else if(rand<5){
+				btnmp = new turkuizeBln();
+				
+			}else if(rand<6){
+				btnmp = new yellowBln();
+				
+			}
+			_material.addChild( Image.fromBitmap( btnmp ) ) as Sprite;
 			_material.addEventListener(TouchEvent.TOUCH,onTouch);
 			_sound = new Sound(new URLRequest("../../../assets/sounds/playroom/pop.mp3"));
 			var cnl:SoundChannel = _sound.play();

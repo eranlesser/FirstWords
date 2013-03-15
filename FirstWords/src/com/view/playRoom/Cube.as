@@ -1,5 +1,7 @@
 package com.view.playRoom
 {
+	import flash.display.Bitmap;
+	
 	import nape.callbacks.CbType;
 	import nape.geom.Vec2;
 	import nape.phys.Body;
@@ -13,11 +15,19 @@ package com.view.playRoom
 	
 	public class Cube extends PlayItem
 	{
-		[Embed(source="../../../assets/playroom/cube.png")]
-		private var cube : Class;
+		[Embed(source="../../../assets/cubes/cube1.png")]
+		private var cube1 : Class;
+		[Embed(source="../../../assets/cubes/cube2.png")]
+		private var cube2 : Class;
+		[Embed(source="../../../assets/cubes/cube3.png")]
+		private var cube3 : Class;
+		[Embed(source="../../../assets/cubes/cubeLion.png")]
+		private var cubeLion : Class;
+		[Embed(source="../../../assets/cubes/cubeMonkey.png")]
+		private var cubeMonkey : Class;
 		
 		
-		public function Cube(space:Space,cbType:CbType,xx:int,yy:int)
+		public function Cube(space:Space,cbType:CbType,xx:int,yy:int,indx:uint)
 		{
 			super(space,cbType,xx,yy);
 			
@@ -32,7 +42,25 @@ package com.view.playRoom
 		
 		override protected function createMaterial():void{
 			_material = new Sprite();
-			_material.addChild( Image.fromBitmap( new cube() ) ) as Sprite;
+			var btnmp:Bitmap;
+			var rand:Number = Math.random()*5;
+			if(rand<1){
+				btnmp = new cube1();
+			}else if(rand<2){
+				btnmp = new cube2();
+				
+			}else if(rand<3){
+				btnmp = new cube3();
+				
+			}else if(rand<4){
+				btnmp = new cubeMonkey();
+				
+				
+			}else if(rand<5){
+				btnmp = new cubeLion();
+				
+			}
+			_material.addChild( Image.fromBitmap( btnmp ) ) as Sprite;
 			//_material.pivotX = _material.width >> 1;
 			//_material.pivotY = _material.height >> 1;
 		}

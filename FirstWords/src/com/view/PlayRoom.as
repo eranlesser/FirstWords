@@ -2,24 +2,21 @@ package com.view
 {
 	import com.Dimentions;
 	import com.model.ScreenModel;
-	import com.model.rawData.PlayRoomData;
 	import com.view.playRoom.Baloon;
 	import com.view.playRoom.BasketBall;
 	import com.view.playRoom.Cube;
 	import com.view.playRoom.FlyBaloon;
 	import com.view.playRoom.Menu;
-	import com.view.playRoom.PlayItem;
+	import com.view.playRoom.Plane;
 	
 	import flash.display.BitmapData;
 	import flash.display.Shape;
 	import flash.display.Stage;
 	import flash.events.AccelerometerEvent;
 	import flash.events.MouseEvent;
-	import flash.events.TimerEvent;
 	import flash.media.Sound;
 	import flash.net.URLRequest;
 	import flash.sensors.Accelerometer;
-	import flash.utils.Timer;
 	
 	import nape.callbacks.CbEvent;
 	import nape.callbacks.CbType;
@@ -35,8 +32,7 @@ package com.view
 	import nape.shape.Polygon;
 	import nape.space.Space;
 	
-	import org.osflash.signals.Signal;
-	
+	import starling.animation.DelayedCall;
 	import starling.core.Starling;
 	import starling.display.Button;
 	import starling.display.Image;
@@ -55,7 +51,7 @@ package com.view
 		private static const STEP_TIME : Number = 0.01;
 		private var _room:Sprite;
 		
-		[Embed(source="../../assets/playroom/play_room_bg.png")]
+		[Embed(source="../../assets/playroom/bg.png")]
 		private var Background:Class;
 		[Embed(source="../../assets/playroom/play_room_bed.png")]
 		private var bed:Class;
@@ -75,8 +71,10 @@ package com.view
 		private var win:Class;
 		[Embed(source="../../assets/playroom/play_room_winBg.png")]
 		private var winBg:Class;
-		[Embed(source="../../assets/right_arrow.jpg")]
+		[Embed(source="../../assets/nextIdle.png")]
 		private var arrow:Class;
+		[Embed(source="../../assets/nextHint.png")]
+		private var arrowHint:Class;
 		
 		private var _nativeStage : Stage;
 		private var _space : Space;
@@ -86,8 +84,28 @@ package com.view
 		private var _cubeCollisionType:CbType = new CbType();
 		private var _floorCollisionType:CbType = new CbType();
 		private var _menu:Menu;
+		private var _delayer:DelayedCall;
+		private var _arrowHint:Button;
 		public function PlayRoom()
 		{
+			_delayer = Starling.juggler.delayCall(showHint,20);
+			_delayer.repeatCount = 1;
+			
+		}
+		
+		private function showHint():void{
+			var counter:uint = 0;
+			var hinter:DelayedCall = Starling.juggler.delayCall(
+				function onShowHint():void{
+					_arrowHint.visible = !_arrowHint.visible;
+					counter++;
+					if(counter==10){
+						//done.dispatch();
+					}
+				},0.5
+				
+			);
+			hinter.repeatCount=20;
 		}
 		
 		override public function get diposable():Boolean{
@@ -123,11 +141,16 @@ package com.view
 			arrow.x = Dimentions.WIDTH - arrow.width-8;
 			arrow.y=4;
 			arrow.addEventListener(Event.TRIGGERED,function():void{done.dispatch()});
-			
-			var tmr:Timer = new Timer(20000,1);
-			tmr.addEventListener(TimerEvent.TIMER_COMPLETE,function onComplete(e:TimerEvent):void{
-				done.dispatch()
-			});
+			_arrowHint = new Button(Texture.fromBitmap(new arrowHint()));
+			addChild(_arrowHint);
+			_arrowHint.x = Dimentions.WIDTH - _arrowHint.width-8;
+			_arrowHint.y=4;
+			_arrowHint.addEventListener(Event.TRIGGERED,function():void{done.dispatch()});
+			_arrowHint.visible = false;
+//			var tmr:Timer = new Timer(20000,1);
+//			tmr.addEventListener(TimerEvent.TIMER_COMPLETE,function onComplete(e:TimerEvent):void{
+//				done.dispatch()
+//			});
 			createFloor();
 			//tmr.start();
 		}
@@ -139,16 +162,16 @@ package com.view
 		
 		private function onMenuItemDropped(x:int,y:int,id:String):void{
 			switch(id){
-				case "ball1":
+				case "ball":
 					var ball:BasketBall = new BasketBall(_space,_ballCollisionType,x,y);
 					_room.addChild( ball.material);
 					break;
-				case "cubes1":
-					_room.addChild(new Cube(_space,_cubeCollisionType,x-40,y).material);
-					_room.addChild(new Cube(_space,_cubeCollisionType,x+40,y).material);
-					_room.addChild(new Cube(_space,_cubeCollisionType,x,y-80).material);
+				case "cubes":
+					_room.addChild(new Cube(_space,_cubeCollisionType,x-40,y,1).material);
+					_room.addChild(new Cube(_space,_cubeCollisionType,x+40,y,2).material);
+					_room.addChild(new Cube(_space,_cubeCollisionType,x,y-80,3).material);
 					break;
-				case "baloon2":
+				case "bluBln":
 					var baloon:Baloon = new Baloon(_space,null,x,y);
 					_room.addChild(baloon.material);
 					baloon.material.addEventListener(TouchEvent.TOUCH,function onTouch(e:TouchEvent):void{
@@ -157,12 +180,15 @@ package com.view
 						}
 					});
 					break;
-				case "flyBaloon":
+				case "fly_baloon":
 					_room.addChild(new FlyBaloon(_space,_cubeCollisionType,x,y).material);
+					break;
+				case "plane":
+					_room.addChild(new Plane(_space,_cubeCollisionType,x,y).material);
 					break;
 			}
 			
-			_menu.visible = false;
+			//_menu.visible = false;
 		}
 		
 		private function ballToCube(collision:InteractionCallback):void {
@@ -186,14 +212,14 @@ package com.view
 			drawDarkBg();
 			_room = new Sprite();
 			_room.addChild( Image.fromBitmap( new Background() ) );
-			_room.addChild( Image.fromBitmap( new bed() ) );
-			_room.addChild( Image.fromBitmap( new shelf() ) );
-			_room.addChild( Image.fromBitmap( new lamp() ) );
-			_room.addChild( Image.fromBitmap( new light() ) );
-			_room.addChild( Image.fromBitmap( new leftBoard() ) );
-			_room.addChild( Image.fromBitmap( new winBg() ) );
-			_room.addChild( Image.fromBitmap( new win() ) );
-			_room.addChild( Image.fromBitmap( new box() ) );
+//			_room.addChild( Image.fromBitmap( new bed() ) );
+//			_room.addChild( Image.fromBitmap( new shelf() ) );
+//			_room.addChild( Image.fromBitmap( new lamp() ) );
+//			_room.addChild( Image.fromBitmap( new light() ) );
+//			_room.addChild( Image.fromBitmap( new leftBoard() ) );
+//			_room.addChild( Image.fromBitmap( new winBg() ) );
+//			_room.addChild( Image.fromBitmap( new win() ) );
+//			_room.addChild( Image.fromBitmap( new box() ) );
 			//var rightBoard:Image = addChild( Image.fromBitmap( new rightBoard() ) ) as Image;
 			_screenLayer.addChild(_room);
 			//_room.alpha=0.1;
@@ -240,9 +266,9 @@ package com.view
 			
 			// what are all these things?
 			floor.shapes.add( new Polygon( Polygon.rect( 0, 768 - Menu.HEIGHT - 2-30, 1024, 200 ) ) );
-			floor.shapes.add( new Polygon( Polygon.rect( 1024-80, 0, 80, 768 ) ) );
-			floor.shapes.add( new Polygon( Polygon.rect( 0, -20, 1024, 80 ) ) );
-			floor.shapes.add( new Polygon( Polygon.rect( 0, 0, 80, 768 ) ) );
+			floor.shapes.add( new Polygon( Polygon.rect( 1024-22, 0, 22, 768 ) ) );
+			floor.shapes.add( new Polygon( Polygon.rect( 0, -20, 1024, 22 ) ) );
+			floor.shapes.add( new Polygon( Polygon.rect( 0, 0, 22, 768 ) ) );
 			
 			floor.space = _space;
 			floor.cbTypes.add(_floorCollisionType);
@@ -306,6 +332,8 @@ package com.view
 				_space.gravity = new Vec2( -event.accelerationX * 5000, GRAVITY_Y );
 			});
 		}
+		
+		
 		
 		override public function destroy():void{
 		}

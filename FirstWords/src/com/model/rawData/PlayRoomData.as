@@ -7,24 +7,22 @@ package com.model.rawData
 		}
 		
 		public static var data:XML = 
-			<data type="playRoom" groupName="toys">
+			<data type="playRoom" thumbNail="ball" groupName="toys1">
 			<menu>
-				<item image="airplane1" />
-				<item image="ball1" />
+				<item image="truck" />
+				<item image="ball" />
+				<item image="bluBln" recycled="true"/>
+				<item image="cubes" recycled="true"/>
 				
-				<item image="baloon2" recycled="true" />
-				<item image="bike1" />
+				<item image="bucket" recycled="true" />
 				
-				<item image="book3" />
-				<item image="car1" />
+				<item image="book" />
+				<item image="plane" />
+				<item image="fly_baloon" />
 				
-				<item image="flyBaloon" />
-				<item image="cubes1" recycled="true"/>
 				
-				<item image="doll1" />
-				<item image="ted1" />
 				
-				<item image="train1" />
+				<item image="train" />
 			</menu>
 				
 			</data>

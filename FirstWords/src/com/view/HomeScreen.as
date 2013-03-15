@@ -24,10 +24,10 @@ package com.view
 		public var gotoSignal:Signal = new Signal();
 		[Embed(source="../../assets/home/playBtn.png")]
 		private var playBt : Class;
-		[Embed(source="../../assets/home/flowersBg.png")]
-		private var flowersBg : Class;
-		[Embed(source="../../assets/home/grass_bg.png")]
-		private var grassBg : Class;
+		[Embed(source="../../assets/bg/fence.png")]
+		private var fence : Class;
+		
+		private var _clouds:Clouds;
 		public function HomeScreen(screens:ScreensModel)
 		{
 			Assets.load();
@@ -36,11 +36,11 @@ package com.view
 			bg.width = Dimentions.WIDTH;
 			bg.height = Dimentions.HEIGHT;
 			initMenu(screens);
-			var flowers:Image = new Image(Texture.fromBitmap(new flowersBg()))
-			_screenLayer.addChild(flowers);
-			flowers.y = Dimentions.HEIGHT-flowers.height;
-			var clouds:Clouds = new Clouds();
-			_screenLayer.addChild(clouds);
+			var fence:Image = new Image(Texture.fromBitmap(new fence()))
+			_screenLayer.addChild(fence);
+			fence.y = Dimentions.HEIGHT-fence.height;
+			_clouds = new Clouds();
+			_screenLayer.addChild(_clouds);
 		}
 		
 		override protected function addNavigation():void{
@@ -52,17 +52,18 @@ package com.view
 			_menu = new Sprite();
 			
 			var i:int=0;
+			var n:int=0;
 			var wdt:uint=55;
 			var gap:uint=10;
 			for each(var screen:ScreenModel in screens.screens){
 				if(screen.thumbNail!=""){
 					var menuThmb:ThumbNail = new ThumbNail(Assets.getAtlas(screen.groupName).getTexture(screen.thumbNail),i);
-					menuThmb.x = (i%3)*wdt + (i%3)*gap;
-					menuThmb.y = Math.floor(i/3)*(wdt+gap);
+					menuThmb.x = (n%3)*wdt + (n%3)*gap;
+					menuThmb.y = Math.floor(n/3)*(wdt+gap);
 					menuThmb.width = wdt;
 					menuThmb.height = wdt;
 					var frame:Image = new Image(Texture.fromBitmap(new Assets.Frame))
-					_menu.addChild(frame);
+					//_menu.addChild(frame);
 					frame.width = wdt+4;
 					frame.height = wdt+4;
 					frame.x = menuThmb.x-2;
@@ -71,21 +72,22 @@ package com.view
 					menuThmb.addEventListener(Event.TRIGGERED,function onTriggered(e:Event):void{
 						gotoSignal.dispatch(ThumbNail(e.target).index);
 					});
-					i++;
+					n++;
 				}//if
+					i++;
 			}//for
 			_screenLayer.addChild(_menu);
 			_menu.x=700;
 			_menu.y=350;
 			var playBut:Button = new Button( Texture.fromBitmap(new playBt()) );
 			_screenLayer.addChild(playBut);
-			playBut.x=80;
-			playBut.y=180;
+			playBut.x=150;
+			playBut.y=150;
 			playBut.addEventListener(Event.TRIGGERED,function():void{gotoSignal.dispatch(0)});
 		}//function
 		
 		override public function destroy():void{
-			
+			_clouds.stop();
 		}
 	}
 }

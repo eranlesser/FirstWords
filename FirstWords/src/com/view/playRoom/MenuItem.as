@@ -17,10 +17,26 @@ package com.view.playRoom{
 		{
 			super(texture);
 			_id = id;
-			this.width = Menu.HEIGHT-4;
-			this.height=Menu.HEIGHT-4;
-			this.x=2;
-			this.y=2;
+			if(this.width>(Menu.HEIGHT-4)){
+				var ratio:Number = (Menu.HEIGHT-4)/this.width;
+				this.width = (Menu.HEIGHT-4);
+				this.height = this.height*ratio;
+				
+			}else if(Menu.HEIGHT>this.width){
+				this.x = x + (Menu.HEIGHT-this.width)/2;
+			}
+			
+			if(this.height>(Menu.HEIGHT-4)){
+				var yratio:Number = (Menu.HEIGHT-4)/this.height;
+				this.height = (Menu.HEIGHT-4);
+				this.width = this.height*yratio;
+				if(Menu.HEIGHT>this.width){
+					this.x = x+ (Menu.HEIGHT-this.width)/2;
+				}
+				
+			}else if((Menu.HEIGHT)>this.height){
+				this.y = y + (Menu.HEIGHT-this.height)/2;
+			}
 			_recycled = isRecycled;
 			addEventListener(TouchEvent.TOUCH,onTouch);
 		}

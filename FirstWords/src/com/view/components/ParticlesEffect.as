@@ -8,7 +8,7 @@ package com.view.components
 	
 	public class ParticlesEffect extends Sprite
 	{
-		[Embed(source="../../../assets/media/drugs.pex", mimeType="application/octet-stream")]
+		[Embed(source="../../../assets/media/stars/stars.pex", mimeType="application/octet-stream")]
 		private static const DrugsConfig:Class;
 		[Embed(source="../../../assets/media/fire.pex", mimeType="application/octet-stream")]
 		private static const FireConfig:Class;
@@ -18,7 +18,7 @@ package com.view.components
 		private static const JellyfishConfig:Class;
 		[Embed(source="../../../assets/media/baloon.pex", mimeType="application/octet-stream")]
 		private static const balloonConfig:Class;
-		[Embed(source = "../../../assets/media/drugs_particle.png")]
+		[Embed(source = "../../../assets/media/stars/stars.png")]
 		private static const DrugsParticle:Class;
 		[Embed(source = "../../../assets/media/fire_particle.png")]
 		private static const FireParticle:Class;
@@ -41,7 +41,7 @@ package com.view.components
 					var drugsConfig:XML = XML(new DrugsConfig());
 					var drugsTexture:Texture = Texture.fromBitmap(new DrugsParticle());
 					_mParticleSystem = new PDParticleSystem(drugsConfig, drugsTexture);
-					alpha=0.1;
+					alpha=1;
 					break;
 				case "fire":
 					var fireConfig:XML = XML(new FireConfig());

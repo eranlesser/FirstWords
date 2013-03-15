@@ -13,7 +13,7 @@ package com.view.playRoom
 	
 	public class BasketBall extends PlayItem
 	{
-		[Embed(source="../../../assets/playroom/basketball.png")]
+		[Embed(source="../../../assets/playroom/ball.png")]
 		private var basketball : Class;
 		
 		private static const BALL_RADIUS : Number = 51.5; // TODO make dynamic

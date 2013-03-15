@@ -24,10 +24,7 @@ package com.view
 		
 		private var _layout:			Layout;
 		private var _goodSound:			Sound;
-		[Embed(source="../../assets/home/flowersBg.png")]
-		private var flowersBg : Class;
-		[Embed(source="../../assets/home/grass_bg.png")]
-		private var grassBg : Class;
+		private var _clouds:Clouds;
 		
 		public function WhereIsScreen()
 		{
@@ -41,14 +38,17 @@ package com.view
 			_screenLayer.addChild(bg);
 			bg.width = Dimentions.WIDTH;
 			bg.height = Dimentions.HEIGHT;
-			_screenLayer.addChild(new Clouds());
+			_clouds = new Clouds()
+			_screenLayer.addChild(_clouds);
 			var flowers:Image;
-			if(Math.random()>0.5)
-				flowers = new Image(Texture.fromBitmap(new flowersBg()))
-			else
-				flowers = new Image(Texture.fromBitmap(new grassBg()))
+			flowers = new Image(Texture.fromBitmap(Assets.bottomStripe))
 			_screenLayer.addChild(flowers);
 			flowers.y = Dimentions.HEIGHT-flowers.height;
+		}
+		
+		override public function destroy():void{
+			_clouds.stop();
+			super.destroy();
 		}
 		
 		override protected function complete():void{

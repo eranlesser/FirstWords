@@ -24,7 +24,7 @@ package com.view.playRoom
 	
 	public class FlyBaloon extends PlayItem
 	{
-		[Embed(source="../../../assets/playroom/fly_baloon.jpg")]
+		[Embed(source="../../../assets/playroom/fly_baloon.png")]
 		private var flyBaloon : Class;
 		private var _sound:Sound;
 		public function FlyBaloon(space:Space,cbType:CbType, xx:int, yy:int)
@@ -57,10 +57,10 @@ package com.view.playRoom
 				//_material.removeEventListener(TouchEvent.TOUCH,onTouch);
 				if(!_climbing){
 					_climbing = true;
-					_body.gravMass = -2;
+					_body.gravMass = -0.5;
 					_particlesEffect.x=_material.width/2;
 					_particlesEffect.y=_material.height/2;
-					_material.addChild(_particlesEffect);
+					_material.addChildAt(_particlesEffect,0);
 					_particlesEffect.start("baloon");
 					_sound.play();
 					var ref:IAnimatable = Starling.juggler.delayCall(function removeParticles():void{
@@ -69,7 +69,7 @@ package com.view.playRoom
 						_particlesEffect.removeFromParent(true);
 						_climbing = false;
 						Starling.juggler.remove(ref);
-					},3);
+					},5);
 				}
 			}
 		}

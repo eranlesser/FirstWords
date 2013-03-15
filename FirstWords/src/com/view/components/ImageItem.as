@@ -18,7 +18,7 @@ public class ImageItem extends Image{
 	}
 	
 	private function onClick(t:TouchEvent):void{
-		if(t.getTouch(stage).phase == TouchPhase.BEGAN){
+		if(t.getTouch(stage)&&(t.getTouch(stage).phase == TouchPhase.BEGAN)){
 			touched.dispatch(this);
 		}
 	}
