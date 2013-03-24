@@ -9,7 +9,7 @@ package com.model
 		private var _type:				String;
 		private var _backGround:		String;
 		private var _menu:				XMLList;
-		
+		private var _sound:String;
 		
 		public function ScreenModel(data:XML){
 			_items = new Vector.<Item>();
@@ -23,9 +23,15 @@ package com.model
 			if(XMLList(data.menu).length()>0){
 				_menu = data.menu;
 			}
+			_sound = data.@sound;
 			_groupsInScreen = new Vector.<String>();
 		}
 		
+		public function get sound():String
+		{
+			return _sound;
+		}
+
 		public function get backGround():String
 		{
 			return _backGround;

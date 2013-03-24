@@ -4,10 +4,14 @@ package com.view
 	import com.model.ScreenModel;
 	import com.view.playRoom.Baloon;
 	import com.view.playRoom.BasketBall;
+	import com.view.playRoom.Book;
 	import com.view.playRoom.Cube;
+	import com.view.playRoom.Drawing;
 	import com.view.playRoom.FlyBaloon;
+	import com.view.playRoom.Horse;
 	import com.view.playRoom.Menu;
 	import com.view.playRoom.Plane;
+	import com.view.playRoom.Train;
 	
 	import flash.display.BitmapData;
 	import flash.display.Shape;
@@ -83,8 +87,11 @@ package com.view
 		private var _ballCollisionType:CbType = new CbType();
 		private var _cubeCollisionType:CbType = new CbType();
 		private var _floorCollisionType:CbType = new CbType();
+		private var _baloonCollisionType:CbType = new CbType();
+		private var _baloonPopCollisionType:CbType = new CbType();
 		private var _menu:Menu;
 		private var _delayer:DelayedCall;
+		private var _hinter:DelayedCall;
 		private var _arrowHint:Button;
 		public function PlayRoom()
 		{
@@ -93,9 +100,12 @@ package com.view
 			
 		}
 		
+		override public function destroy():void{
+			Starling.juggler.remove(_hinter);
+		}
 		private function showHint():void{
 			var counter:uint = 0;
-			var hinter:DelayedCall = Starling.juggler.delayCall(
+			_hinter = Starling.juggler.delayCall(
 				function onShowHint():void{
 					_arrowHint.visible = !_arrowHint.visible;
 					counter++;
@@ -105,7 +115,7 @@ package com.view
 				},0.5
 				
 			);
-			hinter.repeatCount=20;
+			_hinter.repeatCount=0;
 		}
 		
 		override public function get diposable():Boolean{
@@ -130,6 +140,8 @@ package com.view
 			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_floorCollisionType,_cubeCollisionType,ballToCube));
 			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_ballCollisionType,_cubeCollisionType,ballToFloor));
 			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_ballCollisionType,_floorCollisionType,ballToFloor));
+			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_baloonCollisionType,_baloonPopCollisionType,baloonPop));
+			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_baloonPopCollisionType,_ballCollisionType,ballToFloor));
 			
 			_menu = new Menu();
 			_screenLayer.addChild(_menu);
@@ -159,8 +171,9 @@ package com.view
 			init();
 			_menu.model = screenModel;
 		}
-		
+		private var _balloons:Vector.<Baloon> = new Vector.<Baloon>();
 		private function onMenuItemDropped(x:int,y:int,id:String):void{
+			
 			switch(id){
 				case "ball":
 					var ball:BasketBall = new BasketBall(_space,_ballCollisionType,x,y);
@@ -172,19 +185,35 @@ package com.view
 					_room.addChild(new Cube(_space,_cubeCollisionType,x,y-80,3).material);
 					break;
 				case "bluBln":
-					var baloon:Baloon = new Baloon(_space,null,x,y);
+					var baloon:Baloon = new Baloon(_space,_baloonCollisionType,x,y);
 					_room.addChild(baloon.material);
 					baloon.material.addEventListener(TouchEvent.TOUCH,function onTouch(e:TouchEvent):void{
 						if(baloon.material.stage == null){
 							_hand.active = false;
 						}
 					});
+					_balloons.push(baloon);
 					break;
 				case "fly_baloon":
-					_room.addChild(new FlyBaloon(_space,_cubeCollisionType,x,y).material);
+					_room.addChild(new FlyBaloon(_space,_baloonPopCollisionType,x,y).material);
 					break;
 				case "plane":
-					_room.addChild(new Plane(_space,_cubeCollisionType,x,y).material);
+					_room.addChild(new Plane(_space,_baloonPopCollisionType,x,y).material);
+					break;
+				case "train":
+					_room.addChild(new Train(_space,_baloonPopCollisionType,x,y).material);
+					break;
+				case "book":
+					_room.addChild(new Book(_space,_baloonPopCollisionType,x,y).material);
+					break;
+				case "horse":
+					_room.addChild(new Horse(_space,null,x,y).material);
+					break;
+				case "drawing":
+					var drawing:Drawing = new Drawing();
+					_room.addChild(drawing);
+					drawing.x=x;
+					drawing.y=y;
 					break;
 			}
 			
@@ -205,6 +234,14 @@ package com.view
 				}
 			});
 			
+		}
+		private function baloonPop(collision:InteractionCallback):void {
+			
+			for each(var baloon:Baloon in _balloons){
+				if(baloon.body == collision.int1){
+					baloon.pop();
+				}
+			}
 		}
 		
 		private function addBackground() : void
@@ -259,16 +296,16 @@ package com.view
 		{
 			_space = new Space( new Vec2( GRAVITY_X, GRAVITY_Y ) );
 		}
-		
+		public static const WALL_WIDTH:uint=22;
 		private function createFloor():void
 		{
 			const floor:Body = new Body( BodyType.STATIC );
 			
 			// what are all these things?
 			floor.shapes.add( new Polygon( Polygon.rect( 0, 768 - Menu.HEIGHT - 2-30, 1024, 200 ) ) );
-			floor.shapes.add( new Polygon( Polygon.rect( 1024-22, 0, 22, 768 ) ) );
+			floor.shapes.add( new Polygon( Polygon.rect( 1024-WALL_WIDTH, 0, WALL_WIDTH, 768 ) ) );
 			floor.shapes.add( new Polygon( Polygon.rect( 0, -20, 1024, 22 ) ) );
-			floor.shapes.add( new Polygon( Polygon.rect( 0, 0, 22, 768 ) ) );
+			floor.shapes.add( new Polygon( Polygon.rect( 0, 0, WALL_WIDTH, 768 ) ) );
 			
 			floor.space = _space;
 			floor.cbTypes.add(_floorCollisionType);
@@ -335,8 +372,7 @@ package com.view
 		
 		
 		
-		override public function destroy():void{
-		}
+		
 		
 		
 	}

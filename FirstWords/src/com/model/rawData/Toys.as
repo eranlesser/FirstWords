@@ -6,12 +6,9 @@ package com.model.rawData
 			<data type="whereIsScreen" groupName="toys1" thumbNail="train">
 				<item image="ball" sound="toys/ball.mp3" groupId="ball"  />
 				<item image="book" sound="toys/book.mp3"  groupId="book"/>
-				<item image="bucket" sound="toys/baloon.mp3" groupId="bucket"/>
-				<item image="cubes" sound="toys/bike.mp3" groupId="cubes"/>
-				<item image="guitar" sound="toys/book.mp3" groupId="guitar"/>
-				<item image="pencils" sound="toys/car.mp3" groupId="pencils" />
+				<item image="cubes" sound="toys/cubes.mp3" groupId="cubes"/>
 				<item image="train" sound="toys/train.mp3" groupId="train" />
-				<item image="trolly" sound="toys/car.mp3" groupId="trolly" />
+				<item image="trolly" sound="toys/cart.mp3" groupId="trolly" />
 				<item image="truck" sound="toys/car.mp3" groupId="truck" />
 				
 			</data>
@@ -22,7 +19,9 @@ package com.model.rawData
 	}
 }
 
-/*
+/*<item image="bucket" sound="toys/baloon.mp3" groupId="bucket"/>
+<item image="pencils" sound="toys/car.mp3" groupId="pencils" />
+<item image="guitar" sound="toys/book.mp3" groupId="guitar"/>
 	<item image="cart2" sound="toys/cart.mp3" groupId="carts"/>
 		<item image="cubes1" sound="toys/cubes.mp3" groupId="cubes"/>
 		

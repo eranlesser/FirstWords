@@ -49,16 +49,18 @@ package com.view.playRoom
 		private function addMenuItem(item:XML):void{
 			var menuItem:MenuItem = new MenuItem(_atlas.getTexture(item.@image),item.@image,item.@recycled=="true");
 			addChild(menuItem);
-			menuItem.x = menuItem.x + _items.length * (Menu.HEIGHT+2);
-			menuItem.y = menuItem.y  +Dimentions.HEIGHT - HEIGHT - 2;
+			menuItem.x = _items.length * (Menu.HEIGHT+8)+4;
+			menuItem.y = menuItem.y + Dimentions.HEIGHT - HEIGHT - 2;
 			_items.push(menuItem);
 			menuItem.dropped.add(dropped);
 		}
 		private function dropped(x:int,y:int,item:MenuItem):void{
+			item.resetPosition();
+			if(y>620){
+				return;
+			}
 			itemDropped.dispatch(x,y,item.id);
 			if(item.recycled){
-				item.x = _items.indexOf(item) * (Menu.HEIGHT+2);
-				item.y = Dimentions.HEIGHT - HEIGHT - 2;
 			}else{
 				item.removeFromParent(true);
 			}

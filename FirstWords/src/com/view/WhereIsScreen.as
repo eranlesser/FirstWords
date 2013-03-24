@@ -34,15 +34,17 @@ package com.view
 		
 		private function init():void{
 			_layout = new ThreeLayout(this.screenLayer);
-			var bg:Image = new Image(Texture.fromBitmap(new Assets.BackgroundImage()));
-			_screenLayer.addChild(bg);
-			bg.width = Dimentions.WIDTH;
-			bg.height = Dimentions.HEIGHT;
+			//_screenLayer.addChild( new Image(Texture.fromBitmap(new Assets.BackgroundImage())));
 			_clouds = new Clouds()
 			_screenLayer.addChild(_clouds);
+			var bg:Image = new Image(Texture.fromBitmap(Assets.getImage("birdsBg")));
+			_screenLayer.addChild(bg);
+		//	bg.width = Dimentions.WIDTH;
+		//	bg.height = Dimentions.HEIGHT;
+			
 			var flowers:Image;
 			flowers = new Image(Texture.fromBitmap(Assets.bottomStripe))
-			_screenLayer.addChild(flowers);
+			//_screenLayer.addChild(flowers);
 			flowers.y = Dimentions.HEIGHT-flowers.height;
 		}
 		
@@ -62,22 +64,22 @@ package com.view
 		
 		private function onGoodItemClick(img:ImageItem):Boolean{
 			if(super.onGoodClick()){
-				_particlesEffect = new ParticlesEffect();
-				_particlesEffect.width=img.width/10;
-				_particlesEffect.height=img.height/10;
-				_particlesEffect.x=img.x+img.width/2;
-				_particlesEffect.y=img.y+img.height/2;
-				_screenLayer.addChild(_particlesEffect);
-				_particlesEffect.start("drug");
+//				_particlesEffect = new ParticlesEffect();
+//				_particlesEffect.width=img.width/10;
+//				_particlesEffect.height=img.height/10;
+//				_particlesEffect.x=img.x+img.width/2;
+//				_particlesEffect.y=img.y+img.height/2;
+//				_screenLayer.addChild(_particlesEffect);
+//				_particlesEffect.start("drug");
 			}
 			return true;
 		}
 		
 		private function clear():void{
 			_layout.clear();
-			if(_particlesEffect){
-				_particlesEffect.stop();
-			}
+//			if(_particlesEffect){
+//				_particlesEffect.stop();
+//			}
 		}
 		
 		override protected function setItems():Boolean{

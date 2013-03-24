@@ -1,5 +1,6 @@
 package com.view
 {
+	import com.Dimentions;
 	import com.model.Item;
 	import com.model.ScreenModel;
 	import com.view.components.ImageItem;
@@ -78,6 +79,12 @@ package com.view
 			var channel:SoundChannel = goodSound.play();
 			channel.addEventListener(flash.events.Event.SOUND_COMPLETE,goodSoundComplete);
 			_enabled=false;
+			if(_counter>=_model.numItems){
+				_particlesEffect = new ParticlesEffect();
+				_particlesEffect.y = Dimentions.HEIGHT/2;
+				_screenLayer.addChild(_particlesEffect);
+				_particlesEffect.start("drug");
+			}
 			return true;
 		}
 		
@@ -92,6 +99,7 @@ package com.view
 			if(_counter>=_model.numItems){
 				complete();
 				done.dispatch();
+				removeChild(_particlesEffect);
 				return false;
 			}
 			_counter++;

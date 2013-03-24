@@ -57,7 +57,7 @@ package com.view.playRoom
 				//_material.removeEventListener(TouchEvent.TOUCH,onTouch);
 				if(!_climbing){
 					_climbing = true;
-					_body.gravMass = -0.5;
+					_body.gravMass = -0.6;
 					_particlesEffect.x=_material.width/2;
 					_particlesEffect.y=_material.height/2;
 					_material.addChildAt(_particlesEffect,0);
@@ -69,7 +69,7 @@ package com.view.playRoom
 						_particlesEffect.removeFromParent(true);
 						_climbing = false;
 						Starling.juggler.remove(ref);
-					},5);
+					},8);
 				}
 			}
 		}

@@ -6,8 +6,11 @@ package com.model.rawData
 	<whereIs>
 		<screens>
 			{Toys.data}
-			{AnimalsScene.data}
+			{ToyScene.data}
 			{PlayRoomData.data}
+			{BodyParts.data}
+			{ToyScene.data}
+			{AnimalsScene.data}
 			{Fruits.data}
 			{Animals.data}
 		</screens>

@@ -17,7 +17,7 @@ package com.view.layouts
 			const gap:int= (Dimentions.WIDTH - 3*300)/4;
 			var itemWidth:int = 300;
 			for(var i:uint=0;i<numItems;i++){
-				addPlaceHolder(gap+i*itemWidth+i*gap,(Dimentions.HEIGHT-320)/2,itemWidth,320);
+				addPlaceHolder(gap+i*itemWidth+i*gap,(Dimentions.HEIGHT-200)/2,itemWidth,320);
 			}
 		}
 	}

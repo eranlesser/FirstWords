@@ -19,14 +19,22 @@ package com
 		
 		[Embed(source="assets/fruits.jpg")]
 		public static const fruits:Class;
+		
 		[Embed(source="assets/animals.xml", mimeType="application/octet-stream")]
 		public static const animals_xml:Class;
-		
 		[Embed(source="assets/animals.jpg")]
 		public static const animals:Class;
+
+		[Embed(source="assets/bodyparts/bodyParts.xml", mimeType="application/octet-stream")]
+		public static const bodyParts_xml:Class;
+		[Embed(source="assets/bodyparts/bodyParts.png")]
+		public static const bodyParts:Class;
 		
 		[Embed(source = "assets/bg/bgStripe1.jpg")] 
 		public static const BackgroundImage:Class;
+		
+		[Embed(source = "assets/bg/birdsBg.png")] 
+		public static const birdsBg:Class;
 		
 		[Embed(source = "assets/frames1.jpg")] 
 		public static const Frame:Class;
@@ -36,6 +44,10 @@ package com
 		
 		[Embed(source = "assets/whereIsScene/animals1.png")] 
 		private static const animals1:Class;
+		[Embed(source = "assets/whereIsScene/toys1.png")] 
+		private static const toysScene1:Class;
+		[Embed(source = "assets/whereIsScene/toys2.png")] 
+		private static const toysScene2:Class;
 
 		[Embed(source = "assets/bg/flowersBg.png")] 
 		private static const bottomStripe1:Class;
@@ -57,6 +69,7 @@ package com
 		private static var _toysAtlas:TextureAtlas;
 		private static var _fruitsAtlas:TextureAtlas;
 		private static var _animalsAtlas:TextureAtlas;
+		private static var _bodyPartsAtlas:TextureAtlas;
 		private static var _assets:Vector.<Asset>;
 		private static var _bottomStripe:Vector.<Asset>;
 		public static function getAtlas(groupName:String):TextureAtlas{
@@ -84,6 +97,13 @@ package com
 					}
 					atlas = _animalsAtlas;
 					break;
+				case "bodyParts":
+					if(_bodyPartsAtlas == null){
+						texture =  Texture.fromBitmap(new Assets.bodyParts());
+						_bodyPartsAtlas = new TextureAtlas(texture,new XML(new Assets.bodyParts_xml()) as XML);
+					}
+					atlas = _bodyPartsAtlas;
+					break;
 			}
 			
 			return atlas;
@@ -103,16 +123,19 @@ package com
 		public static function load():void{
 			_assets = new Vector.<Asset>()
 			_assets.push(new Asset("animals1",new animals1()));
+			_assets.push(new Asset("toysScene1",new toysScene1()));
+			_assets.push(new Asset("toysScene2",new toysScene2()));
+			_assets.push(new Asset("birdsBg",new birdsBg()));
 			
 			_bottomStripe = new Vector.<Asset>();
 			_bottomStripe.push(new Asset("bottomStripe1",new bottomStripe1()));
-			_bottomStripe.push(new Asset("bottomStripe2",new bottomStripe2()));
-			_bottomStripe.push(new Asset("bottomStripe3",new bottomStripe3()));
-			_bottomStripe.push(new Asset("bottomStripe4",new bottomStripe4()));
-			_bottomStripe.push(new Asset("bottomStripe5",new bottomStripe5()));
-			_bottomStripe.push(new Asset("bottomStripe6",new bottomStripe6()));
-			_bottomStripe.push(new Asset("bottomStripe7",new bottomStripe7()));
-			_bottomStripe.push(new Asset("bottomStripe8",new bottomStripe8()));
+//			_bottomStripe.push(new Asset("bottomStripe2",new bottomStripe2()));
+//			_bottomStripe.push(new Asset("bottomStripe3",new bottomStripe3()));
+//			_bottomStripe.push(new Asset("bottomStripe4",new bottomStripe4()));
+//			_bottomStripe.push(new Asset("bottomStripe5",new bottomStripe5()));
+//			_bottomStripe.push(new Asset("bottomStripe6",new bottomStripe6()));
+//			_bottomStripe.push(new Asset("bottomStripe7",new bottomStripe7()));
+//			_bottomStripe.push(new Asset("bottomStripe8",new bottomStripe8()));
 			
 		}
 		

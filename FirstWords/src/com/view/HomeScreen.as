@@ -26,21 +26,28 @@ package com.view
 		private var playBt : Class;
 		[Embed(source="../../assets/bg/fence.png")]
 		private var fence : Class;
+		[Embed(source="../../assets/bg/btrflies.png")]
+		private var btrflies : Class;
 		
 		private var _clouds:Clouds;
 		public function HomeScreen(screens:ScreensModel)
 		{
 			Assets.load();
+			_clouds = new Clouds();
+			_screenLayer.addChild(_clouds);
 			var bg:Image = new Image(Texture.fromBitmap(new Assets.BackgroundImage()))
 			_screenLayer.addChild(bg);
 			bg.width = Dimentions.WIDTH;
 			bg.height = Dimentions.HEIGHT;
 			initMenu(screens);
 			var fence:Image = new Image(Texture.fromBitmap(new fence()))
+			var btrflies:Image = new Image(Texture.fromBitmap(new btrflies()))
 			_screenLayer.addChild(fence);
+			_screenLayer.addChild(btrflies);
 			fence.y = Dimentions.HEIGHT-fence.height;
-			_clouds = new Clouds();
-			_screenLayer.addChild(_clouds);
+			btrflies.x=800;
+			btrflies.y=400;
+			
 		}
 		
 		override protected function addNavigation():void{
@@ -63,6 +70,7 @@ package com.view
 					menuThmb.width = wdt;
 					menuThmb.height = wdt;
 					var frame:Image = new Image(Texture.fromBitmap(new Assets.Frame))
+					
 					//_menu.addChild(frame);
 					frame.width = wdt+4;
 					frame.height = wdt+4;
@@ -81,8 +89,8 @@ package com.view
 			_menu.y=350;
 			var playBut:Button = new Button( Texture.fromBitmap(new playBt()) );
 			_screenLayer.addChild(playBut);
-			playBut.x=150;
-			playBut.y=150;
+			playBut.x=(Dimentions.WIDTH-playBut.width)/2;
+			playBut.y=120;
 			playBut.addEventListener(Event.TRIGGERED,function():void{gotoSignal.dispatch(0)});
 		}//function
 		

@@ -51,6 +51,10 @@ package com.view.playRoom
 			
 		}
 		
+		public function get body():Body{
+			return _body;
+		}
+		
 		override protected function createMaterial():void{
 			_material = new Sprite();
 			var btnmp:Bitmap;
@@ -82,25 +86,27 @@ package com.view.playRoom
 			//_material.pivotX = _material.width >> 1;
 			//_material.pivotY = _material.height >> 1;
 		}
-		
+		public function pop():void{
+			var _particlesEffect:ParticlesEffect;
+			_particlesEffect = new ParticlesEffect();
+			_particlesEffect.width=_material.width/10;
+			_particlesEffect.height=_material.height/10;
+			_particlesEffect.x=_material.x+_material.width/2;
+			_particlesEffect.y=_material.y+_material.height/2;
+			_material.parent.addChild(_particlesEffect);
+			_particlesEffect.start("jfish");
+			_sound.play();
+			Starling.juggler.delayCall(function removeParticles():void{
+				_particlesEffect.stop();
+				_particlesEffect.removeFromParent(true)
+			},0.3);
+			_material.removeFromParent(true);
+			_space.bodies.remove(_body);
+		}
 		private function onTouch(e:TouchEvent):void{
 			if(e.getTouch(_material.stage).phase == TouchPhase.BEGAN){
 				_material.removeEventListener(TouchEvent.TOUCH,onTouch);
-				var _particlesEffect:ParticlesEffect;
-				_particlesEffect = new ParticlesEffect();
-				_particlesEffect.width=_material.width/10;
-				_particlesEffect.height=_material.height/10;
-				_particlesEffect.x=_material.x+_material.width/2;
-				_particlesEffect.y=_material.y+_material.height/2;
-				_material.parent.addChild(_particlesEffect);
-				_particlesEffect.start("jfish");
-				_sound.play();
-				Starling.juggler.delayCall(function removeParticles():void{
-					_particlesEffect.stop();
-					_particlesEffect.removeFromParent(true)
-				},0.3);
-				_material.removeFromParent(true);
-				_space.bodies.remove(_body);
+				pop();
 			}
 		}
 	}

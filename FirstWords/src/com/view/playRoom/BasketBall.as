@@ -16,7 +16,7 @@ package com.view.playRoom
 		[Embed(source="../../../assets/playroom/ball.png")]
 		private var basketball : Class;
 		
-		private static const BALL_RADIUS : Number = 51.5; // TODO make dynamic
+		private static const BALL_RADIUS : Number = 44; // TODO make dynamic
 		private static const BALL_ELASTICITY : Number = 1.5;
 		
 		public function BasketBall(space:Space,cbType:CbType,xx:int,yy:int)

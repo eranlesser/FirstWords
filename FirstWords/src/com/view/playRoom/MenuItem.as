@@ -1,4 +1,6 @@
 package com.view.playRoom{
+	import flash.geom.Point;
+	
 	import org.osflash.signals.Signal;
 	
 	import starling.display.Image;
@@ -12,6 +14,7 @@ package com.view.playRoom{
 		private var _isDragging:Boolean = false;
 		private var _id:String;
 		private var _recycled:Boolean;
+		private var _registeredPoint:Point;
 		public var dropped:Signal = new Signal();
 		public function MenuItem(texture:Texture,id:String,isRecycled:Boolean)
 		{
@@ -38,12 +41,19 @@ package com.view.playRoom{
 				this.y = y + (Menu.HEIGHT-this.height)/2;
 			}
 			_recycled = isRecycled;
+			
 			addEventListener(TouchEvent.TOUCH,onTouch);
 		}
+		
+		
 	
 		public function get recycled():Boolean
 		{
 			return _recycled;
+		}
+		public function resetPosition():void{
+			this.x=_registeredPoint.x;
+			this.y=_registeredPoint.y;
 		}
 
 	private function onTouch(t:TouchEvent):void{
@@ -52,6 +62,7 @@ package com.view.playRoom{
 			return;
 		}
 		if((touch.phase == TouchPhase.BEGAN)){
+			_registeredPoint = new Point(x,y);
 			_isDragging = true;
 		}
 		if(touch.phase == TouchPhase.MOVED && _isDragging){

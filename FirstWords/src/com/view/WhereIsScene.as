@@ -4,14 +4,14 @@ package com.view
 	import com.Dimentions;
 	import com.model.Item;
 	import com.model.ScreenModel;
-	import com.view.components.ParticlesEffect;
+	import com.view.components.ImageItem;
 	
-	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Shape;
 	import flash.events.Event;
-	import flash.events.MouseEvent;
+	import flash.media.Sound;
 	import flash.media.SoundChannel;
+	import flash.net.URLRequest;
 	
 	import starling.display.Button;
 	import starling.display.Image;
@@ -94,21 +94,21 @@ package com.view
 			_whereIsBtn.addEventListener(starling.events.Event.TRIGGERED,function onGood():void{
 				if(onGoodClick()){
 					_whereIsBtn.removeEventListener(starling.events.Event.TRIGGERED, onGood);
-					_particlesEffect = new ParticlesEffect();
-					_particlesEffect.width=img.width/10;
-					_particlesEffect.height=img.height/10;
-					_particlesEffect.x=img.x+img.width/2;
-					_particlesEffect.y=img.y+img.height/2;
-					_screenLayer.addChild(_particlesEffect);
-					_particlesEffect.start("drug");
+					
 				}
 			});
-			_whereIsBtn.alpha=0.3;
+			_whereIsBtn.alpha=0;
 			
 			
 		}
 		
-		
+		private function  onDistractorTouch(imageItem:ImageItem):void{
+			if(!_enabled){
+				return;
+			}
+			var sound:Sound = new Sound(new URLRequest("../assets/sounds/"+imageItem.sound));
+			sound.play();
+		}
 		private function addItem(item:Item):void{
 			var shp:Shape = new Shape();
 			shp.graphics.beginFill(0xFFFFFF);
@@ -116,11 +116,13 @@ package com.view
 			shp.graphics.endFill();
 			var btmData:BitmapData = new BitmapData(shp.width,shp.height);
 			btmData.draw(shp);
-			var img:Image = new Image(Texture.fromBitmapData(btmData));
+			var img:ImageItem = new ImageItem(Texture.fromBitmapData(btmData),item.sound);
 			img.x = item.rect.x;
 			img.y = item.rect.y;
-			img.alpha=0.1;
+			img.alpha=0;
 			_screenLayer.addChild(img);
+			img.touched.add(onDistractorTouch);
+			
 		}
 	}
 }
