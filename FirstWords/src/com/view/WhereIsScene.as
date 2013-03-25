@@ -9,6 +9,7 @@ package com.view
 	import flash.display.BitmapData;
 	import flash.display.Shape;
 	import flash.events.Event;
+	import flash.geom.Rectangle;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.net.URLRequest;
@@ -23,10 +24,10 @@ package com.view
 
 	public class WhereIsScene extends AbstractScreen
 	{
-		private var _whereIsBtn:Button;
+		private var _whereIsBtns:Vector.<Button>;
 		public function WhereIsScene()
 		{
-			
+			_whereIsBtns = new Vector.<Button>();
 		}
 		private var _clics:uint=0;
 		private var _resoult:String="";
@@ -74,32 +75,34 @@ package com.view
 		}
 		
 		private function setWhoIs(item:Item):void{
-			if(_whereIsBtn){
-				_screenLayer.removeChild(_whereIsBtn);
+			for each(var btn:Button in _whereIsBtns){
+				_screenLayer.removeChild(btn);
 			}
 			_whoIs = item;
-			var shp:Shape = new Shape();
-			shp.graphics.beginFill(0x333333);
-			shp.graphics.drawRect(0,0,item.rect.width,item.rect.height);
-			shp.graphics.endFill();
-			var btmData:BitmapData = new BitmapData(shp.width,shp.height);
-			btmData.draw(shp);
-			var img:Image = new Image(Texture.fromBitmapData(btmData));
-			_whereIsBtn = new Button(img.texture);
-			_whereIsBtn.x = item.rect.x;
-			_whereIsBtn.y = item.rect.y;
-			_screenLayer.addChild(_whereIsBtn);
-			var chanel:SoundChannel = _whereSound.play();
-			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
-			_whereIsBtn.addEventListener(starling.events.Event.TRIGGERED,function onGood():void{
-				if(onGoodClick()){
-					_whereIsBtn.removeEventListener(starling.events.Event.TRIGGERED, onGood);
-					
-				}
-			});
-			_whereIsBtn.alpha=0;
-			
-			
+			for each(var rect:Rectangle in item.rects){
+				var shp:Shape = new Shape();
+				shp.graphics.beginFill(0x333333);
+				shp.graphics.drawRect(0,0,rect.width,rect.height);
+				shp.graphics.endFill();
+				var btmData:BitmapData = new BitmapData(shp.width,shp.height);
+				btmData.draw(shp);
+				var wiBtn:Button;
+				var img:Image = new Image(Texture.fromBitmapData(btmData));
+				wiBtn = new Button(img.texture);
+				wiBtn.x = rect.x;
+				wiBtn.y = rect.y;
+				_screenLayer.addChild(wiBtn);
+				var chanel:SoundChannel = _whereSound.play();
+				chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
+				wiBtn.addEventListener(starling.events.Event.TRIGGERED,function onGood():void{
+					if(onGoodClick()){
+						wiBtn.removeEventListener(starling.events.Event.TRIGGERED, onGood);
+						
+					}
+				});
+				wiBtn.alpha=0.5;
+				_whereIsBtns.push(wiBtn);
+			}
 		}
 		
 		private function  onDistractorTouch(imageItem:ImageItem):void{
@@ -110,19 +113,21 @@ package com.view
 			sound.play();
 		}
 		private function addItem(item:Item):void{
+			for each(var rect:Rectangle in item.rects){
+
 			var shp:Shape = new Shape();
 			shp.graphics.beginFill(0xFFFFFF);
-			shp.graphics.drawRect(0,0,item.rect.width,item.rect.height);
+			shp.graphics.drawRect(0,0,rect.width,rect.height);
 			shp.graphics.endFill();
 			var btmData:BitmapData = new BitmapData(shp.width,shp.height);
 			btmData.draw(shp);
 			var img:ImageItem = new ImageItem(Texture.fromBitmapData(btmData),item.sound);
-			img.x = item.rect.x;
-			img.y = item.rect.y;
-			img.alpha=0;
+			img.x = rect.x;
+			img.y = rect.y;
+			img.alpha=0.2;
 			_screenLayer.addChild(img);
 			img.touched.add(onDistractorTouch);
-			
+			}
 		}
 	}
 }

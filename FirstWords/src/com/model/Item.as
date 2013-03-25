@@ -9,16 +9,17 @@ package com.model
 		private var _image:String;
 		private var _sound:String;
 		private var _groupId:String;
-		private var _rect:Rectangle;
+		private var _rects:Vector.<Rectangle>;
 		private var _wasWho:Boolean=false;
 		
 		public function Item(data:XML){
 			_image = data.@image;
 			_sound = data.@sound;
 			_groupId = data.@groupId;
-			if(String(data.@rect)!=""){
-				var rectInfo:Array = String(data.@rect).split(",");
-				_rect = new Rectangle(rectInfo[0],rectInfo[1],rectInfo[2],rectInfo[3]);
+			_rects = new Vector.<Rectangle>();
+			for each(var rectXml:XML in data.rect){
+				var rectInfo:Array = String(rectXml.@vector).split(",");
+				_rects.push(new Rectangle(rectInfo[0],rectInfo[1],rectInfo[2],rectInfo[3]));
 			}
 		}
 
@@ -47,8 +48,8 @@ package com.model
 			return _image;
 		}
 		
-		public function get rect():Rectangle{
-			return _rect;
+		public function get rects():Vector.<Rectangle>{
+			return _rects;
 		}
 
 	}

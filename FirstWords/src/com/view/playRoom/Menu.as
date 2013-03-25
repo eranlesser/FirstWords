@@ -49,7 +49,7 @@ package com.view.playRoom
 		private function addMenuItem(item:XML):void{
 			var menuItem:MenuItem = new MenuItem(_atlas.getTexture(item.@image),item.@image,item.@recycled=="true");
 			addChild(menuItem);
-			menuItem.x = _items.length * (Menu.HEIGHT+8)+4;
+			menuItem.x = _items.length * (Menu.HEIGHT+22)+4;
 			menuItem.y = menuItem.y + Dimentions.HEIGHT - HEIGHT - 2;
 			_items.push(menuItem);
 			menuItem.dropped.add(dropped);

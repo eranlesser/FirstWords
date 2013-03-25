@@ -24,7 +24,9 @@ package com.view
 		public var gotoSignal:Signal = new Signal();
 		[Embed(source="../../assets/home/playBtn.png")]
 		private var playBt : Class;
-		[Embed(source="../../assets/bg/fence.png")]
+		[Embed(source="../../assets/home/tweets.png")]
+		private var tweets : Class;
+		[Embed(source="../../assets/bg/birdsBg-01.png")]
 		private var fence : Class;
 		[Embed(source="../../assets/bg/btrflies.png")]
 		private var btrflies : Class;
@@ -33,20 +35,22 @@ package com.view
 		public function HomeScreen(screens:ScreensModel)
 		{
 			Assets.load();
+			
 			_clouds = new Clouds();
 			_screenLayer.addChild(_clouds);
 			var bg:Image = new Image(Texture.fromBitmap(new Assets.BackgroundImage()))
-			_screenLayer.addChild(bg);
-			bg.width = Dimentions.WIDTH;
-			bg.height = Dimentions.HEIGHT;
-			initMenu(screens);
+			//_screenLayer.addChild(bg);
 			var fence:Image = new Image(Texture.fromBitmap(new fence()))
 			var btrflies:Image = new Image(Texture.fromBitmap(new btrflies()))
 			_screenLayer.addChild(fence);
-			_screenLayer.addChild(btrflies);
-			fence.y = Dimentions.HEIGHT-fence.height;
+			var tweetsText:Image = new Image(Texture.fromBitmap(new tweets()));
+			tweetsText.x=600;
+			tweetsText.y=200;
+			_screenLayer.addChild(tweetsText);
+			//_screenLayer.addChild(btrflies);
 			btrflies.x=800;
 			btrflies.y=400;
+			initMenu(screens);
 			
 		}
 		
@@ -84,13 +88,15 @@ package com.view
 				}//if
 					i++;
 			}//for
-			_screenLayer.addChild(_menu);
+			//_screenLayer.addChild(_menu);
 			_menu.x=700;
 			_menu.y=350;
 			var playBut:Button = new Button( Texture.fromBitmap(new playBt()) );
 			_screenLayer.addChild(playBut);
-			playBut.x=(Dimentions.WIDTH-playBut.width)/2;
-			playBut.y=120;
+			playBut.x=222//(Dimentions.WIDTH-playBut.width)/3;
+			playBut.y=160;
+			playBut.scaleX=0.7;
+			playBut.scaleY=0.7;
 			playBut.addEventListener(Event.TRIGGERED,function():void{gotoSignal.dispatch(0)});
 		}//function
 		

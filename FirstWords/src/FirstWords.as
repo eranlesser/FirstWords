@@ -13,7 +13,7 @@ package
 	import starling.display.DisplayObject;
 	
 
-	[SWF(width="1024", height="768", frameRate="60", backgroundColor="#FFFFFF")]
+	[SWF(width="1024", height="768", frameRate="60", backgroundColor="#F2D399")]
 	public class FirstWords extends Sprite
 	{
 		

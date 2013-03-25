@@ -76,20 +76,20 @@ class PlaceHolder{
 		_image = img;
 		img.bg.x=_x;
 		img.bg.y=_y;
-		_image.x = _x+4;
-		_image.y = _y+4;
-		if(_image.width>(_width-8)){
-			var ratio:Number = (_width-8)/_image.width;
-			_image.width = (_width-8);
+		_image.x = _x+16;
+		_image.y = _y+16;
+		if(_image.width>(_width-32)){
+			var ratio:Number = (_width-32)/_image.width;
+			_image.width = (_width-32);
 			_image.height = _image.height*ratio;
 			
 		}else if(_width>_image.width){
 			_image.x = _x+(_width-_image.width)/2;
 		}
 
-		if(_image.height>(_height-8)){
-			var yratio:Number = (_height-8)/_image.height;
-			_image.height = (_height-8);
+		if(_image.height>(_height-32)){
+			var yratio:Number = (_height-32)/_image.height;
+			_image.height = (_height-32);
 			_image.width = _image.height*yratio;
 			if(_width>_image.width){
 				_image.x = _x+(_width-_image.width)/2;
@@ -112,7 +112,7 @@ class PlaceHolder{
 	
 	public function get backGround():Image{
 		var shp:Shape = new Shape();
-		shp.graphics.lineStyle(1,0x4C5F71);
+		//shp.graphics.lineStyle(3,0x593407);
 		shp.graphics.beginFill(0xFEFEFA);
 		shp.graphics.drawRect(0,0,_width,_height);
 		shp.graphics.endFill();

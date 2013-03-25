@@ -7,6 +7,7 @@ package com.view
 	import com.view.components.Clouds;
 	import com.view.components.ImageItem;
 	import com.view.components.ParticlesEffect;
+	import com.view.components.Tweet;
 	import com.view.layouts.Layout;
 	import com.view.layouts.ThreeLayout;
 	
@@ -25,6 +26,7 @@ package com.view
 		private var _layout:			Layout;
 		private var _goodSound:			Sound;
 		private var _clouds:Clouds;
+		private var _birds:Tweet;
 		
 		public function WhereIsScreen()
 		{
@@ -37,8 +39,14 @@ package com.view
 			//_screenLayer.addChild( new Image(Texture.fromBitmap(new Assets.BackgroundImage())));
 			_clouds = new Clouds()
 			_screenLayer.addChild(_clouds);
-			var bg:Image = new Image(Texture.fromBitmap(Assets.getImage("birdsBg")));
-			_screenLayer.addChild(bg);
+			_birds = new Tweet(null,null);
+			_screenLayer.addChild(_birds);
+			_birds.y=60;
+			_birds.x = Dimentions.WIDTH;
+			_birds.scaleX=-1;
+			//var bg:Image = new Image(Texture.fromBitmap(Assets.getImage("birdsBg")));
+			//_screenLayer.addChild(bg);
+			//bg.y=80;
 		//	bg.width = Dimentions.WIDTH;
 		//	bg.height = Dimentions.HEIGHT;
 			

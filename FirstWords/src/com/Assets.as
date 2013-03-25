@@ -48,7 +48,9 @@ package com
 		private static const toysScene1:Class;
 		[Embed(source = "assets/whereIsScene/toys2.png")] 
 		private static const toysScene2:Class;
-
+		[Embed(source = "assets/bodyparts/boyFull1.png")] 
+		private static const boyFull1:Class;
+		
 		[Embed(source = "assets/bg/flowersBg.png")] 
 		private static const bottomStripe1:Class;
 		[Embed(source = "assets/bg/grass_bg.png")] 
@@ -123,6 +125,7 @@ package com
 		public static function load():void{
 			_assets = new Vector.<Asset>()
 			_assets.push(new Asset("animals1",new animals1()));
+			_assets.push(new Asset("boyFull1",new boyFull1()));
 			_assets.push(new Asset("toysScene1",new toysScene1()));
 			_assets.push(new Asset("toysScene2",new toysScene2()));
 			_assets.push(new Asset("birdsBg",new birdsBg()));

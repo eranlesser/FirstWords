@@ -5,10 +5,9 @@ package com.model.rawData
 		public static var data:XML = 
 	<whereIs>
 		<screens>
+			{BodyPartsScene1.data}
 			{Toys.data}
-			{ToyScene.data}
 			{PlayRoomData.data}
-			{BodyParts.data}
 			{ToyScene.data}
 			{AnimalsScene.data}
 			{Fruits.data}

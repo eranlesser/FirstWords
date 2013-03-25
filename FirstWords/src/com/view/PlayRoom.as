@@ -222,7 +222,7 @@ package com.view
 		
 		private function ballToCube(collision:InteractionCallback):void {
 			collision.arbiters.foreach(function(arb:Arbiter):void {
-				if(Math.abs(arb.collisionArbiter.body2.velocity.x)>300 || Math.abs(arb.collisionArbiter.body2.velocity.y)>120){
+				if(Math.abs(arb.collisionArbiter.body2.velocity.x)>300 || Math.abs(arb.collisionArbiter.body2.velocity.y)>320){
 					new Sound(new URLRequest("../../assets/sounds/playroom/cube.mp3")).play();
 				}
 			});
