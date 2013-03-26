@@ -100,7 +100,7 @@ package com.view
 						
 					}
 				});
-				wiBtn.alpha=0.5;
+				wiBtn.alpha=0;
 				_whereIsBtns.push(wiBtn);
 			}
 		}
@@ -124,7 +124,7 @@ package com.view
 			var img:ImageItem = new ImageItem(Texture.fromBitmapData(btmData),item.sound);
 			img.x = rect.x;
 			img.y = rect.y;
-			img.alpha=0.2;
+			img.alpha=0;
 			_screenLayer.addChild(img);
 			img.touched.add(onDistractorTouch);
 			}

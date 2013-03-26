@@ -1,29 +1,22 @@
 package com.model.rawData
 {
-	public class BodyPartsScene1
+	public class BodyPartsScene2
 	{
 		public static var data:XML = 
-			<data type="whereScene" backGround="boyFull1">
+			<data type="whereScene" backGround="girlFace">
 				<item  sound="body/eyes.mp3" groupId="eyes">
-					<rect vector="428,204,70,50"/>
-					<rect vector="550,211,48,49"/>
+					<rect vector="419,267,80,75"/>
+					<rect vector="557,280,77,65"/>
 				</item>
-				<item  sound="body/mouth.mp3" groupId="mouth"   >
-					<rect vector="467,290,102,44"/>
+				<item  sound="body/ears.mp3" groupId="ears">
+					<rect vector="674,326,41,54"/>
+					<rect vector="353,319,45,55"/>
 				</item>
-				<item  sound="body/hands.mp3" groupId="hand1"   >
-					<rect vector="639,336,89,60"/>
-					<rect vector="314,309,78,71"/>
+				<item  sound="body/mouth.mp3" groupId="mouth">
+					<rect vector="463,388,142,68"/>
 				</item>
-				<item  sound="body/nose.mp3" groupId="nose"   >
-					<rect vector="504,251,31,28"/>
-				</item>
-				<item  sound="body/feet.mp3" groupId="feet"   >
-					<rect vector="357,549,318,193"/>
-				</item>
-				<item  sound="body/ears.mp3" groupId="ear1"  >
-					<rect vector="355,235,44,55"/>
-					<rect vector="629,248,30,39"/>
+				<item  sound="body/nose.mp3" groupId="nose">
+					<rect vector="499,339,60,44"/>
 				</item>
 				
 			</data>;

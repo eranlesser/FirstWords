@@ -93,10 +93,12 @@ package com.view
 		private var _delayer:DelayedCall;
 		private var _hinter:DelayedCall;
 		private var _arrowHint:Button;
+		private var _sound:Sound;
 		public function PlayRoom()
 		{
 			_delayer = Starling.juggler.delayCall(showHint,20);
 			_delayer.repeatCount = 1;
+			_sound = new Sound(new URLRequest("../assets/sounds/playroom.mp3"));
 			
 		}
 		
@@ -124,6 +126,7 @@ package com.view
 		
 		private function init() : void
 		{
+				_sound.play();
 			if(_menu){
 				_menu.visible = true;
 				return; // inited
@@ -211,7 +214,7 @@ package com.view
 					break;
 				case "drawing":
 					var drawing:Drawing = new Drawing();
-					_room.addChild(drawing);
+					_room.addChildAt(drawing,1);
 					drawing.x=x;
 					drawing.y=y;
 					break;

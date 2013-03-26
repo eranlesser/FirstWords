@@ -82,8 +82,12 @@ package com.view
 			if(_counter>=_model.numItems){
 				_particlesEffect = new ParticlesEffect();
 				_particlesEffect.y = Dimentions.HEIGHT/2;
+				_particlesEffect.x=(Dimentions.WIDTH-_particlesEffect.width)/2;
 				_screenLayer.addChild(_particlesEffect);
 				_particlesEffect.start("drug");
+				var sound:Sound = new Sound(new URLRequest("../assets/sounds/birds1.mp3"))
+				sound.play();
+
 			}
 			return true;
 		}
@@ -99,6 +103,7 @@ package com.view
 			if(_counter>=_model.numItems){
 				complete();
 				done.dispatch();
+				_particlesEffect.stop();
 				removeChild(_particlesEffect);
 				return false;
 			}
