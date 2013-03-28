@@ -6,7 +6,6 @@ package com.view
 	import com.model.ScreenModel;
 	import com.view.components.Clouds;
 	import com.view.components.ImageItem;
-	import com.view.components.ParticlesEffect;
 	import com.view.components.Tweet;
 	import com.view.layouts.Layout;
 	import com.view.layouts.ThreeLayout;
@@ -41,8 +40,8 @@ package com.view
 			_screenLayer.addChild(_clouds);
 			_birds = new Tweet(null,null);
 			_screenLayer.addChild(_birds);
-			_birds.y=60;
-			_birds.x = Dimentions.WIDTH;
+			_birds.y=8;
+			_birds.x = Dimentions.WIDTH+12;
 			_birds.scaleX=-1;
 			//var bg:Image = new Image(Texture.fromBitmap(Assets.getImage("birdsBg")));
 			//_screenLayer.addChild(bg);
@@ -72,6 +71,7 @@ package com.view
 		
 		private function onGoodItemClick(img:ImageItem):Boolean{
 			if(super.onGoodClick()){
+				_birds.tweet();
 //				_particlesEffect = new ParticlesEffect();
 //				_particlesEffect.width=img.width/10;
 //				_particlesEffect.height=img.height/10;
@@ -90,10 +90,16 @@ package com.view
 //			}
 		}
 		
+		override protected function closeCurtains():void{
+			_birds.play();
+		}
+		
 		override protected function setItems():Boolean{
 			if(!super.setItems()){
 				return false;
 			}
+				//_birds.play();
+			
 			clear();
 			setWhoIs(_model.whoIsItem,Assets.getAtlas(_model.groupName));
 			var items:Vector.<Item> = new Vector.<Item>();
@@ -135,7 +141,7 @@ package com.view
 			images.push(img);
 			_layout.layout(images);
 			img.touched.add(onGoodItemClick);
-			var chanel:SoundChannel = _whereSound.play();
+			var chanel:SoundChannel = _questionSound.play();
 			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
 		}
 		

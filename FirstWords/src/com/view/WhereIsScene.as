@@ -92,7 +92,7 @@ package com.view
 				wiBtn.x = rect.x;
 				wiBtn.y = rect.y;
 				_screenLayer.addChild(wiBtn);
-				var chanel:SoundChannel = _whereSound.play();
+				var chanel:SoundChannel = _questionSound.play();
 				chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
 				wiBtn.addEventListener(starling.events.Event.TRIGGERED,function onGood():void{
 					if(onGoodClick()){

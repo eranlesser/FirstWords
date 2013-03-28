@@ -4,6 +4,7 @@ package com.view
 	import com.Dimentions;
 	import com.model.ScreenModel;
 	import com.model.ScreensModel;
+	import com.model.Session;
 	import com.view.components.Clouds;
 	
 	import flash.display.Stage;
@@ -93,11 +94,11 @@ package com.view
 			_menu.y=350;
 			var playBut:Button = new Button( Texture.fromBitmap(new playBt()) );
 			_screenLayer.addChild(playBut);
-			playBut.x=222//(Dimentions.WIDTH-playBut.width)/3;
+			playBut.x=238//(Dimentions.WIDTH-playBut.width)/3;
 			playBut.y=160;
-			playBut.scaleX=0.7;
-			playBut.scaleY=0.7;
-			playBut.addEventListener(Event.TRIGGERED,function():void{gotoSignal.dispatch(0)});
+			playBut.scaleX=0.75;
+			playBut.scaleY=0.75;
+			playBut.addEventListener(Event.TRIGGERED,function():void{gotoSignal.dispatch(Session.currentScreen)});
 		}//function
 		
 		override public function destroy():void{

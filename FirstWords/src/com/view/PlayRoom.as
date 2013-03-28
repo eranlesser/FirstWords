@@ -75,10 +75,6 @@ package com.view
 		private var win:Class;
 		[Embed(source="../../assets/playroom/play_room_winBg.png")]
 		private var winBg:Class;
-		[Embed(source="../../assets/nextIdle.png")]
-		private var arrow:Class;
-		[Embed(source="../../assets/nextHint.png")]
-		private var arrowHint:Class;
 		
 		private var _nativeStage : Stage;
 		private var _space : Space;
@@ -91,33 +87,31 @@ package com.view
 		private var _baloonPopCollisionType:CbType = new CbType();
 		private var _menu:Menu;
 		private var _delayer:DelayedCall;
-		private var _hinter:DelayedCall;
-		private var _arrowHint:Button;
 		private var _sound:Sound;
 		public function PlayRoom()
 		{
-			_delayer = Starling.juggler.delayCall(showHint,20);
-			_delayer.repeatCount = 1;
 			_sound = new Sound(new URLRequest("../assets/sounds/playroom.mp3"));
 			
 		}
 		
 		override public function destroy():void{
-			Starling.juggler.remove(_hinter);
+			Starling.juggler.remove(_delayer);
 		}
-		private function showHint():void{
-			var counter:uint = 0;
-			_hinter = Starling.juggler.delayCall(
-				function onShowHint():void{
-					_arrowHint.visible = !_arrowHint.visible;
-					counter++;
-					if(counter==10){
-						//done.dispatch();
-					}
-				},0.5
-				
-			);
-			_hinter.repeatCount=0;
+		private function finish():void{
+			closeCurtains();
+			Starling.juggler.delayCall(dispatchDone,2);
+//			var counter:uint = 0;
+//			_hinter = Starling.juggler.delayCall(
+//				function onShowHint():void{
+//					_arrowHint.visible = !_arrowHint.visible;
+//					counter++;
+//					if(counter==10){
+//						//done.dispatch();
+//					}
+//				},0.5
+//				
+//			);
+//			_hinter.repeatCount=0;
 		}
 		
 		override public function get diposable():Boolean{
@@ -126,7 +120,9 @@ package com.view
 		
 		private function init() : void
 		{
-				_sound.play();
+			_delayer = Starling.juggler.delayCall(finish,22);
+			_delayer.repeatCount = 1;
+			_sound.play();
 			if(_menu){
 				_menu.visible = true;
 				return; // inited
@@ -151,21 +147,6 @@ package com.view
 			_menu.x = (Dimentions.WIDTH - _menu.width)/2;
 			_menu.itemDropped.add(onMenuItemDropped);
 			
-			var arrow:Button = new Button(Texture.fromBitmap(new arrow()));
-			addChild(arrow);
-			arrow.x = Dimentions.WIDTH - arrow.width-8;
-			arrow.y=4;
-			arrow.addEventListener(Event.TRIGGERED,function():void{done.dispatch()});
-			_arrowHint = new Button(Texture.fromBitmap(new arrowHint()));
-			addChild(_arrowHint);
-			_arrowHint.x = Dimentions.WIDTH - _arrowHint.width-8;
-			_arrowHint.y=4;
-			_arrowHint.addEventListener(Event.TRIGGERED,function():void{done.dispatch()});
-			_arrowHint.visible = false;
-//			var tmr:Timer = new Timer(20000,1);
-//			tmr.addEventListener(TimerEvent.TIMER_COMPLETE,function onComplete(e:TimerEvent):void{
-//				done.dispatch()
-//			});
 			createFloor();
 			//tmr.start();
 		}
@@ -203,7 +184,7 @@ package com.view
 				case "plane":
 					_room.addChild(new Plane(_space,_baloonPopCollisionType,x,y).material);
 					break;
-				case "train":
+				case "train2":
 					_room.addChild(new Train(_space,_baloonPopCollisionType,x,y).material);
 					break;
 				case "book":

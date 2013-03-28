@@ -32,7 +32,7 @@ package com.view.playRoom{
 			if(this.height>(Menu.HEIGHT-4)){
 				var yratio:Number = (Menu.HEIGHT-4)/this.height;
 				this.height = (Menu.HEIGHT-4);
-				this.width = this.height*yratio;
+				this.width = this.width*yratio;
 				if(Menu.HEIGHT>this.width){
 					this.x = x+ (Menu.HEIGHT-this.width)/2;
 				}

@@ -24,6 +24,11 @@ package com
 		public static const animals_xml:Class;
 		[Embed(source="assets/animals.jpg")]
 		public static const animals:Class;
+		
+		[Embed(source="assets/playroom/atlas.xml", mimeType="application/octet-stream")]
+		public static const playRoom_xml:Class;
+		[Embed(source="assets/playroom/atlas.png")]
+		public static const playRoom:Class;
 
 		[Embed(source="assets/bodyparts/bodyParts.xml", mimeType="application/octet-stream")]
 		public static const bodyParts_xml:Class;
@@ -52,6 +57,10 @@ package com
 		private static const boyFull1:Class;
 		[Embed(source = "assets/bodyparts/girlFace.png")] 
 		private static const girlFace:Class;
+		[Embed(source = "assets/outdoors/outdoors.png")] 
+		private static const outdoors1:Class;
+		[Embed(source = "assets/outdoors/outdoors2.png")] 
+		private static const outdoors2:Class;
 		
 		[Embed(source = "assets/bg/flowersBg.png")] 
 		private static const bottomStripe1:Class;
@@ -73,6 +82,7 @@ package com
 		private static var _toysAtlas:TextureAtlas;
 		private static var _fruitsAtlas:TextureAtlas;
 		private static var _animalsAtlas:TextureAtlas;
+		private static var _playRoomAtlas:TextureAtlas;
 		private static var _bodyPartsAtlas:TextureAtlas;
 		private static var _assets:Vector.<Asset>;
 		private static var _bottomStripe:Vector.<Asset>;
@@ -100,6 +110,13 @@ package com
 						_animalsAtlas = new TextureAtlas(texture,new XML(new Assets.animals_xml()) as XML);
 					}
 					atlas = _animalsAtlas;
+					break;
+				case "playRoom":
+					if(_playRoomAtlas == null){
+						texture =  Texture.fromBitmap(new Assets.playRoom());
+						_playRoomAtlas = new TextureAtlas(texture,new XML(new Assets.playRoom_xml()) as XML);
+					}
+					atlas = _playRoomAtlas;
 					break;
 				case "bodyParts":
 					if(_bodyPartsAtlas == null){
@@ -131,6 +148,8 @@ package com
 			_assets.push(new Asset("girlFace",new girlFace()));
 			_assets.push(new Asset("toysScene1",new toysScene1()));
 			_assets.push(new Asset("toysScene2",new toysScene2()));
+			_assets.push(new Asset("outdoors1",new outdoors1()));
+			_assets.push(new Asset("outdoors2",new outdoors2()));
 			_assets.push(new Asset("birdsBg",new birdsBg()));
 			
 			_bottomStripe = new Vector.<Asset>();

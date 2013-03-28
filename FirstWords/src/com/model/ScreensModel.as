@@ -14,12 +14,17 @@ package com.model
 		
 		public function getNext():ScreenModel{
 			_index++;
+			if(_index==_screens.length-1){
+				_index=0;
+			}
 			var  scr:ScreenModel = _screens[_index];
+			Session.currentScreen = _index;
 			return scr;
 		}
 		
 		public function getScreen(indx:int):ScreenModel{
 			_index = indx;
+			Session.currentScreen = indx;
 			return _screens[indx];
 		}
 		

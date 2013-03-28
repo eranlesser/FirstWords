@@ -26,7 +26,7 @@ package com.view.playRoom
 	
 	public class Train extends PlayItem
 	{
-		[Embed(source="../../../assets/playroom/train.png")]
+		[Embed(source="../../../assets/playroom/train2.png")]
 		private var flyBaloon : Class;
 		private var _sound:Sound;
 		private var _isBackWards:Boolean = true;

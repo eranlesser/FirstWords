@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:02830999b764b58bfd906fb92ce87364$ -->
+<TextureAtlas imagePath="atlas.png">
+    <SubTexture name="ball" x="241" y="439" width="88" height="88"/>
+    <SubTexture name="bluBln" x="440" y="244" width="59" height="101"/>
+    <SubTexture name="book" x="363" y="348" width="111" height="63"/>
+    <SubTexture name="cubes" x="2" y="2" width="301" height="298"/>
+    <SubTexture name="drawing" x="305" y="244" width="133" height="102"/>
+    <SubTexture name="fly_baloon" x="363" y="413" width="100" height="140"/>
+    <SubTexture name="horse" x="2" y="302" width="237" height="217"/>
+    <SubTexture name="plane" x="305" y="141" width="167" height="101"/>
+    <SubTexture name="train" x="241" y="348" width="120" height="89"/>
+    <SubTexture name="train2" x="305" y="2" width="181" height="137"/>
+</TextureAtlas>

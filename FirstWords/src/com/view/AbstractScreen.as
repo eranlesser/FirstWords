@@ -22,7 +22,7 @@ package com.view
 	public class AbstractScreen extends Sprite
 	{
 		
-		protected var _whereSound:		Sound;
+		protected var _questionSound:		Sound;
 		public var goHome:Signal = new Signal();
 		public var done:Signal = new Signal();
 		[Embed(source="../../assets/home/homeBtn.png")]
@@ -43,7 +43,7 @@ package com.view
 			addNavigation();
 		}
 		protected function addNavigation():void{
-			_whereSound = new Sound(new URLRequest("../assets/sounds/where.mp3"));
+			
 			var homeBut:Button = new Button( Texture.fromBitmap(new homeBt()) );
 			_guiLayer.addChild(homeBut);
 			homeBut.x=4;
@@ -64,6 +64,12 @@ package com.view
 		public function set model(screenModel:ScreenModel):void{
 			_counter=0;
 			_model=screenModel;
+			if(_model.sound == "where" || _model.sound == ""){
+				_questionSound = new Sound(new URLRequest("../assets/sounds/where.mp3"));
+			}else if(_model.sound == "who"){
+				_questionSound = new Sound(new URLRequest("../assets/sounds/who.mp3"));
+				
+			}
 		}
 		
 		protected function onGoodClick():Boolean{ 
@@ -80,21 +86,29 @@ package com.view
 			channel.addEventListener(flash.events.Event.SOUND_COMPLETE,goodSoundComplete);
 			_enabled=false;
 			if(_counter>=_model.numItems){
-				_particlesEffect = new ParticlesEffect();
-				_particlesEffect.y = Dimentions.HEIGHT/2;
-				_particlesEffect.x=(Dimentions.WIDTH-_particlesEffect.width)/2;
-				_screenLayer.addChild(_particlesEffect);
-				_particlesEffect.start("drug");
-				var sound:Sound = new Sound(new URLRequest("../assets/sounds/birds1.mp3"))
-				sound.play();
-
+				closeCurtains();
 			}
 			return true;
 		}
-		
+		protected function closeCurtains():void{
+			_particlesEffect = new ParticlesEffect();
+			_particlesEffect.y = Dimentions.HEIGHT/2;
+			_particlesEffect.x=(Dimentions.WIDTH-_particlesEffect.width)/2;
+			_screenLayer.addChild(_particlesEffect);
+			_particlesEffect.start("drug");
+			
+		}
 		protected function goodSoundComplete(e:flash.events.Event):void{
 			Starling.juggler.delayCall(setItems,2);
 			SoundChannel(e.target).removeEventListener(flash.events.Event.SOUND_COMPLETE, goodSoundComplete);
+		}
+		
+		protected function dispatchDone():void{
+			done.dispatch();
+			if(_particlesEffect){
+				_particlesEffect.stop();
+				removeChild(_particlesEffect);
+			}
 		}
 		
 		protected function setItems():Boolean{
@@ -102,9 +116,7 @@ package com.view
 			_enabled = false;
 			if(_counter>=_model.numItems){
 				complete();
-				done.dispatch();
-				_particlesEffect.stop();
-				removeChild(_particlesEffect);
+				dispatchDone();
 				return false;
 			}
 			_counter++;
