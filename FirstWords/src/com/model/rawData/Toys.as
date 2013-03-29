@@ -9,7 +9,7 @@ package com.model.rawData
 				<item image="cubes" sound="toys/cubes.mp3" groupId="cubes"/>
 				<item image="train" sound="toys/train.mp3" groupId="train" />
 				<item image="trolly" sound="toys/cart.mp3" groupId="trolly" />
-				<item image="truck" sound="toys/truck.mp3" groupId="truck" />
+				<item image="doll" sound="toys/truck.mp3" groupId="doll" />
 				
 			</data>
 		
