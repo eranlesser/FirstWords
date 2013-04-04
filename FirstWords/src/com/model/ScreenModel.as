@@ -10,6 +10,7 @@ package com.model
 		private var _backGround:		String;
 		private var _menu:				XMLList;
 		private var _sound:String="where";
+		private var _categorySound:String="";
 		private var _questionType:String;
 		
 		public function ScreenModel(data:XML){
@@ -19,6 +20,7 @@ package com.model
 			}
 			_groupName = data.@groupName;
 			_thumbNail = data.@thumbNail;
+			_categorySound = data.@categorySound;
 			_type = data.@type;
 			_backGround = data.@backGround;
 			if(XMLList(data.menu).length()>0){
@@ -31,6 +33,10 @@ package com.model
 		public function get sound():String
 		{
 			return _sound;
+		}
+		public function get categorySound():String
+		{
+			return _categorySound;
 		}
 		
 		public function get backGround():String

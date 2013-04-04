@@ -8,6 +8,7 @@ package com.controller
 	import com.view.PlayRoom;
 	import com.view.WhereIsScene;
 	import com.view.WhereIsScreen;
+	import com.view.menu.ConfigurationScreen;
 	
 	import starling.display.Sprite;
 
@@ -32,8 +33,14 @@ package com.controller
 		}
 		
 		public function goTo(screenIndex:int):void{
-			removeScreen(_currentScreen);
-			_currentScreen = addScreen(_screens.getScreen(screenIndex));
+			if(screenIndex==-1){
+				var configScr:ConfigurationScreen = new ConfigurationScreen(_screens);
+				_app.addChild(configScr);
+				configScr.goHome.add(function():void{_app.removeChild(configScr)});
+			}else{
+				removeScreen(_currentScreen);
+				_currentScreen = addScreen(_screens.getScreen(screenIndex));
+			}
 		}
 		
 		public function goHome():void{
@@ -49,7 +56,11 @@ package com.controller
 			screen.done.remove(goNext);
 			screen.goHome.remove(goHome);
 			screen.destroy();
-			_app.removeChild(screen);
+			if(screen == _playRoom){
+				_playRoom.visible = false;			
+			}else{
+				_app.removeChild(screen);
+			}
 		}
 		
 		private function addScreen(model:ScreenModel):AbstractScreen{
@@ -65,6 +76,7 @@ package com.controller
 					if(!_playRoom){
 						_playRoom = new PlayRoom();
 					}
+					_playRoom.visible = true;
 					screen = _playRoom;
 					break;
 			}
@@ -72,6 +84,9 @@ package com.controller
 			screen.goHome.add(goHome);
 			screen.model = model;
 			_app.addChild(screen);
+			if(screen == _playRoom){
+				_playRoom.visible = true;
+			}
 			return screen;
 		}
 		

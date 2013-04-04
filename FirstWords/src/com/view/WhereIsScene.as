@@ -20,6 +20,8 @@ package com.view
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
+	import starling.filters.BlurFilter;
+	import starling.filters.ColorMatrixFilter;
 	import starling.textures.Texture;
 
 	public class WhereIsScene extends AbstractScreen
@@ -34,11 +36,30 @@ package com.view
 		private var _x:uint;
 		private var _y:uint;
 		
+		[Embed(source="../../assets/whereBird.png")]
+		private var wBird : 			Class;
+		[Embed(source="../../assets/whereBird_note.png")]
+		private var wBirdNote : 			Class;
+		private var _wBirdNote:Button;
 		override public function set model(screenModel:ScreenModel):void{
 			var bg:Image = new Image(Texture.fromBitmap(Assets.getImage(screenModel.backGround)));
 			_screenLayer.addChild(bg);
 			bg.width = Dimentions.WIDTH;
 			bg.height = Dimentions.HEIGHT;
+			
+			var whereBird:Button = new Button(Texture.fromBitmap(new wBird()));
+			addChild(whereBird);
+			_wBirdNote = new Button(Texture.fromBitmap(new wBirdNote()));
+			addChild(_wBirdNote);
+			_wBirdNote.visible = false;
+			whereBird.x = Dimentions.WIDTH - whereBird.width//-2;
+			_wBirdNote.x = Dimentions.WIDTH - _wBirdNote.width//-2;
+			whereBird.addEventListener(starling.events.Event.TRIGGERED,function():void{
+				if(_enabled){
+					playWhoIsSound();
+				}
+			});
+			
 			super.model = screenModel;
 			for(var i:uint=0;i<_model.numItems;i++){
 				addItem(_model.distractor);
@@ -64,6 +85,8 @@ package com.view
 					
 				}
 			});
+			
+			
 		}
 		
 		override protected function setItems():Boolean{
@@ -92,8 +115,7 @@ package com.view
 				wiBtn.x = rect.x;
 				wiBtn.y = rect.y;
 				_screenLayer.addChild(wiBtn);
-				var chanel:SoundChannel = _questionSound.play();
-				chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
+				playWhoIsSound();
 				wiBtn.addEventListener(starling.events.Event.TRIGGERED,function onGood():void{
 					if(onGoodClick()){
 						wiBtn.removeEventListener(starling.events.Event.TRIGGERED, onGood);
@@ -103,6 +125,18 @@ package com.view
 				wiBtn.alpha=0;
 				_whereIsBtns.push(wiBtn);
 			}
+		}
+		
+		private function playWhoIsSound():void{
+			var chanel:SoundChannel = _questionSound.play();
+			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
+			_wBirdNote.visible=true;
+			_enabled = false;
+		}
+		
+		override protected function onWhereSoundDone(e:flash.events.Event):void{
+			_wBirdNote.visible=false;
+			super.onWhereSoundDone(e);
 		}
 		
 		private function  onDistractorTouch(imageItem:ImageItem):void{

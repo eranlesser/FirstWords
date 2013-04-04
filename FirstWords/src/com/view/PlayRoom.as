@@ -90,7 +90,7 @@ package com.view
 		private var _sound:Sound;
 		public function PlayRoom()
 		{
-			_sound = new Sound(new URLRequest("../assets/sounds/playroom.mp3"));
+			_sound = new Sound(new URLRequest("../assets/sounds/playRoom.mp3"));
 			
 		}
 		

@@ -13,6 +13,7 @@ package com.view
 	
 	import org.osflash.signals.Signal;
 	
+	import starling.animation.IAnimatable;
 	import starling.core.Starling;
 	import starling.display.Button;
 	import starling.display.Sprite;
@@ -23,6 +24,7 @@ package com.view
 	{
 		
 		protected var _questionSound:		Sound;
+		protected var _categorySound:		Sound;
 		public var goHome:Signal = new Signal();
 		public var done:Signal = new Signal();
 		[Embed(source="../../assets/home/homeBtn.png")]
@@ -68,7 +70,9 @@ package com.view
 				_questionSound = new Sound(new URLRequest("../assets/sounds/where.mp3"));
 			}else if(_model.sound == "who"){
 				_questionSound = new Sound(new URLRequest("../assets/sounds/who.mp3"));
-				
+			}
+			if(_model.categorySound!=""){
+				_categorySound = new Sound(new URLRequest("../assets/sounds/"+_model.categorySound));
 			}
 		}
 		
@@ -98,8 +102,9 @@ package com.view
 			_particlesEffect.start("drug");
 			
 		}
+		private var _setItemsDelayer:IAnimatable;
 		protected function goodSoundComplete(e:flash.events.Event):void{
-			Starling.juggler.delayCall(setItems,2);
+			_setItemsDelayer = Starling.juggler.delayCall(setItems,2);
 			SoundChannel(e.target).removeEventListener(flash.events.Event.SOUND_COMPLETE, goodSoundComplete);
 		}
 		
@@ -130,16 +135,21 @@ package com.view
 		protected function onWhereIsPlayed(e:flash.events.Event):void{
 			var sound:Sound = new Sound(new URLRequest("../assets/sounds/"+_whoIs.sound));
 			var chanel:SoundChannel = sound.play(); 
-			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,function onSoundDone():void{
-				_enabled = true
-				chanel.removeEventListener(flash.events.Event.SOUND_COMPLETE,onSoundDone);
-			});
+			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereSoundDone);
+		}
+		
+		protected function onWhereSoundDone(e:flash.events.Event):void{
+			var chanel:SoundChannel= e.target as SoundChannel;
+			_enabled = true
+			chanel.removeEventListener(flash.events.Event.SOUND_COMPLETE,onWhereSoundDone);
+			
 		}
 		
 		public function destroy():void{
 			removeEventListeners();
 			removeChildren();
 			_model.reset();
+			Starling.juggler.remove(_setItemsDelayer);
 		}
 	}
 }

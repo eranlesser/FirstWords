@@ -2,6 +2,7 @@ package
 {
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
+	import flash.display.StageDisplayState;
 	import flash.display.StageOrientation;
 	import flash.display.StageScaleMode;
 	import flash.events.StageOrientationEvent;
@@ -14,23 +15,25 @@ package
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	
-
+	
 	[SWF(width="1024", height="768", frameRate="60", backgroundColor="#F2D399")]
-	public class FirstWords extends Sprite
+	public class hworld extends Sprite
 	{
 		
 		
 		private var _starling:Starling;
-		public function FirstWords()
+		public function hworld()
 		{
 			super();
 			//var obj:DisplayObject =addChild(new Stats());
 			//obj.y=80
 			// support autoOrients
-			stage.align = StageAlign.TOP_LEFT;
-			stage.scaleMode = StageScaleMode.NO_SCALE;
 			_starling = new Starling(FirstWordsApp,stage);
 			_starling.start();
+			Starling.current.nativeStage.align = StageAlign.TOP_LEFT;
+			Starling.current.nativeStage.scaleMode = StageScaleMode.NO_SCALE;
+			//stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+			Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 			// Gestouch initialization step 1 of 3:
 			
 			// Initialize native (default) input adapter. Needed for non-DisplayList usage.
@@ -53,12 +56,12 @@ package
 			// we give it lower priority in the sense of interactivity.
 			
 			Gestouch.addTouchHitTester(new StarlingTouchHitTester(_starling), -1);
+			stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGING, orientationChange);
 			
 			// NB! Use Gestouch#removeTouchHitTester() method if you manage multiple Starling instances during
 			// your application lifetime.
-			stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGING, orientationChange);
-			
 		}
+		
 		private function orientationChange(e:StageOrientationEvent):void{
 			//onOrientationChanged(e.afterOrientation);
 			if (e.afterOrientation != StageOrientation.ROTATED_LEFT && e.afterOrientation != StageOrientation.ROTATED_RIGHT)
@@ -67,4 +70,6 @@ package
 			}
 		}
 	}
+	
+	
 }

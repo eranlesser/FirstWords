@@ -1,7 +1,11 @@
 package com.view.components
 {
+	import com.view.playRoom.Book;
+	
 	import flash.media.Sound;
 	import flash.net.URLRequest;
+	
+	import org.osflash.signals.Signal;
 	
 	import starling.animation.DelayedCall;
 	import starling.core.Starling;
@@ -25,18 +29,21 @@ package com.view.components
 		[Embed(source="../../../assets/tweets/birds4.png")]
 		private var birds4 : Class;
 		private var _lastNoteImage:Image;
+		public var clicked:Signal = new Signal();
 		public function Tweet(bg:String,tweets:XML)
 		{
 			addChild(new Image(Texture.fromBitmap(new birds())));
 			addEventListener(TouchEvent.TOUCH,onTouch);
 		}
 		
-		public function play():void{
+		public function play(tweet:Boolean=true):void{
 			var call:DelayedCall = Starling.juggler.delayCall(addNote,0.2);
 			call.repeatCount=12;
 			Starling.juggler.delayCall(removeNote,0.2*13);
-			var sound:Sound = new Sound(new URLRequest("../../assets/sounds/birds1.mp3"))
-			sound.play();
+			if(tweet){
+				var sound:Sound = new Sound(new URLRequest("../../assets/sounds/birds1.mp3"))
+				sound.play();
+			}
 		}
 		
 		public function tweet():void{
@@ -79,7 +86,7 @@ package com.view.components
 		
 		private function onTouch(t:TouchEvent):void{
 			if(t.getTouch(stage)&&(t.getTouch(stage).phase == TouchPhase.BEGAN)){
-				play();
+				clicked.dispatch();
 			}
 		}
 	}
