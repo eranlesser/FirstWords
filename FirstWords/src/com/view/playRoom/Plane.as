@@ -61,7 +61,7 @@ package com.view.playRoom
 				//_material.removeEventListener(TouchEvent.TOUCH,onTouch);
 				if(!_climbing){
 					_climbing = true;
-					_body.gravMass = 0.5;
+					_body.gravMass = -0.5;
 					if(_isBackWards){
 						_body.velocity=(new Vec2(800,-333));
 						_particlesEffect.x=44;

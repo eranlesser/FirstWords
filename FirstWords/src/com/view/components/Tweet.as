@@ -79,6 +79,8 @@ package com.view.components
 			if(_lastNoteImage==img){
 				return getRandomImage();				
 			}
+			img.scaleX=-1;
+			img.x=img.width;
 			_lastNoteImage = img;
 			trace("add",img,rand)
 			return img;

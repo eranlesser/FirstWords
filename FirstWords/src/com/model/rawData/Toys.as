@@ -9,7 +9,6 @@ package com.model.rawData
 				<item image="cubes" sound="toys/cubes.mp3" groupId="cubes"/>
 				<item image="train" sound="toys/train.mp3" groupId="train" />
 				<item image="trolly" sound="toys/cart.mp3" groupId="trolly" />
-				<item image="doll" sound="toys/truck.mp3" groupId="doll" />
 				
 			</data>
 		
@@ -20,6 +19,7 @@ package com.model.rawData
 }
 
 /*<item image="bucket" sound="toys/baloon.mp3" groupId="bucket"/>
+<item image="doll" sound="toys/truck.mp3" groupId="doll" />
 <item image="pencils" sound="toys/car.mp3" groupId="pencils" />
 <item image="guitar" sound="toys/book.mp3" groupId="guitar"/>
 	<item image="cart2" sound="toys/cart.mp3" groupId="carts"/>
@@ -30,6 +30,8 @@ package com.model.rawData
 		
 		<item image="train1" sound="toys/train.mp3" groupId="trians"/>
 		
+
+
 
 /*
 <item image="train2" sound="toys/train.mp3" groupId="trians"/>

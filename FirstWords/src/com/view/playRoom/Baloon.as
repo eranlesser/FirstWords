@@ -36,7 +36,7 @@ package com.view.playRoom
 		private var turkuizeBln : Class;
 		[Embed(source="../../../assets/balloons/yellowBln.png")]
 		private var yellowBln : Class;
-		
+		private var _popAble:Boolean=false;
 		private var _sound:Sound;
 		public function Baloon(space:Space, cbType:CbType, xx:int, yy:int)
 		{
@@ -78,15 +78,22 @@ package com.view.playRoom
 				
 			}
 			_material.addChild( Image.fromBitmap( btnmp ) ) as Sprite;
-			_material.addEventListener(TouchEvent.TOUCH,onTouch);
 			_sound = new Sound(new URLRequest("../../../assets/sounds/playroom/pop.mp3"));
 			var cnl:SoundChannel = _sound.play();
 			cnl.stop();
-			
+			Starling.juggler.delayCall(function():void{
+			_material.addEventListener(TouchEvent.TOUCH,onTouch);
+			_popAble=true;
+			},2);
 			//_material.pivotX = _material.width >> 1;
 			//_material.pivotY = _material.height >> 1;
 		}
+		
+		
 		public function pop():void{
+			if(!_popAble ){
+				return;
+			}
 			var _particlesEffect:ParticlesEffect;
 			_particlesEffect = new ParticlesEffect();
 			_particlesEffect.width=_material.width/10;

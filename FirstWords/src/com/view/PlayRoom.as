@@ -57,6 +57,8 @@ package com.view
 		
 		[Embed(source="../../assets/playroom/bg.png")]
 		private var Background:Class;
+		[Embed(source="../../assets/playroom/broom.png")]
+		private var broom:Class;
 		[Embed(source="../../assets/playroom/play_room_bed.png")]
 		private var bed:Class;
 		[Embed(source="../../assets/playroom/play_room_box.png")]
@@ -120,13 +122,15 @@ package com.view
 		
 		private function init() : void
 		{
-			_delayer = Starling.juggler.delayCall(finish,22);
+			_delayer = Starling.juggler.delayCall(finish,32);
 			_delayer.repeatCount = 1;
 			_sound.play();
-			if(_menu){
-				_menu.visible = true;
-				return; // inited
-			}
+			var broomBut:Button = new Button(Texture.fromBitmap(new broom()));
+			broomBut.addEventListener(Event.TRIGGERED,clean);
+			addChild(broomBut);
+			broomBut.x=Dimentions.WIDTH-broomBut.width-8;
+			broomBut.y=4;
+			broomBut.scaleY=0.75;
 			_nativeStage = Starling.current.nativeStage;
 			
 			addBackground();
@@ -172,9 +176,9 @@ package com.view
 					var baloon:Baloon = new Baloon(_space,_baloonCollisionType,x,y);
 					_room.addChild(baloon.material);
 					baloon.material.addEventListener(TouchEvent.TOUCH,function onTouch(e:TouchEvent):void{
-						if(baloon.material.stage == null){
+						//if(baloon.material.stage == null){
 							_hand.active = false;
-						}
+						//}
 					});
 					_balloons.push(baloon);
 					break;
@@ -202,6 +206,21 @@ package com.view
 			}
 			
 			//_menu.visible = false;
+		}
+		
+		
+		private function clean(e:Event):void{
+			var lngt:uint = _space.bodies.length;
+			if (lngt>0) {
+				for (var i:int = 0; i < lngt; i++) {
+					// getting the body
+					var body:Body=_space.bodies.at(0);
+					_space.bodies.remove(body);
+				}
+			}
+			_room.removeChildren(1);
+			createFloor();
+			_menu.reset();
 		}
 		
 		private function ballToCube(collision:InteractionCallback):void {

@@ -63,18 +63,18 @@ package com.view.playRoom
 					_climbing = true;
 					if(_isBackWards){
 						_body.velocity=(new Vec2(1444,0));
-						_particlesEffect.x=_material.width-44;
-						_particlesEffect.rotation=-45;
+						_particlesEffect.x=_material.width-28;
+						//_particlesEffect.rotation=-45;
 					}else{
 						_body.velocity=(new Vec2(-1444,0));
-						_particlesEffect.x=44;
-						_particlesEffect.rotation=45;
+						_particlesEffect.x=28;
+						//_particlesEffect.rotation=45;
 					}
 					
 					_particlesEffect.y=5;
 					
 					_material.addChild(_particlesEffect);
-					_particlesEffect.start("baloon");
+					_particlesEffect.start("train");
 					_sound.play();
 					var ref:IAnimatable = Starling.juggler.delayCall(function removeParticles():void{
 						_body.gravMassMode = GravMassMode.DEFAULT;

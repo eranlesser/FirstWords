@@ -47,7 +47,7 @@ package com.view
 			_screenLayer.addChild(tweetsText);
 			//_screenLayer.addChild(btrflies);
 			var whereBird:Button = new Button(Texture.fromBitmap(new wBird()));
-			_screenLayer.addChild(whereBird);
+			//_screenLayer.addChild(whereBird);
 			whereBird.x=850;
 			whereBird.y=500;
 			whereBird.addEventListener(Event.TRIGGERED,openMenu);

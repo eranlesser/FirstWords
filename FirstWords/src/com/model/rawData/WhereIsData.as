@@ -6,15 +6,15 @@ package com.model.rawData
 	<whereIs>
 		<screens>
 			
-			{OutDoors1.data}
-			{Clothes.data}
 			{Toys.data}
 			{PlayRoomData.data}
+			{OutDoors1.data}
 			{OutDoors2.data}
 			{PlayRoomData.data}
 			{BodyPartsScene2.data}
 			{BodyPartsScene1.data}
 			{PlayRoomData.data}
+
 			
 		</screens>
 	</whereIs>
@@ -26,6 +26,7 @@ package com.model.rawData
 }
 
 /*
+{Clothes.data}
 {ToyScene.data}
 {AnimalsScene.data}
 {Fruits.data}

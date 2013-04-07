@@ -18,6 +18,10 @@ package com.view.components
 		private static const JellyfishConfig:Class;
 		[Embed(source="../../../assets/media/baloon.pex", mimeType="application/octet-stream")]
 		private static const balloonConfig:Class;
+		[Embed(source="../../../assets/media/train/particle.pex", mimeType="application/octet-stream")]
+		private static const trainConfig:Class;
+		[Embed(source="../../../assets/media/touchstar/particle.pex", mimeType="application/octet-stream")]
+		private static const touchStarConfig:Class;
 		[Embed(source = "../../../assets/media/stars/stars.png")]
 		private static const DrugsParticle:Class;
 		[Embed(source = "../../../assets/media/fire_particle.png")]
@@ -28,6 +32,10 @@ package com.view.components
 		private static const JellyfishParticle:Class;
 		[Embed(source = "../../../assets/media/baloon.png")]
 		private static const baloonAsset:Class;
+		[Embed(source = "../../../assets/media/train/texture.png")]
+		private static const trainAsset:Class;
+		[Embed(source = "../../../assets/media/touchstar/texture.png")]
+		private static const touchstarAsset:Class;
 		
 		private var _mParticleSystem:ParticleSystem;
 		public function ParticlesEffect()
@@ -65,6 +73,17 @@ package com.view.components
 					var balloonXml:XML = XML(new balloonConfig());
 					var balloonTexture:Texture = Texture.fromBitmap(new baloonAsset());
 					_mParticleSystem = new PDParticleSystem(balloonXml, balloonTexture);
+					alpha=0.8;
+					break;
+				case "train":
+					var trainXml:XML = XML(new trainConfig());
+					var trainTexture:Texture = Texture.fromBitmap(new trainAsset());
+					_mParticleSystem = new PDParticleSystem(trainXml, trainTexture);
+					break;
+				case "touchstar":
+					var touchstarXml:XML = XML(new touchStarConfig());
+					var touchstarTexture:Texture = Texture.fromBitmap(new touchstarAsset());
+					_mParticleSystem = new PDParticleSystem(touchstarXml, touchstarTexture);
 					alpha=0.8;
 					break;
 			}

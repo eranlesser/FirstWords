@@ -5,6 +5,7 @@ package com.view
 	import com.model.Item;
 	import com.model.ScreenModel;
 	import com.view.components.ImageItem;
+	import com.view.components.ParticlesEffect;
 	
 	import flash.display.BitmapData;
 	import flash.display.Shape;
@@ -14,6 +15,7 @@ package com.view
 	import flash.media.SoundChannel;
 	import flash.net.URLRequest;
 	
+	import starling.core.Starling;
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.events.Event;
@@ -65,9 +67,18 @@ package com.view
 				addItem(_model.distractor);
 			}
 			setItems();
-			bg.addEventListener(TouchEvent.TOUCH,function onMouseDown(e:TouchEvent):void{
+			this.addEventListener(TouchEvent.TOUCH,function onMouseDown(e:TouchEvent):void{
 				var touch:Touch = e.getTouch(stage);
+				var touchEffect:ParticlesEffect = new ParticlesEffect();
 				if(touch && (touch.phase == TouchPhase.BEGAN)){
+					addChild(touchEffect);
+					touchEffect.x=touch.globalX;
+					touchEffect.y=touch.globalY;
+					touchEffect.start("touchstar");
+					Starling.juggler.delayCall(function():void{
+						touchEffect.stop();
+						removeChild(touchEffect);
+					},2);
 					_clics++;
 					trace(_clics)
 					if(_clics==1){

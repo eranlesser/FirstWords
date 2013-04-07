@@ -131,7 +131,7 @@ package com.view
 		private function playWhoIsSound():void{
 			var chanel:SoundChannel = _questionSound.play();
 			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
-			_birds.play(false);
+			_birds.tweet();
 		}
 		
 		

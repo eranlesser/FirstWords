@@ -7,7 +7,7 @@ package com.model.rawData
 		<item image="cart2" sound="toys/cart.mp3" groupId="carts"/>
 		<item image="cubes1" sound="toys/cubes.mp3" groupId="cubes"/>
 		
-		<item image="doll1" sound="toys/doll.mp3" groupId="dolls"/>
+		
 		<item image="ted1" sound="toys/ted.mp3" groupId="teds"/>
 		
 		<item image="train1" sound="toys/train.mp3" groupId="trians"/>
@@ -26,7 +26,7 @@ package com.model.rawData
 		
 		<item image="doll1" sound="toys/doll.mp3" groupId="dolls"/>
 		<item image="ted1" sound="toys/ted.mp3" groupId="teds"/>
-		
+<item image="doll1" sound="toys/doll.mp3" groupId="dolls"/>
 		<item image="train1" sound="toys/train.mp3" groupId="trians"/>
 		
 

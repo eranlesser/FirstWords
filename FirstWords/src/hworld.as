@@ -31,9 +31,9 @@ package
 			_starling = new Starling(FirstWordsApp,stage);
 			_starling.start();
 			Starling.current.nativeStage.align = StageAlign.TOP_LEFT;
-			Starling.current.nativeStage.scaleMode = StageScaleMode.NO_SCALE;
+			//Starling.current.nativeStage.scaleMode = StageScaleMode.NO_SCALE;
 			//stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
-			Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+			//Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 			// Gestouch initialization step 1 of 3:
 			
 			// Initialize native (default) input adapter. Needed for non-DisplayList usage.

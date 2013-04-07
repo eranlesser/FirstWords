@@ -2,6 +2,7 @@ package com.view.playRoom
 {
 	import com.Assets;
 	import com.Dimentions;
+	import com.model.Item;
 	import com.model.ScreenModel;
 	
 	import flash.display.Bitmap;
@@ -19,7 +20,10 @@ package com.view.playRoom
 	{
 		private var _items:Vector.<MenuItem>;
 		private var _atlas:TextureAtlas;
+		
 		public var itemDropped:Signal = new Signal();
+		
+		
 		public static const HEIGHT:int = 90;
 		public function Menu()
 		{
@@ -49,7 +53,7 @@ package com.view.playRoom
 		private function addMenuItem(item:XML):void{
 			var menuItem:MenuItem = new MenuItem(_atlas.getTexture(item.@image),item.@image,item.@recycled=="true");
 			addChild(menuItem);
-			menuItem.x = _items.length * (Menu.HEIGHT+22)+4;
+			menuItem.x = _items.length * (Menu.HEIGHT+30)+50;
 			menuItem.y = menuItem.y + Dimentions.HEIGHT - HEIGHT - 2;
 			_items.push(menuItem);
 			menuItem.dropped.add(dropped);
@@ -61,8 +65,10 @@ package com.view.playRoom
 			}
 			itemDropped.dispatch(x,y,item.id);
 			if(item.recycled){
+				
 			}else{
-				item.removeFromParent(true);
+				//item.dropped.remove(dropped);
+				item.removeFromParent();
 			}
 		}
 		
@@ -71,6 +77,16 @@ package com.view.playRoom
 			var bg:Bitmap = new Bitmap(btmpData);
 			var img:DisplayObject = addChild(new Image(Texture.fromBitmap(bg)));
 			img.y=Dimentions.HEIGHT - HEIGHT - 2;
+		}
+		
+		public function reset():void{
+			for each(var menuItem:MenuItem in _items){
+				if(menuItem.parent!=this){
+					addChild(menuItem);
+					menuItem.resetPosition();
+					menuItem.dropped.add(dropped);
+				}
+			}
 		}
 	}
 }
