@@ -78,7 +78,7 @@ package com.view
 					Starling.juggler.delayCall(function():void{
 						touchEffect.stop();
 						removeChild(touchEffect);
-					},2);
+					},1);
 					_clics++;
 					trace(_clics)
 					if(_clics==1){
@@ -126,7 +126,9 @@ package com.view
 				wiBtn.x = rect.x;
 				wiBtn.y = rect.y;
 				_screenLayer.addChild(wiBtn);
-				playWhoIsSound();
+				if(!_categorySoundPlaying){//wait for categorySound
+					playWhoIsSound();
+				}
 				wiBtn.addEventListener(starling.events.Event.TRIGGERED,function onGood():void{
 					if(onGoodClick()){
 						wiBtn.removeEventListener(starling.events.Event.TRIGGERED, onGood);
@@ -138,7 +140,7 @@ package com.view
 			}
 		}
 		
-		private function playWhoIsSound():void{
+		override protected function playWhoIsSound():void{
 			var chanel:SoundChannel = _questionSound.play();
 			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
 			_wBirdNote.visible=true;

@@ -14,12 +14,6 @@ package com
 		[Embed(source="assets/toys1.png")]
 		public static const toys1:Class;
 		
-		[Embed(source="assets/fruits.xml", mimeType="application/octet-stream")]
-		public static const fruits_xml:Class;
-		
-		[Embed(source="assets/fruits.jpg")]
-		public static const fruits:Class;
-		
 		[Embed(source="assets/animals.xml", mimeType="application/octet-stream")]
 		public static const animals_xml:Class;
 		[Embed(source="assets/animals.jpg")]
@@ -29,6 +23,16 @@ package com
 		public static const clothes_xml:Class;
 		[Embed(source="assets/clothes/atlas.png")]
 		public static const clothes:Class;
+
+		[Embed(source="assets/fruitsAndVeg/atlas.xml", mimeType="application/octet-stream")]
+		public static const fruitsAndVeg_xml:Class;
+		[Embed(source="assets/fruitsAndVeg/atlas.png")]
+		public static const fruitsAndVeg:Class;
+
+		[Embed(source="assets/music/atlas.xml", mimeType="application/octet-stream")]
+		public static const music_xml:Class;
+		[Embed(source="assets/music/atlas.png")]
+		public static const music:Class;
 		
 		[Embed(source="assets/playroom/atlas.xml", mimeType="application/octet-stream")]
 		public static const playRoom_xml:Class;
@@ -69,11 +73,12 @@ package com
 		
 		
 		private static var _toysAtlas:TextureAtlas;
-		private static var _fruitsAtlas:TextureAtlas;
 		private static var _animalsAtlas:TextureAtlas;
 		private static var _playRoomAtlas:TextureAtlas;
 		private static var _bodyPartsAtlas:TextureAtlas;
 		private static var _clothesAtlas:TextureAtlas;
+		private static var _fruitsAndVeg:TextureAtlas;
+		private static var _musicAtlas:TextureAtlas;
 		private static var _assets:Vector.<Asset>;
 		public static function getAtlas(groupName:String):TextureAtlas{
 			var atlas:TextureAtlas;
@@ -85,13 +90,6 @@ package com
 						_toysAtlas = new TextureAtlas(texture,new XML(new Assets.toys1_xml()) as XML);
 					}
 					atlas = _toysAtlas;
-					break;
-				case "fruits":
-					if(_fruitsAtlas == null){
-						texture =  Texture.fromBitmap(new Assets.fruits());
-						_fruitsAtlas = new TextureAtlas(texture,new XML(new Assets.fruits_xml()) as XML);
-					}
-					atlas = _fruitsAtlas;
 					break;
 				case "animals":
 					if(_animalsAtlas == null){
@@ -120,6 +118,20 @@ package com
 						_clothesAtlas = new TextureAtlas(texture,new XML(new clothes_xml()) as XML);
 					}
 					atlas = _clothesAtlas;
+					break;
+				case "fruitsAndVeg":
+					if(_fruitsAndVeg == null){
+						texture =  Texture.fromBitmap(new fruitsAndVeg());
+						_fruitsAndVeg = new TextureAtlas(texture,new XML(new fruitsAndVeg_xml()) as XML);
+					}
+					atlas = _fruitsAndVeg;
+					break;
+				case "music":
+					if(_musicAtlas == null){
+						texture =  Texture.fromBitmap(new music());
+						_musicAtlas = new TextureAtlas(texture,new XML(new music_xml()) as XML);
+					}
+					atlas = _musicAtlas;
 					break;
 			}
 			

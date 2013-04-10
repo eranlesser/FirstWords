@@ -1,5 +1,7 @@
 package com.view.menu
 {
+	import assets.texts.heb.AboutText;
+	
 	import com.Assets;
 	import com.model.ScreenModel;
 	import com.model.ScreensModel;
@@ -20,6 +22,8 @@ package com.view.menu
 		
 		[Embed(source="../../../assets/menu/bg.png")]
 		private var bg : 			Class;
+		[Embed(source="../../../assets/menu/ogm.png")]
+		private var ogm : 			Class;
 		[Embed(source="../../../assets/menu/screens.png")]
 		private var screens : 			Class;
 		[Embed(source="../../../assets/menu/about.png")]
@@ -39,15 +43,17 @@ package com.view.menu
 		
 		public function ConfigurationScreen(screensModel:ScreensModel)
 		{
-			init();
-			initMenu(screensModel);
+			//init();
+			//initMenu(screensModel);
 			_displayLayer = new Sprite();
 			addChild(_displayLayer);
-			setState("nav");
+			addChild(new Image(Texture.fromBitmap(new bg())));
+			init();
+			//setState("nav");
 		}
 		
 		private function init():void{
-			addChild(new Image(Texture.fromBitmap(new bg())));
+			//addChild(new Image(Texture.fromBitmap(new bg())));
 			var homeBut:Button = new Button( Texture.fromBitmap(new homeBt()) );
 			addChild(homeBut);
 			homeBut.x=4;
@@ -56,6 +62,20 @@ package com.view.menu
 				goHome.dispatch()
 			});
 			
+			var tField:TextField = new TextField(900,600,AboutText.xml.toString(),"Verdena",19,0X03588C);
+			var title:TextField = new TextField(900,80,AboutText.title,"Verdena",34,0X415A79);
+			//tField.color = 0xFFFFFF;
+			addChild(tField);
+			addChild(title);
+			tField.x=20;
+			tField.y=200;
+			
+			title.x=20;
+			title.y=120;
+			
+			tField.hAlign = "right";
+			title.hAlign = "right";
+			//return;
 			var navButton:Button = new Button( Texture.fromBitmap(new screens()) );
 			var aboutButton:Button = new Button( Texture.fromBitmap(new about()));
 			var shareButton:Button = new Button( Texture.fromBitmap(new share()) );
@@ -64,36 +84,31 @@ package com.view.menu
 			navButton.addEventListener(Event.TRIGGERED,function():void{setState("nav")});
 			addChild(aboutButton);
 			aboutButton.addEventListener(Event.TRIGGERED,function():void{setState("about")});
-			addChild(shareButton);
+			//addChild(shareButton);
 			shareButton.addEventListener(Event.TRIGGERED,function():void{setState("share")});
-			navButton.x=200;
-			navButton.y=8;
-			aboutButton.x=450;
-			aboutButton.y=8;
+			navButton.x=650;
+			navButton.y=18;
+			aboutButton.x=800;
+			aboutButton.y=18;
 			shareButton.x=700;
-			shareButton.y=8;
+			shareButton.y=18;
 			
-			_navText = new TextField(navButton.width,40,"תוכן","Verdana",24);
+			_navText = new TextField(navButton.width,40,"תפריט","Verdana",19,0x003B94);
 			_navText.hAlign = "center";
 			addChild(_navText);
 			_navText.touchable=false;
 			_navText.x = navButton.x;
-			_navText.y=navButton.y + navButton.height - 60;
-			_aboutText = new TextField(aboutButton.width,40,"מידע כללי","Verdana",24);
+			_navText.y=navButton.y + navButton.height - 42;
+			_aboutText = new TextField(aboutButton.width,40,"מידע כללי","Verdana",19,0x002661);
 			_aboutText.hAlign = "center";
 			addChild(_aboutText);
 			_aboutText.touchable = false;
 			_aboutText.x = aboutButton.x;
-			_aboutText.y=aboutButton.y + aboutButton.height - 60;
-			_shareText = new TextField(shareButton.width,40,"שתף","Verdana",24);
-			_shareText.hAlign = "center";
-			addChild(_shareText);
-			_shareText.x = shareButton.x;
-			_shareText.y=shareButton.y + shareButton.height - 60;
-			_shareText.touchable=false;
+			_aboutText.y=_navText.y;
 		}
 		
 		private function setState(stt:String):void{
+			return;
 			_displayLayer.removeChildren();
 			_navText.color = 0x111111;
 			_aboutText.color = 0x111111;

@@ -5,15 +5,17 @@ package com.model.rawData
 		public static var data:XML = 
 	<whereIs>
 		<screens>
-			
 			{Toys.data}
-			{PlayRoomData.data}
 			{OutDoors1.data}
 			{OutDoors2.data}
+			{Music.data}
+			{FruitsAndVegies.data}
+			{PlayRoomData.data}
 			{PlayRoomData.data}
 			{BodyPartsScene2.data}
 			{BodyPartsScene1.data}
 			{PlayRoomData.data}
+			{Clothes.data}
 
 			
 		</screens>
@@ -26,7 +28,6 @@ package com.model.rawData
 }
 
 /*
-{Clothes.data}
 {ToyScene.data}
 {AnimalsScene.data}
 {Fruits.data}

@@ -39,7 +39,13 @@ package com.view
 			_screenLayer.addChild(_clouds);
 			_birds = new Tweet(null,null);
 			_screenLayer.addChild(_birds);
-			_birds.clicked.add(playWhoIsSound);
+			_birds.clicked.add(
+				function():void{
+					if(_enabled){
+						playWhoIsSound();
+					}
+				}
+			);
 			_birds.y=8;
 			_birds.x = Dimentions.WIDTH+12;
 			_birds.scaleX=-1;
@@ -68,6 +74,7 @@ package com.view
 		private function onGoodItemClick(img:ImageItem):Boolean{
 			if(super.onGoodClick()){
 				_birds.tweet();
+				img.onGoodClick();
 			}
 			return true;
 		}
@@ -125,10 +132,12 @@ package com.view
 			images.push(img);
 			_layout.layout(images);
 			img.touched.add(onGoodItemClick);
-			playWhoIsSound();
+			if(!_categorySoundPlaying){//wait for categorySound
+				playWhoIsSound();
+			}
 		}
 		
-		private function playWhoIsSound():void{
+		override protected function playWhoIsSound():void{
 			var chanel:SoundChannel = _questionSound.play();
 			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
 			_birds.tweet();

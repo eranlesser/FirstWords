@@ -125,33 +125,35 @@ package com.view
 			_delayer = Starling.juggler.delayCall(finish,32);
 			_delayer.repeatCount = 1;
 			_sound.play();
-			var broomBut:Button = new Button(Texture.fromBitmap(new broom()));
-			broomBut.addEventListener(Event.TRIGGERED,clean);
-			addChild(broomBut);
-			broomBut.x=Dimentions.WIDTH-broomBut.width-8;
-			broomBut.y=4;
-			broomBut.scaleY=0.75;
-			_nativeStage = Starling.current.nativeStage;
-			
-			addBackground();
-			createSpace();
-			createHand();
-			listenForMouseDown();
-			listenForMouseUp();
-			listenForEnterFrame();
-			useAccelerometer();
-			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_floorCollisionType,_cubeCollisionType,ballToCube));
-			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_ballCollisionType,_cubeCollisionType,ballToFloor));
-			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_ballCollisionType,_floorCollisionType,ballToFloor));
-			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_baloonCollisionType,_baloonPopCollisionType,baloonPop));
-			_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_baloonPopCollisionType,_ballCollisionType,ballToFloor));
-			
-			_menu = new Menu();
-			_screenLayer.addChild(_menu);
-			_menu.x = (Dimentions.WIDTH - _menu.width)/2;
-			_menu.itemDropped.add(onMenuItemDropped);
-			
-			createFloor();
+			if(!_menu){
+				var broomBut:Button = new Button(Texture.fromBitmap(new broom()));
+				broomBut.addEventListener(Event.TRIGGERED,clean);
+				addChild(broomBut);
+				broomBut.x=Dimentions.WIDTH-broomBut.width-8;
+				broomBut.y=4;
+				broomBut.scaleY=0.75;
+				_nativeStage = Starling.current.nativeStage;
+				
+				addBackground();
+				createSpace();
+				createHand();
+				listenForMouseDown();
+				listenForMouseUp();
+				listenForEnterFrame();
+				useAccelerometer();
+				_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_floorCollisionType,_cubeCollisionType,ballToCube));
+				_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_ballCollisionType,_cubeCollisionType,ballToFloor));
+				_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_ballCollisionType,_floorCollisionType,ballToFloor));
+				_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_baloonCollisionType,_baloonPopCollisionType,baloonPop));
+				_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_baloonPopCollisionType,_ballCollisionType,ballToFloor));
+				
+				_menu = new Menu();
+				_screenLayer.addChild(_menu);
+				_menu.x = (Dimentions.WIDTH - _menu.width)/2;
+				_menu.itemDropped.add(onMenuItemDropped);
+				
+				createFloor();
+			}
 			//tmr.start();
 		}
 		

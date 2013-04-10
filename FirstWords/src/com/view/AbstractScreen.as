@@ -32,6 +32,7 @@ package com.view
 		protected var _particlesEffect:	ParticlesEffect;
 		protected var _model:			ScreenModel;
 		protected var _enabled:			Boolean;
+		protected var _categorySoundPlaying:	Boolean=false;
 		private var _counter:			uint=0;
 		protected var _whoIs:			Item;
 		protected var _guiLayer:		Sprite;
@@ -73,7 +74,18 @@ package com.view
 			}
 			if(_model.categorySound!=""){
 				_categorySound = new Sound(new URLRequest("../assets/sounds/"+_model.categorySound));
+				var chnl:SoundChannel = _categorySound.play();
+				_categorySoundPlaying=true;
+				chnl.addEventListener(flash.events.Event.SOUND_COMPLETE,function onCatSoundDone(e:flash.events.Event):void{
+					chnl.removeEventListener(flash.events.Event.SOUND_COMPLETE,onCatSoundDone);
+					playWhoIsSound();
+					_categorySoundPlaying=false;
+				});
 			}
+		}
+		
+		protected function playWhoIsSound():void{
+			
 		}
 		
 		protected function onGoodClick():Boolean{ 
