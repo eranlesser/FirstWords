@@ -14,15 +14,19 @@ package com
 		[Embed(source="assets/toys1.png")]
 		public static const toys1:Class;
 		
-		[Embed(source="assets/animals.xml", mimeType="application/octet-stream")]
+		[Embed(source="assets/animals/atlas.xml", mimeType="application/octet-stream")]
 		public static const animals_xml:Class;
-		[Embed(source="assets/animals.jpg")]
+		[Embed(source="assets/animals/atlas.png")]
 		public static const animals:Class;
 		
 		[Embed(source="assets/clothes/atlas.xml", mimeType="application/octet-stream")]
 		public static const clothes_xml:Class;
 		[Embed(source="assets/clothes/atlas.png")]
 		public static const clothes:Class;
+		[Embed(source="assets/musicians/atlas.xml", mimeType="application/octet-stream")]
+		public static const musicians_xml:Class;
+		[Embed(source="assets/musicians/atlas.png")]
+		public static const musicians:Class;
 
 		[Embed(source="assets/fruitsAndVeg/atlas.xml", mimeType="application/octet-stream")]
 		public static const fruitsAndVeg_xml:Class;
@@ -62,20 +66,23 @@ package com
 		private static const toysScene1:Class;
 		[Embed(source = "assets/whereIsScene/toys2.png")] 
 		private static const toysScene2:Class;
-		[Embed(source = "assets/bodyparts/boyFull1.png")] 
-		private static const boyFull1:Class;
+		[Embed(source = "assets/bodyparts/boyFull2.png")] 
+		private static const boyFull2:Class;
 		[Embed(source = "assets/bodyparts/girlFace.png")] 
 		private static const girlFace:Class;
 		[Embed(source = "assets/outdoors/outdoors.png")] 
 		private static const outdoors1:Class;
 		[Embed(source = "assets/outdoors/outdoors2.png")] 
 		private static const outdoors2:Class;
+		[Embed(source = "assets/whereIsScene/bathroom.png")] 
+		private static const bathroom:Class;
 		
 		
 		private static var _toysAtlas:TextureAtlas;
 		private static var _animalsAtlas:TextureAtlas;
 		private static var _playRoomAtlas:TextureAtlas;
 		private static var _bodyPartsAtlas:TextureAtlas;
+		private static var _musiciansAtlas:TextureAtlas;
 		private static var _clothesAtlas:TextureAtlas;
 		private static var _fruitsAndVeg:TextureAtlas;
 		private static var _musicAtlas:TextureAtlas;
@@ -126,12 +133,12 @@ package com
 					}
 					atlas = _fruitsAndVeg;
 					break;
-				case "music":
-					if(_musicAtlas == null){
-						texture =  Texture.fromBitmap(new music());
-						_musicAtlas = new TextureAtlas(texture,new XML(new music_xml()) as XML);
+				case "musicians":
+					if(_musiciansAtlas == null){
+						texture =  Texture.fromBitmap(new musicians());
+						_musiciansAtlas = new TextureAtlas(texture,new XML(new musicians_xml()) as XML);
 					}
-					atlas = _musicAtlas;
+					atlas = _musiciansAtlas;
 					break;
 			}
 			
@@ -152,12 +159,13 @@ package com
 		public static function load():void{
 			_assets = new Vector.<Asset>()
 			_assets.push(new Asset("animals1",new animals1()));
-			_assets.push(new Asset("boyFull1",new boyFull1()));
+			_assets.push(new Asset("boyFull2",new boyFull2()));
 			_assets.push(new Asset("girlFace",new girlFace()));
 			_assets.push(new Asset("toysScene1",new toysScene1()));
 			_assets.push(new Asset("toysScene2",new toysScene2()));
 			_assets.push(new Asset("outdoors1",new outdoors1()));
 			_assets.push(new Asset("outdoors2",new outdoors2()));
+			_assets.push(new Asset("bathroom",new bathroom()));
 			_assets.push(new Asset("birdsBg",new birdsBg()));
 			
 			

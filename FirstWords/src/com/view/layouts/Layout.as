@@ -38,12 +38,27 @@ package com.view.layouts
 		}
 		
 		private function getRandomPlaceHolder():PlaceHolder{
-			var placeHolder:PlaceHolder=_placeHolders[Math.round(Math.random()*(_placeHolders.length-1))];
+			var placeHolder:PlaceHolder=randomItem;
 			while(!placeHolder.empty){
-				placeHolder = _placeHolders[Math.round(Math.random()*(_placeHolders.length-1))];
+				placeHolder = randomItem;
 			}
+			
 			return placeHolder;
 		}
+		
+		private function get randomItem():PlaceHolder{
+			var rand:Number = Math.random();
+			if(rand<0.33){
+				return _placeHolders[0]
+			}else if(rand<0.66){
+				return _placeHolders[1]
+				
+			}else{
+				return _placeHolders[2]
+				
+			}
+		}
+		
 	}
 }
 import com.view.components.ImageItem;

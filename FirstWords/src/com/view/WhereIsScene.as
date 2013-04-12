@@ -10,6 +10,7 @@ package com.view
 	import flash.display.BitmapData;
 	import flash.display.Shape;
 	import flash.events.Event;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
@@ -37,7 +38,7 @@ package com.view
 		private var _resoult:String="";
 		private var _x:uint;
 		private var _y:uint;
-		
+		private var _touchPoint:Point;
 		[Embed(source="../../assets/whereBird.png")]
 		private var wBird : 			Class;
 		[Embed(source="../../assets/whereBird_note.png")]
@@ -69,18 +70,11 @@ package com.view
 			setItems();
 			this.addEventListener(TouchEvent.TOUCH,function onMouseDown(e:TouchEvent):void{
 				var touch:Touch = e.getTouch(stage);
-				var touchEffect:ParticlesEffect = new ParticlesEffect();
+				
 				if(touch && (touch.phase == TouchPhase.BEGAN)){
-					addChild(touchEffect);
-					touchEffect.x=touch.globalX;
-					touchEffect.y=touch.globalY;
-					touchEffect.start("touchstar");
-					Starling.juggler.delayCall(function():void{
-						touchEffect.stop();
-						removeChild(touchEffect);
-					},1);
-					_clics++;
+										_clics++;
 					trace(_clics)
+					_touchPoint = new Point(touch.globalX,touch.globalY);
 					if(_clics==1){
 						_x=touch.globalX;
 						_y=touch.globalY;
@@ -132,7 +126,17 @@ package com.view
 				wiBtn.addEventListener(starling.events.Event.TRIGGERED,function onGood():void{
 					if(onGoodClick()){
 						wiBtn.removeEventListener(starling.events.Event.TRIGGERED, onGood);
-						
+						var touchEffect:ParticlesEffect = new ParticlesEffect();
+						addChild(touchEffect);
+						touchEffect.x=_touchPoint.x;
+						touchEffect.y=_touchPoint.y;
+						touchEffect.start("touchstar");
+						touchEffect.alpha=0.6;
+						Starling.juggler.delayCall(function():void{
+							touchEffect.stop();
+							removeChild(touchEffect);
+						},1);
+
 					}
 				});
 				wiBtn.alpha=0;

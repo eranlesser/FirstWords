@@ -65,10 +65,9 @@ package com.view
 			super.model = model;
 			if(_categorySound){
 				var chnl:SoundChannel = _categorySound.play();
-				chnl.addEventListener(Event.SOUND_COMPLETE,function():void{setItems()});
-			}else{
-				setItems();
+				//chnl.addEventListener(Event.SOUND_COMPLETE,function():void{setItems()});
 			}
+				setItems();
 		}
 		
 		private function onGoodItemClick(img:ImageItem):Boolean{
@@ -122,7 +121,12 @@ package com.view
 				return;
 			}
 			var sound:Sound = new Sound(new URLRequest("../assets/sounds/"+imageItem.sound));
-			sound.play();
+			var chnl:SoundChannel = sound.play();
+			chnl.addEventListener(Event.SOUND_COMPLETE,function onChnl():void{
+				chnl.removeEventListener(Event.SOUND_COMPLETE,onChnl);
+				_enabled=true;
+			});
+			_enabled = false;
 		}
 		
 		private function setWhoIs(item:Item,atlas:TextureAtlas):void{
@@ -140,6 +144,7 @@ package com.view
 		override protected function playWhoIsSound():void{
 			var chanel:SoundChannel = _questionSound.play();
 			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
+			_enabled=false;
 			_birds.tweet();
 		}
 		

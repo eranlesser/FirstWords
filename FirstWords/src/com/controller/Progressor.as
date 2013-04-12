@@ -3,13 +3,14 @@ package com.controller
 	import com.model.ScreenModel;
 	import com.model.ScreensModel;
 	import com.model.rawData.WhereIsData;
-	import com.view.AbstractScreen;
 	import com.view.HomeScreen;
+	import com.view.IScreen;
 	import com.view.PlayRoom;
 	import com.view.WhereIsScene;
 	import com.view.WhereIsScreen;
 	import com.view.menu.ConfigurationScreen;
 	
+	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 
 	public class Progressor
@@ -18,7 +19,7 @@ package com.controller
 		private var _app:					Sprite;
 		private var _screens:				ScreensModel;
 		private var _homeScreen:			HomeScreen;
-		private var _currentScreen:		    AbstractScreen;
+		private var _currentScreen:		    IScreen;
 		private var _playRoom:				PlayRoom;
 		public function Progressor(app:Sprite)
 		{
@@ -52,19 +53,19 @@ package com.controller
 			_homeScreen.gotoSignal.add(goTo);
 		}
 		
-		private function removeScreen(screen:AbstractScreen):void{
+		private function removeScreen(screen:IScreen):void{
 			screen.done.remove(goNext);
 			screen.goHome.remove(goHome);
 			screen.destroy();
 			if(screen == _playRoom){
 				_playRoom.visible = false;			
 			}else{
-				_app.removeChild(screen);
+				_app.removeChild(screen as DisplayObject);
 			}
 		}
 		
-		private function addScreen(model:ScreenModel):AbstractScreen{
-			var screen:AbstractScreen;
+		private function addScreen(model:ScreenModel):IScreen{
+			var screen:IScreen;
 			switch(model.type){
 				case "whereIsScreen":
 					screen = new WhereIsScreen();
@@ -83,7 +84,7 @@ package com.controller
 			screen.done.add(goNext);
 			screen.goHome.add(goHome);
 			screen.model = model;
-			_app.addChild(screen);
+			_app.addChild(screen as DisplayObject);
 			if(screen == _playRoom){
 				_playRoom.visible = true;
 			}

@@ -39,8 +39,8 @@ package com.view
 			
 			_clouds = new Clouds();
 			var homeBg:Image = new Image(Texture.fromBitmap(new home()))
-			_screenLayer.addChild(homeBg);
 			_screenLayer.addChild(_clouds);
+			_screenLayer.addChild(homeBg);
 			var tweetsText:Image = new Image(Texture.fromBitmap(new tweets()));
 			tweetsText.x=600;
 			tweetsText.y=200;
@@ -74,7 +74,7 @@ package com.view
 		
 		
 		override public function destroy():void{
-			_clouds.stop();
+			//_clouds.stop();
 		}
 	}
 }

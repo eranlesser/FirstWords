@@ -116,13 +116,10 @@ package com.view
 //			_hinter.repeatCount=0;
 		}
 		
-		override public function get diposable():Boolean{
-			return false;
-		}
 		
 		private function init() : void
 		{
-			_delayer = Starling.juggler.delayCall(finish,32);
+			_delayer = Starling.juggler.delayCall(finish,22);
 			_delayer.repeatCount = 1;
 			_sound.play();
 			if(!_menu){

@@ -20,13 +20,13 @@ package com.view
 	import starling.events.Event;
 	import starling.textures.Texture;
 	
-	public class AbstractScreen extends Sprite
+	public class AbstractScreen extends Sprite implements IScreen
 	{
 		
 		protected var _questionSound:		Sound;
 		protected var _categorySound:		Sound;
-		public var goHome:Signal = new Signal();
-		public var done:Signal = new Signal();
+		private var _goHome:Signal = new Signal();
+		private var _done:Signal = new Signal();
 		[Embed(source="../../assets/home/homeBtn.png")]
 		private var homeBt : 			Class;
 		protected var _particlesEffect:	ParticlesEffect;
@@ -45,6 +45,17 @@ package com.view
 			addChild(_guiLayer);
 			addNavigation();
 		}
+
+		public function get done():Signal
+		{
+			return _done;
+		}
+
+		public function get goHome():Signal
+		{
+			return _goHome;
+		}
+
 		protected function addNavigation():void{
 			
 			var homeBut:Button = new Button( Texture.fromBitmap(new homeBt()) );
@@ -58,10 +69,6 @@ package com.view
 		}
 		public function get screenLayer():Sprite{
 			return _screenLayer;
-		}
-		
-		public function get diposable():Boolean{
-			return true;
 		}
 		
 		public function set model(screenModel:ScreenModel):void{
