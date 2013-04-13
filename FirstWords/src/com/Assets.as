@@ -48,6 +48,11 @@ package com
 		[Embed(source="assets/bodyparts/bodyParts.png")]
 		public static const bodyParts:Class;
 		
+		[Embed(source="assets/egg/atlas.xml", mimeType="application/octet-stream")]
+		public static const egg_xml:Class;
+		[Embed(source="assets/egg/atlas.png")]
+		public static const egg:Class;
+		
 		[Embed(source = "assets/bg/bgStripe1.jpg")] 
 		public static const BackgroundImage:Class;
 		
@@ -86,6 +91,7 @@ package com
 		private static var _clothesAtlas:TextureAtlas;
 		private static var _fruitsAndVeg:TextureAtlas;
 		private static var _musicAtlas:TextureAtlas;
+		private static var _eggAtlas:TextureAtlas;
 		private static var _assets:Vector.<Asset>;
 		public static function getAtlas(groupName:String):TextureAtlas{
 			var atlas:TextureAtlas;
@@ -139,6 +145,13 @@ package com
 						_musiciansAtlas = new TextureAtlas(texture,new XML(new musicians_xml()) as XML);
 					}
 					atlas = _musiciansAtlas;
+					break;
+				case "egg":
+					if(_eggAtlas == null){
+						texture =  Texture.fromBitmap(new egg());
+						_eggAtlas = new TextureAtlas(texture,new XML(new egg_xml()) as XML);
+					}
+					atlas = _eggAtlas;
 					break;
 			}
 			

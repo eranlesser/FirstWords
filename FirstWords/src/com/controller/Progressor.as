@@ -3,9 +3,11 @@ package com.controller
 	import com.model.ScreenModel;
 	import com.model.ScreensModel;
 	import com.model.rawData.WhereIsData;
+	import com.view.Egg;
 	import com.view.HomeScreen;
 	import com.view.IScreen;
 	import com.view.PlayRoom;
+	import com.view.Rain;
 	import com.view.WhereIsScene;
 	import com.view.WhereIsScreen;
 	import com.view.menu.ConfigurationScreen;
@@ -72,6 +74,12 @@ package com.controller
 					break;
 				case "whereScene":
 					screen = new WhereIsScene();
+					break;
+				case "egg":
+					screen = new Egg();
+					break;
+				case "rain":
+					screen = new Rain();
 					break;
 				case "playRoom":
 					if(!_playRoom){

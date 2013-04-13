@@ -28,6 +28,7 @@ package
 			//var obj:DisplayObject =addChild(new Stats());
 			//obj.y=80
 			// support autoOrients
+			Starling.multitouchEnabled = true;
 			_starling = new Starling(FirstWordsApp,stage);
 			_starling.start();
 			Starling.current.nativeStage.align = StageAlign.TOP_LEFT;
