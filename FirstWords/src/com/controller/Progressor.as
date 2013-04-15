@@ -23,6 +23,7 @@ package com.controller
 		private var _homeScreen:			HomeScreen;
 		private var _currentScreen:		    IScreen;
 		private var _playRoom:				PlayRoom;
+		private var _configScr:ConfigurationScreen;
 		public function Progressor(app:Sprite)
 		{
 			_app = app;
@@ -37,9 +38,20 @@ package com.controller
 		
 		public function goTo(screenIndex:int):void{
 			if(screenIndex==-1){
-				var configScr:ConfigurationScreen = new ConfigurationScreen(_screens);
-				_app.addChild(configScr);
-				configScr.goHome.add(function():void{_app.removeChild(configScr)});
+				if(!_configScr){
+					_configScr = new ConfigurationScreen(_screens);
+					_configScr.goHome.add(function():void{_app.removeChild(_configScr)});
+					_configScr.gotoSignal.add(function onGoTo(indx:uint):void{
+						_app.removeChild(_configScr);
+						goTo(indx)
+					
+					});
+				}
+				_app.addChild(_configScr);
+				_configScr.setSelectedScreen();
+			}else if(screenIndex==-2){
+				removeScreen(_currentScreen);
+				_currentScreen = addScreen(_screens.getScreen(1));
 			}else{
 				removeScreen(_currentScreen);
 				_currentScreen = addScreen(_screens.getScreen(screenIndex));

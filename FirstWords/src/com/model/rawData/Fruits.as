@@ -3,19 +3,19 @@ package com.model.rawData
 	public class Fruits
 	{
 		public static var data:XML = 
-			<data type="whereIsScreen" groupName="fruits" thumbNail="apple">
-				<item image="redapple" sound="toys/plane.mp3" groupId="apple"  />
-				<item image="lemon" sound="toys/ball.mp3"  groupId="lemon"/>
-				<item image="plum" sound="toys/baloon.mp3" groupId="plum"/>
-				<item image="banana" sound="toys/bike.mp3" groupId="banana"/>
-				<item image="strawberry" sound="toys/book.mp3" groupId="strawberry"/>
-				<item image="pear" sound="toys/car.mp3" groupId="pear" />
-				<item image="orange" sound="toys/cart.mp3" groupId="orange"/>
-				<item image="apple" sound="toys/cubes.mp3" groupId="apple"/>
-				<item image="cherry" sound="toys/doll.mp3" groupId="cherry"/>
-				
-			</data>;
-			
+			<data type="whereIsScreen" groupName="fruitsAndVeg" thumbNail="toot" categorySound="category/fruitsandveg.mp3">
+							<item image="apple" sound="fruitsandveg/apple.mp3" groupId="apple"  />
+							<item image="banana" sound="fruitsandveg/banana.mp3"  groupId="banana"/>
+							<item image="cherry" sound="fruitsandveg/cherry.mp3" groupId="cherry" />
+							<item image="grapes" sound="fruitsandveg/grapes.mp3" groupId="grapes" />
+							<item image="lemon" sound="fruitsandveg/lemon.mp3" groupId="lemon" />
+							<item image="orange" sound="fruitsandveg/orange.mp3" groupId="orange" />
+							<item image="pineapple" sound="fruitsandveg/papple.mp3" groupId="pineapple" />
+							<item image="strawberry" sound="fruitsandveg/strawberry.mp3" groupId="strawberry" />
+							<item image="wmellon" sound="fruitsandveg/wmelon.mp3" groupId="wmellon" />
+							
+						</data>
+						
 			
 		
 	}

@@ -34,7 +34,6 @@ package com.view
 		private var _seed:Image;
 		private var _atlas:TextureAtlas;
 		private var _index:uint=1;
-		private var _timer:Timer;
 		private var _chnl:SoundChannel;
 		public function Rain()
 		{
@@ -65,16 +64,14 @@ package com.view
 				var sound:Sound = new Sound(new URLRequest("../../../assets/sounds/rain.mp3"));
 				_chnl = sound.play();
 				_rain.visible = true;
-				_timer = new Timer(1000);
-				_timer.addEventListener(TimerEvent.TIMER,onTimer);
-				 _timer.start();
 				 _enabled=false;
+				 Starling.juggler.delayCall(progress,1);
 				//progress();
 			}
 			//if(e.getTouch(stage) &&e.getTouch(stage).phase == TouchPhase.ENDED){
 		}
 		
-		private function onTimer(e:TimerEvent):void{
+		private function onTimer():void{
 			progress();
 		}
 		
@@ -92,8 +89,7 @@ package com.view
 				return;
 			}
 			_rain.visible = false;
-			_timer.removeEventListener(TimerEvent.TIMER,onTimer);
-			_timer.stop();
+			
 			_chnl.stop();
 			_index++;
 			removeChild(_seed);

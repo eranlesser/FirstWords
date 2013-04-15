@@ -3,7 +3,7 @@ package com.model.rawData
 	public class BathRoom
 	{
 		public static var data:XML = 
-			<data type="whereScene" backGround="bathroom" sound="who" categorySound="category/bathroom.mp3">
+			<data type="whereScene" backGround="bathroom" sound="who" thumbNail="bathroomTmb" categorySound="category/bathroom.mp3">
 				<item  sound="bathroom/tubbing.mp3" groupId="sandbox">
 					<rect vector="195,225,225,241"/>
 				</item>

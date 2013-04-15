@@ -3,8 +3,10 @@ package com.view.menu
 	import assets.texts.heb.AboutText;
 	
 	import com.Assets;
+	import com.Dimentions;
 	import com.model.ScreenModel;
 	import com.model.ScreensModel;
+	import com.model.Session;
 	
 	import org.osflash.signals.Signal;
 	
@@ -40,20 +42,18 @@ package com.view.menu
 		private var _displayLayer:Sprite;
 		
 		private var _menu:Sprite;
-		
+		private var _about:Sprite;
 		public function ConfigurationScreen(screensModel:ScreensModel)
 		{
 			//init();
-			//initMenu(screensModel);
 			_displayLayer = new Sprite();
 			addChild(_displayLayer);
 			addChild(new Image(Texture.fromBitmap(new bg())));
+			initMenu(screensModel);
 			init();
-			//setState("nav");
 		}
 		
 		private function init():void{
-			//addChild(new Image(Texture.fromBitmap(new bg())));
 			var homeBut:Button = new Button( Texture.fromBitmap(new homeBt()) );
 			addChild(homeBut);
 			homeBut.x=4;
@@ -61,18 +61,18 @@ package com.view.menu
 			homeBut.addEventListener(Event.TRIGGERED, function():void{
 				goHome.dispatch()
 			});
-			
+			_about = new Sprite();
 			var tField:TextField = new TextField(900,600,AboutText.xml.toString(),"Verdena",19,0X03588C);
 			var title:TextField = new TextField(900,80,AboutText.title,"Verdena",34,0X415A79);
-			//tField.color = 0xFFFFFF;
-			addChild(tField);
-			addChild(title);
+			_about.addChild(tField);
+			_about.addChild(title);
 			tField.x=20;
 			tField.y=200;
 			
 			title.x=20;
 			title.y=120;
-			
+			addChild(_about);
+			_about.visible=false;
 			tField.hAlign = "right";
 			title.hAlign = "right";
 			//return;
@@ -129,38 +129,57 @@ package com.view.menu
 			}
 		}
 		
+		public function setSelectedScreen():void{
+			for(var i:uint = 0;i<_menu.numChildren;i++){
+				if(i>3){
+					(_menu.getChildAt(i) as ThumbNail).locked=true;
+				}else{
+					(_menu.getChildAt(i) as ThumbNail).locked=false;
+				}
+				if((_menu.getChildAt(i) as ThumbNail).index==Session.currentScreen){
+					(_menu.getChildAt(i) as ThumbNail).selected = true;
+				}else{
+					(_menu.getChildAt(i) as ThumbNail).selected = false;
+				}
+			}
+		}
+		
 		private function initMenu(screens:ScreensModel):void
 		{
 			_menu = new Sprite();
 			
 			var i:int=0;
 			var n:int=0;
-			var wdt:uint=55;
-			var gap:uint=10;
+			var wdt:uint=170;
+			var hgt:uint=136;
+			var gap:uint=12;
 			for each(var screen:ScreenModel in screens.screens){
 				if(screen.thumbNail!=""){
-					var menuThmb:ThumbNail = new ThumbNail(Assets.getAtlas(screen.groupName).getTexture(screen.thumbNail),i);
-					menuThmb.x = (n%3)*wdt + (n%3)*gap;
-					menuThmb.y = Math.floor(n/3)*(wdt+gap);
-					menuThmb.width = wdt;
-					menuThmb.height = wdt;
-					var frame:Image = new Image(Texture.fromBitmap(new Assets.Frame))
+					var menuThmb:ThumbNail = new ThumbNail(Assets.getAtlas("thumbs").getTexture(screen.thumbNail),i);
 					
-					//_menu.addChild(frame);
-					frame.width = wdt+4;
-					frame.height = wdt+4;
-					frame.x = menuThmb.x-2;
-					frame.y = menuThmb.y-2;
+					//menuThmb.width = wdt;
+					//menuThmb.height = hgt;
+					
+					menuThmb.x = (n%4)*wdt + (n%4)*gap;//menuThmb.x-5;
+					menuThmb.y = Math.floor(n/4)*(hgt+gap);//menuThmb.y-5;
 					_menu.addChild(menuThmb);
 					menuThmb.addEventListener(Event.TRIGGERED,function onTriggered(e:Event):void{
-						gotoSignal.dispatch(ThumbNail(e.target).index);
+						gotoSignal.dispatch(ThumbNail(Button(e.target).parent).index);
 					});
 					n++;
 				}//if
 				i++;
 			}//for
-			_menu.x=400;
-			_menu.y=350;
+			var playRoomThmb:ThumbNail = new ThumbNail(Assets.getAtlas("thumbs").getTexture("plane"),-2);
+			_menu.addChild(playRoomThmb);
+			playRoomThmb.addEventListener(Event.TRIGGERED,function onTriggered(e:Event):void{
+				gotoSignal.dispatch(ThumbNail(Button(e.target).parent).index);
+			});
+			playRoomThmb.x=_menu.width-playRoomThmb.width-4;
+			playRoomThmb.y=_menu.height-playRoomThmb.height-4;
+			_menu.x=(Dimentions.WIDTH-_menu.width)/2;
+			_menu.y=140;
+			addChild(_menu);
 		}//function
 	}
 }
@@ -170,14 +189,44 @@ import com.Dimentions;
 
 import starling.display.Button;
 import starling.display.Image;
+import starling.display.Sprite;
 import starling.textures.Texture;
 
-class ThumbNail extends Button{
+class ThumbNail extends Sprite{
 	public var index:int;
+	private var _btn:Button;
+	private var _selectedFrame:Image;
+	private var _lock:Image;
 	function ThumbNail(asset:Texture,indx:int){
+		var frame:Image = new Image(Texture.fromBitmap(new Assets.Frame))
+		_selectedFrame = new Image(Texture.fromBitmap(new Assets.FrameSelected))
 		
-		super(asset);
+		var wdt:uint=170;
+		var hgt:uint=136;
+		addChild(frame);
+		addChild(_selectedFrame);
+		_selectedFrame.visible=false;
+		frame.width = wdt;
+		frame.height = hgt;
+		_btn = new Button(asset);
+		addChild(_btn)
+		_btn.x=(frame.width-_btn.width)/2;
+		_btn.y=(frame.height-_btn.height)/2;
+		_lock = new Image(Texture.fromBitmap(new Assets.Lock));
+		addChild(_lock);
+		_lock.x=wdt-_lock.width-5;
+		_lock.y=hgt-_lock.height-5;
 		index=indx;
 		
 	}
+	
+	public function set selected(val:Boolean):void{
+		_selectedFrame.visible=val;
+	}
+	
+	public function set locked(val:Boolean):void{
+		_lock.visible=val;
+		this.touchable = !val;
+	}
+	
 }

@@ -4,7 +4,7 @@ package com.model.rawData
 	{
 		
 		public static var data:XML = 
-			<data type="whereIsScreen" groupName="musicians" sound="who" thumbNail="drums" categorySound="musicians/music.mp3">
+			<data type="whereIsScreen" groupName="musicians" sound="who" thumbNail="singingTmb" categorySound="musicians/music.mp3">
 				<item image="drums" sound="musicians/drums.mp3"  groupId="drums"/>
 				<item image="guitar" sound="musicians/guitar.mp3" groupId="guitar" />
 				<item image="piano" sound="musicians/piano.mp3" groupId="piano" />

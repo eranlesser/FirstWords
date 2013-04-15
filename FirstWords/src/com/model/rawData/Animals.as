@@ -3,11 +3,8 @@ package com.model.rawData
 	public class Animals
 	{
 		public static var data:XML = 
-			<data type="whereIsScreen" groupName="animals" categorySound="category/animals.mp3" thumbNail="lion">
-				<item image="ant" sound="animals/ant.mp3" groupId="ant"  />
+			<data type="whereIsScreen" groupName="animals" categorySound="category/animals.mp3" thumbNail="elephantTmb">
 				<item image="bear" sound="animals/bear.mp3" groupId="bear"  />
-				<item image="bee" sound="animals/bee.mp3"  groupId="bee"/>
-				<item image="bfly" sound="animals/bfly.mp3" groupId="bfly"/>
 				<item image="camel" sound="animals/camel.mp3" groupId="camel"/>
 				<item image="cat" sound="animals/cat.mp3" groupId="cat"/>
 				<item image="chicken" sound="animals/chicken.mp3" groupId="chicken"/>
@@ -17,11 +14,8 @@ package com.model.rawData
 				<item image="duck" sound="animals/duck.mp3" groupId="duck"/>
 				<item image="elephant" sound="animals/elaphent.mp3" groupId="elephant"/>
 				<item image="horse" sound="animals/horse.mp3" groupId="horse"/>
-				<item image="lbug2" sound="animals/lbug.mp3" groupId="lbug2"/>
 				<item image="lion" sound="animals/lion.mp3" groupId="lion"/>
 				<item image="monkey" sound="animals/monkey.mp3" groupId="monkey"/>
-				<item image="snail" sound="animals/snail.mp3" groupId="snail"/>
-				<item image="spider" sound="animals/spider.mp3" groupId="spider"  />
 				<item image="trtl" sound="animals/trtel.mp3" groupId="trtl"  />
 				<item image="zebra" sound="animals/zebra.mp3" groupId="zebra"  />
 				

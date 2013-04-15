@@ -3,7 +3,7 @@ package com.model.rawData
 	public class EggData
 	{
 		public static var data:XML = 
-			<data type="egg" categorySound="egg/category.mp3" >
+			<data type="egg" thumbNail="eggTmb" groupName="egg" categorySound="egg/category.mp3" >
 				
 				
 			</data>;

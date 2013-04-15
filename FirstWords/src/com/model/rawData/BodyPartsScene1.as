@@ -4,12 +4,7 @@ package com.model.rawData
 	{
 		public static var data:XML = 
 			<data type="whereScene" backGround="boyFull2" >
-				<item  sound="body/eyes.mp3" groupId="eyes">
-					<rect vector="489,159,83,38"/>
-				</item>
-				<item  sound="body/mouth.mp3" groupId="mouth"   >
-					<rect vector="499,227,59,32"/>
-				</item>
+				
 				<item  sound="body/hands.mp3" groupId="hand1"   >
 					<rect vector="296,261,109,263"/>
 					<rect vector="599,380,61,148"/>
@@ -31,6 +26,13 @@ package com.model.rawData
 }
 
 /*
+<item  sound="body/eyes.mp3" groupId="eyes">
+<rect vector="489,159,83,38"/>
+</item>
+<item  sound="body/mouth.mp3" groupId="mouth"   >
+<rect vector="499,227,59,32"/>
+</item>
+
 <item image="train2" sound="body/train.mp3" groupId="trians"/>
 	<item image="train3" sound="body/train.mp3" groupId="trians"/>
 	<item image="train4" sound="body/train.mp3" groupId="trians"/>

@@ -7,7 +7,7 @@ package com.model.rawData
 		}
 		
 		public static var data:XML = 
-			<data type="playRoom" thumbNail="ball" groupName="playRoom">
+			<data type="playRoom" groupName="playRoom">
 			<menu>
 				<item image="train2" />
 				<item image="cubes" recycled="true"/>

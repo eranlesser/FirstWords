@@ -3,7 +3,7 @@ package com.model.rawData
 	public class OutDoors2
 	{
 		public static var data:XML = 
-			<data type="whereScene" backGround="outdoors2" sound="who" >
+			<data type="whereScene" backGround="outdoors2" thumbNail="outdoors2Tmb" sound="who" >
 				<item  sound="outdoors/bikeride.mp3" groupId="bicycle">
 					<rect vector="704,296,240,315"/>
 				</item>

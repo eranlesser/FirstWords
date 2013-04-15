@@ -43,6 +43,11 @@ package com
 		[Embed(source="assets/playroom/atlas.png")]
 		public static const playRoom:Class;
 
+		[Embed(source="assets/thumbnails/atlas.xml", mimeType="application/octet-stream")]
+		public static const thumbNails_xml:Class;
+		[Embed(source="assets/thumbnails/atlas.png")]
+		public static const thumbNails:Class;
+
 		[Embed(source="assets/bodyparts/bodyParts.xml", mimeType="application/octet-stream")]
 		public static const bodyParts_xml:Class;
 		[Embed(source="assets/bodyparts/bodyParts.png")]
@@ -59,14 +64,27 @@ package com
 		[Embed(source = "assets/bg/birdsBg.png")] 
 		public static const birdsBg:Class;
 		
-		[Embed(source = "assets/frames1.jpg")] 
+		[Embed(source = "assets/frames2.png")] 
 		public static const Frame:Class;
+		
+		[Embed(source = "assets/frames2Selected.png")] 
+		public static const FrameSelected:Class;
+		
+		[Embed(source = "assets/lock.png")] 
+		public static const Lock:Class;
+		
 		
 		[Embed(source = "assets/home/room_backround.PNG")] 
 		public static const roomThumb:Class;
 		
-		[Embed(source = "assets/whereIsScene/animals1.png")] 
-		private static const animals1:Class;
+		[Embed(source = "assets/whereIsScene/animals2.png")] 
+		private static const animals2:Class;
+		[Embed(source = "assets/whereIsScene/animals3.png")] 
+		private static const animals3:Class;
+		[Embed(source = "assets/whereIsScene/animals4.png")] 
+		private static const animals4:Class;
+		[Embed(source = "assets/whereIsScene/animals5.png")] 
+		private static const animals5:Class;
 		[Embed(source = "assets/whereIsScene/toys1.png")] 
 		private static const toysScene1:Class;
 		[Embed(source = "assets/whereIsScene/toys2.png")] 
@@ -92,6 +110,7 @@ package com
 		private static var _fruitsAndVeg:TextureAtlas;
 		private static var _musicAtlas:TextureAtlas;
 		private static var _eggAtlas:TextureAtlas;
+		private static var _thumbsAtlas:TextureAtlas;
 		private static var _assets:Vector.<Asset>;
 		public static function getAtlas(groupName:String):TextureAtlas{
 			var atlas:TextureAtlas;
@@ -153,6 +172,13 @@ package com
 					}
 					atlas = _eggAtlas;
 					break;
+				case "thumbs":
+					if(_thumbsAtlas == null){
+						texture =  Texture.fromBitmap(new thumbNails());
+						_thumbsAtlas = new TextureAtlas(texture,new XML(new thumbNails_xml()) as XML);
+					}
+					atlas = _thumbsAtlas;
+					break;
 			}
 			
 			return atlas;
@@ -171,7 +197,10 @@ package com
 		
 		public static function load():void{
 			_assets = new Vector.<Asset>()
-			_assets.push(new Asset("animals1",new animals1()));
+			_assets.push(new Asset("animals2",new animals2()));
+			_assets.push(new Asset("animals3",new animals3()));
+			_assets.push(new Asset("animals4",new animals4()));
+			_assets.push(new Asset("animals5",new animals5()));
 			_assets.push(new Asset("boyFull2",new boyFull2()));
 			_assets.push(new Asset("girlFace",new girlFace()));
 			_assets.push(new Asset("toysScene1",new toysScene1()));

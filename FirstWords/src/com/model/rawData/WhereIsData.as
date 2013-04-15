@@ -12,15 +12,17 @@ package com.model.rawData
 			{BodyPartsScene2.data}
 			{BodyPartsScene1.data}
 			{PlayRoomData.data}
+			{Animals.data}
 			{Clothes.data}
 			{RainData.data}
 			{BathRoom.data}
-			{Animals.data}
 			{PlayRoomData.data}
 			{OutDoors2.data}
 			{Musicians.data}
 			{PlayRoomData.data}
-			{FruitsAndVegies.data}
+			{Vegies.data}
+			{AnimalsI.data}
+			{Fruits.data}
 
 			
 		</screens>
