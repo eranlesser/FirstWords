@@ -279,4 +279,7 @@
 		]]></InfoAdditions>
         <requestedDisplayResolution>high</requestedDisplayResolution>
     </iPhone>
+<extensions>
+        <extensionID>com.freshplanet.AirFlurry</extensionID>
+    </extensions>
 </application>

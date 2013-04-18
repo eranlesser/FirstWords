@@ -4,6 +4,7 @@ package com.view
 	import com.Dimentions;
 	import com.model.Item;
 	import com.model.ScreenModel;
+	import com.model.Session;
 	import com.view.components.Clouds;
 	import com.view.components.ImageItem;
 	import com.view.components.Tweet;
@@ -42,11 +43,12 @@ package com.view
 			_birds.clicked.add(
 				function():void{
 					if(_enabled){
-						playWhoIsSound();
+						_birds.tweet(true);
+						//playWhoIsSound();
 					}
 				}
 			);
-			_birds.y=8;
+			_birds.y=110;
 			_birds.x = Dimentions.WIDTH+12;
 			_birds.scaleX=-1;
 			
@@ -72,7 +74,7 @@ package com.view
 		
 		private function onGoodItemClick(img:ImageItem):Boolean{
 			if(super.onGoodClick()){
-				_birds.tweet();
+				_birds.tweet(true);
 				img.onGoodClick();
 			}
 			return true;
@@ -120,13 +122,14 @@ package com.view
 			if(!_enabled){
 				return;
 			}
-			var sound:Sound = new Sound(new URLRequest("../assets/sounds/"+imageItem.sound));
+			var sound:Sound = _soundManager.getSound("../assets/sounds/",imageItem.sound);
 			var chnl:SoundChannel = sound.play();
 			chnl.addEventListener(Event.SOUND_COMPLETE,function onChnl():void{
 				chnl.removeEventListener(Event.SOUND_COMPLETE,onChnl);
 				_enabled=true;
 			});
 			_enabled = false;
+			Session.wrongAnswer++;
 		}
 		
 		private function setWhoIs(item:Item,atlas:TextureAtlas):void{
@@ -145,7 +148,8 @@ package com.view
 			var chanel:SoundChannel = _questionSound.play();
 			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
 			_enabled=false;
-			_birds.tweet();
+			//_birds.tweet();
+			super.playWhoIsSound();
 		}
 		
 		

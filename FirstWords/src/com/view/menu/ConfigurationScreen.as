@@ -33,6 +33,9 @@ package com.view.menu
 		[Embed(source="../../../assets/menu/share.png")]
 		private var share : 			Class;
 		
+		[Embed(source="../../../assets/bonus.png")]
+		private var bonus : 			Class;
+		
 		public var gotoSignal:Signal = new Signal();
 		public var goHome:Signal = new Signal();
 		private var _navText:TextField;
@@ -40,7 +43,7 @@ package com.view.menu
 		private var _shareText:TextField;
 		
 		private var _displayLayer:Sprite;
-		
+		private var playRoomThmb:ThumbNail
 		private var _menu:Sprite;
 		private var _about:Sprite;
 		public function ConfigurationScreen(screensModel:ScreensModel)
@@ -51,13 +54,18 @@ package com.view.menu
 			addChild(new Image(Texture.fromBitmap(new bg())));
 			initMenu(screensModel);
 			init();
+			Session.changed.add(onsessionChanged);
+		}
+		
+		private function onsessionChanged():void{
+			playRoomThmb.locked = !Session.playRoomEnabled;
 		}
 		
 		private function init():void{
 			var homeBut:Button = new Button( Texture.fromBitmap(new homeBt()) );
 			addChild(homeBut);
-			homeBut.x=4;
-			homeBut.y=4;
+			homeBut.x=8;
+			homeBut.y=8;
 			homeBut.addEventListener(Event.TRIGGERED, function():void{
 				goHome.dispatch()
 			});
@@ -105,6 +113,7 @@ package com.view.menu
 			_aboutText.touchable = false;
 			_aboutText.x = aboutButton.x;
 			_aboutText.y=_navText.y;
+			onsessionChanged();
 		}
 		
 		private function setState(stt:String):void{
@@ -130,7 +139,7 @@ package com.view.menu
 		}
 		
 		public function setSelectedScreen():void{
-			for(var i:uint = 0;i<_menu.numChildren;i++){
+			for(var i:uint = 0;i<_menu.numChildren-1;i++){
 				if(i>3){
 					(_menu.getChildAt(i) as ThumbNail).locked=true;
 				}else{
@@ -170,7 +179,7 @@ package com.view.menu
 				}//if
 				i++;
 			}//for
-			var playRoomThmb:ThumbNail = new ThumbNail(Assets.getAtlas("thumbs").getTexture("plane"),-2);
+			playRoomThmb = new ThumbNail(Assets.getAtlas("thumbs").getTexture("plane"),-2,new Image(Texture.fromBitmap(new bonus())));
 			_menu.addChild(playRoomThmb);
 			playRoomThmb.addEventListener(Event.TRIGGERED,function onTriggered(e:Event):void{
 				gotoSignal.dispatch(ThumbNail(Button(e.target).parent).index);
@@ -197,7 +206,7 @@ class ThumbNail extends Sprite{
 	private var _btn:Button;
 	private var _selectedFrame:Image;
 	private var _lock:Image;
-	function ThumbNail(asset:Texture,indx:int){
+	function ThumbNail(asset:Texture,indx:int,lock:Image=null){
 		var frame:Image = new Image(Texture.fromBitmap(new Assets.Frame))
 		_selectedFrame = new Image(Texture.fromBitmap(new Assets.FrameSelected))
 		
@@ -212,10 +221,17 @@ class ThumbNail extends Sprite{
 		addChild(_btn)
 		_btn.x=(frame.width-_btn.width)/2;
 		_btn.y=(frame.height-_btn.height)/2;
-		_lock = new Image(Texture.fromBitmap(new Assets.Lock));
+		if(lock){
+			_lock=lock;
+			_lock.x=(wdt-_lock.width)/2;
+			_lock.y=-15;
+		}else{
+			_lock = new Image(Texture.fromBitmap(new Assets.Lock));
+			_lock.x=wdt-_lock.width-8;
+			_lock.y=hgt-_lock.height-5;
+		}
 		addChild(_lock);
-		_lock.x=wdt-_lock.width-5;
-		_lock.y=hgt-_lock.height-5;
+		
 		index=indx;
 		
 	}
@@ -226,7 +242,7 @@ class ThumbNail extends Sprite{
 	
 	public function set locked(val:Boolean):void{
 		_lock.visible=val;
-		this.touchable = !val;
+		 //this.touchable = !val;
 	}
 	
 }

@@ -1,6 +1,7 @@
 package com.view
 {
 	import com.Dimentions;
+	import com.freshplanet.nativeExtensions.Flurry;
 	import com.model.ScreenModel;
 	import com.view.playRoom.Baloon;
 	import com.view.playRoom.BasketBall;
@@ -92,8 +93,14 @@ package com.view
 		private var _sound:Sound;
 		public function PlayRoom()
 		{
-			_sound = new Sound(new URLRequest("../assets/sounds/playRoom.mp3"));
+			_sound = new Sound(new URLRequest("../assets/sounds/heb/playRoom.mp3"));
 			
+		}
+		
+		public function set noTimer(val:Boolean):void{
+			if(val){
+				Starling.juggler.remove(_delayer);
+			}
 		}
 		
 		override public function destroy():void{
@@ -161,6 +168,7 @@ package com.view
 		private var _balloons:Vector.<Baloon> = new Vector.<Baloon>();
 		private function onMenuItemDropped(x:int,y:int,id:String):void{
 			
+			Flurry.getInstance().logEvent("playroom "+id);
 			switch(id){
 				case "ball":
 					var ball:BasketBall = new BasketBall(_space,_ballCollisionType,x,y);

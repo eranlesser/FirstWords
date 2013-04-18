@@ -61,7 +61,7 @@ package com.view
 				return;
 			}
 			if(e.getTouch(stage) &&e.getTouch(stage).phase == TouchPhase.BEGAN){
-				var sound:Sound = new Sound(new URLRequest("../../../assets/sounds/rain.mp3"));
+				var sound:Sound = new Sound(new URLRequest("../../../assets/sounds/heb/rain.mp3"));
 				_chnl = sound.play();
 				_rain.visible = true;
 				 _enabled=false;

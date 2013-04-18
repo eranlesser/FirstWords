@@ -4,6 +4,7 @@ package com.view
 	import com.Dimentions;
 	import com.model.Item;
 	import com.model.ScreenModel;
+	import com.model.Session;
 	import com.view.components.ImageItem;
 	import com.view.components.ParticlesEffect;
 	
@@ -39,29 +40,14 @@ package com.view
 		private var _x:uint;
 		private var _y:uint;
 		private var _touchPoint:Point;
-		[Embed(source="../../assets/whereBird.png")]
-		private var wBird : 			Class;
-		[Embed(source="../../assets/whereBird_note.png")]
-		private var wBirdNote : 			Class;
-		private var _wBirdNote:Button;
+		
 		override public function set model(screenModel:ScreenModel):void{
 			var bg:Image = new Image(Texture.fromBitmap(Assets.getImage(screenModel.backGround)));
 			_screenLayer.addChild(bg);
 			bg.width = Dimentions.WIDTH;
 			bg.height = Dimentions.HEIGHT;
 			
-			var whereBird:Button = new Button(Texture.fromBitmap(new wBird()));
-			addChild(whereBird);
-			_wBirdNote = new Button(Texture.fromBitmap(new wBirdNote()));
-			addChild(_wBirdNote);
-			_wBirdNote.visible = false;
-			whereBird.x = Dimentions.WIDTH - whereBird.width//-2;
-			_wBirdNote.x = Dimentions.WIDTH - _wBirdNote.width//-2;
-			whereBird.addEventListener(starling.events.Event.TRIGGERED,function():void{
-				if(_enabled){
-					playWhoIsSound();
-				}
-			});
+			
 			
 			super.model = screenModel;
 			for(var i:uint=0;i<_model.numItems;i++){
@@ -72,7 +58,7 @@ package com.view
 				var touch:Touch = e.getTouch(stage);
 				
 				if(touch && (touch.phase == TouchPhase.BEGAN)){
-										_clics++;
+					_clics++;
 					trace(_clics)
 					_touchPoint = new Point(touch.globalX,touch.globalY);
 					if(_clics==1){
@@ -145,14 +131,14 @@ package com.view
 		}
 		
 		override protected function playWhoIsSound():void{
+			super.playWhoIsSound();
 			var chanel:SoundChannel = _questionSound.play();
 			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
-			_wBirdNote.visible=true;
 			_enabled = false;
 		}
 		
 		override protected function onWhereSoundDone(e:flash.events.Event):void{
-			_wBirdNote.visible=false;
+			
 			super.onWhereSoundDone(e);
 		}
 		
@@ -160,8 +146,9 @@ package com.view
 			if(!_enabled){
 				return;
 			}
-			var sound:Sound = new Sound(new URLRequest("../assets/sounds/"+imageItem.sound));
+			var sound:Sound = _soundManager.getSound("../assets/sounds/",imageItem.sound);
 			sound.play();
+			Session.wrongAnswer++;
 		}
 		private function addItem(item:Item):void{
 			for each(var rect:Rectangle in item.rects){

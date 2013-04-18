@@ -41,14 +41,28 @@ package com.view.components
 			call.repeatCount=12;
 			Starling.juggler.delayCall(removeNote,0.2*13);
 			if(tweet){
-				var sound:Sound = new Sound(new URLRequest("../../assets/sounds/birds1.mp3"))
+				var sound:Sound = new Sound(new URLRequest("../../assets/sounds/heb/birds1.mp3"))
 				sound.play();
 			}
 		}
 		
-		public function tweet():void{
+		public function tweet(playSound:Boolean):void{
 			addNote();
 			Starling.juggler.delayCall(removeNote,2);
+			if(playSound){
+				var rand:Number = Math.random();
+				var sound:Sound;
+				if(rand<0.2){
+					sound = new Sound(new URLRequest("../../assets/sounds/heb/birds2.mp3"))
+				}else if(rand<0.4){
+					sound = new Sound(new URLRequest("../../assets/sounds/heb/birds3.mp3"))
+				}else if(rand<0.6){
+					sound = new Sound(new URLRequest("../../assets/sounds/heb/birds4.mp3"))
+				}else{
+					sound = new Sound(new URLRequest("../../assets/sounds/heb/birds5.mp3"))
+				}
+				sound.play();
+			}
 		}
 		private function removeNote():void{
 			if(numChildren>1){
@@ -82,7 +96,6 @@ package com.view.components
 			img.scaleX=-1;
 			img.x=img.width;
 			_lastNoteImage = img;
-			trace("add",img,rand)
 			return img;
 		}
 		

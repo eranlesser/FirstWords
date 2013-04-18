@@ -1,5 +1,8 @@
 package
 {
+	import com.freshplanet.nativeExtensions.Flurry;
+	import com.model.Session;
+	
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageDisplayState;
@@ -61,6 +64,10 @@ package
 			
 			// NB! Use Gestouch#removeTouchHitTester() method if you manage multiple Starling instances during
 			// your application lifetime.
+			Session.init();
+			Flurry.getInstance().setIOSAPIKey("8R342X54FKMXSYP793P9");
+			Flurry.getInstance().startSession();
+			//Flurry.getInstance().setUserId(currentOSUser);//eran
 		}
 		
 		private function orientationChange(e:StageOrientationEvent):void{

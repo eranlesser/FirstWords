@@ -10,5 +10,6 @@ package com.view
 		function get goHome():Signal;
 		function destroy():void;
 		function set model(mdl:ScreenModel):void;
+		function get model():ScreenModel;
 	}
 }

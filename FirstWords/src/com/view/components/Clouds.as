@@ -36,7 +36,7 @@ package com.view.components
 		}
 		
 		public function stop():void{
-			_juggler.repeatCount=1;
+			Starling.juggler.remove(_juggler);
 			this.removeChildren();
 			this.removeEventListeners();
 		}

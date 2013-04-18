@@ -12,6 +12,10 @@ package com.model
 			}
 		}
 		
+		public function get index():int{
+			return _index;
+		}
+		
 		public function getNext():ScreenModel{
 			_index++;
 			if(_index==_screens.length-1){

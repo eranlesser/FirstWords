@@ -1,13 +1,17 @@
 package com.controller
 {
+	import com.Dimentions;
+	import com.freshplanet.nativeExtensions.Flurry;
 	import com.model.ScreenModel;
 	import com.model.ScreensModel;
+	import com.model.Session;
 	import com.model.rawData.WhereIsData;
 	import com.view.Egg;
 	import com.view.HomeScreen;
 	import com.view.IScreen;
 	import com.view.PlayRoom;
 	import com.view.Rain;
+	import com.view.RateThisApp;
 	import com.view.WhereIsScene;
 	import com.view.WhereIsScreen;
 	import com.view.menu.ConfigurationScreen;
@@ -31,9 +35,16 @@ package com.controller
 			_homeScreen = new HomeScreen(_screens);
 		}
 		
-		public function goNext():void{
+		private function goNext():void{
+			//if(_screens.index==Session.FREE_SCREENS_COUNT){
+			//if(_screens.index==1){//Session.FREE_SCREENS_COUNT){
+			//	goTo(-1)
+			//	return;
+			//}
+			
 			removeScreen(_currentScreen);;
 			_currentScreen = addScreen(_screens.getNext());
+			
 		}
 		
 		public function goTo(screenIndex:int):void{
@@ -41,8 +52,9 @@ package com.controller
 				if(!_configScr){
 					_configScr = new ConfigurationScreen(_screens);
 					_configScr.goHome.add(function():void{_app.removeChild(_configScr)});
-					_configScr.gotoSignal.add(function onGoTo(indx:uint):void{
-						_app.removeChild(_configScr);
+					_configScr.gotoSignal.add(function onGoTo(indx:int):void{
+						if(indx>-2)
+							_app.removeChild(_configScr);
 						goTo(indx)
 					
 					});
@@ -50,12 +62,21 @@ package com.controller
 				_app.addChild(_configScr);
 				_configScr.setSelectedScreen();
 			}else if(screenIndex==-2){
-				removeScreen(_currentScreen);
-				_currentScreen = addScreen(_screens.getScreen(1));
+				if(!Session.playRoomEnabled){
+					var rateThisApp:RateThisApp = new RateThisApp();
+					_app.addChild(rateThisApp);
+				}else{
+					_app.removeChild(_configScr);
+					_currentScreen = addScreen(_screens.getScreen(1));
+					_playRoom.noTimer=true;
+					Session.currentScreen=0;
+				}
 			}else{
 				removeScreen(_currentScreen);
 				_currentScreen = addScreen(_screens.getScreen(screenIndex));
 			}
+			if(_currentScreen && _currentScreen.model)
+			Flurry.getInstance().logEvent("Nav GoTo ",_currentScreen.model.groupName);
 		}
 		
 		public function goHome():void{
@@ -65,6 +86,7 @@ package com.controller
 			_app.addChild(_homeScreen);
 			_currentScreen = _homeScreen;
 			_homeScreen.gotoSignal.add(goTo);
+			Flurry.getInstance().logEvent("navigate home");
 		}
 		
 		private function removeScreen(screen:IScreen):void{

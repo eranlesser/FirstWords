@@ -10,7 +10,6 @@ package com.model.rawData
 				<item image="piano" sound="musicians/piano.mp3" groupId="piano" />
 				<item image="singing" sound="musicians/singing.mp3" groupId="singing" />
 				<item image="trumpet" sound="musicians/trumpet.mp3" groupId="trumpet" />
-				<item image="violin" sound="musicians/violin.mp3" groupId="violin" />
 				
 			</data>
 			

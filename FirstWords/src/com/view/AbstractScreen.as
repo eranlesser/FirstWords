@@ -3,8 +3,10 @@ package com.view
 	import com.Dimentions;
 	import com.model.Item;
 	import com.model.ScreenModel;
+	import com.model.Session;
 	import com.view.components.ImageItem;
 	import com.view.components.ParticlesEffect;
+	import com.view.utils.SoundPlayer;
 	
 	import flash.events.Event;
 	import flash.media.Sound;
@@ -37,6 +39,14 @@ package com.view
 		protected var _whoIs:			Item;
 		protected var _guiLayer:		Sprite;
 		protected var _screenLayer:		Sprite;
+		protected var _soundManager:SoundPlayer = new SoundPlayer();
+		
+		[Embed(source="../../assets/whereBird.png")]
+		private var wBird : 			Class;
+		[Embed(source="../../assets/whereBird_note.png")]
+		private var wBirdNote : 			Class;
+		private var _wBirdNote:Button;
+		
 		public function AbstractScreen()
 		{
 			_screenLayer = new Sprite();
@@ -60,8 +70,8 @@ package com.view
 			
 			var homeBut:Button = new Button( Texture.fromBitmap(new homeBt()) );
 			_guiLayer.addChild(homeBut);
-			homeBut.x=4;
-			homeBut.y=4;
+			homeBut.x=8;
+			homeBut.y=8;
 			homeBut.addEventListener(starling.events.Event.TRIGGERED, function():void{
 				complete();
 				goHome.dispatch()
@@ -71,16 +81,21 @@ package com.view
 			return _screenLayer;
 		}
 		
+		
+		public function get model():ScreenModel{
+			return _model;
+		}
+		
 		public function set model(screenModel:ScreenModel):void{
 			_counter=0;
 			_model=screenModel;
 			if(_model.sound == "where" || _model.sound == ""){
-				_questionSound = new Sound(new URLRequest("../assets/sounds/where.mp3"));
+				_questionSound = _soundManager.getSound("../assets/sounds/","where.mp3")//new Sound(new URLRequest("../assets/sounds/where.mp3"));
 			}else if(_model.sound == "who"){
-				_questionSound = new Sound(new URLRequest("../assets/sounds/who.mp3"));
+				_questionSound = _soundManager.getSound("../assets/sounds","/who.mp3");
 			}
 			if(_model.categorySound!=""){
-				_categorySound = new Sound(new URLRequest("../assets/sounds/"+_model.categorySound));
+				_categorySound = _soundManager.getSound("../assets/sounds/",_model.categorySound);
 				var chnl:SoundChannel = _categorySound.play();
 				_categorySoundPlaying=true;
 				chnl.addEventListener(flash.events.Event.SOUND_COMPLETE,function onCatSoundDone(e:flash.events.Event):void{
@@ -89,10 +104,23 @@ package com.view
 					_categorySoundPlaying=false;
 				});
 			}
+			
+			var whereBird:Button = new Button(Texture.fromBitmap(new wBird()));
+			addChild(whereBird);
+			_wBirdNote = new Button(Texture.fromBitmap(new wBirdNote()));
+			addChild(_wBirdNote);
+			_wBirdNote.visible = false;
+			whereBird.x = Dimentions.WIDTH - whereBird.width//-2;
+			_wBirdNote.x = Dimentions.WIDTH - _wBirdNote.width//-2;
+			whereBird.addEventListener(starling.events.Event.TRIGGERED,function():void{
+				if(_enabled){
+					playWhoIsSound();
+				}
+			});
 		}
 		
 		protected function playWhoIsSound():void{
-			
+			_wBirdNote.visible=true;
 		}
 		
 		protected function onGoodClick():Boolean{ 
@@ -101,16 +129,17 @@ package com.view
 			}
 			var soundFile:String;
 			if(Math.random()>0.2)
-				soundFile = "../assets/sounds/goodA"+Math.ceil(Math.random()*4)+".mp3";
+				soundFile = "goodA"+Math.ceil(Math.random()*4)+".mp3";
 			else
-				soundFile = "../assets/sounds/good"+Math.ceil(Math.random()*4)+".mp3";
-			var goodSound:Sound = new Sound(new URLRequest(soundFile));
+				soundFile = "good"+Math.ceil(Math.random()*4)+".mp3";
+			var goodSound:Sound = _soundManager.getSound("../assets/sounds/",soundFile);
 			var channel:SoundChannel = goodSound.play();
 			channel.addEventListener(flash.events.Event.SOUND_COMPLETE,goodSoundComplete);
 			_enabled=false;
 			if(_counter>=_model.numItems){
 				closeCurtains();
 			}
+			Session.rightAnswer++;
 			return true;
 		}
 		protected function closeCurtains():void{
@@ -152,7 +181,7 @@ package com.view
 		}
 		
 		protected function onWhereIsPlayed(e:flash.events.Event):void{
-			var sound:Sound = new Sound(new URLRequest("../assets/sounds/"+_whoIs.sound));
+			var sound:Sound = _soundManager.getSound("../assets/sounds/",_whoIs.sound);
 			var chanel:SoundChannel = sound.play(); 
 			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereSoundDone);
 		}
@@ -161,7 +190,7 @@ package com.view
 			var chanel:SoundChannel= e.target as SoundChannel;
 			_enabled = true
 			chanel.removeEventListener(flash.events.Event.SOUND_COMPLETE,onWhereSoundDone);
-			
+			_wBirdNote.visible=false;
 		}
 		
 		public function destroy():void{
@@ -169,6 +198,7 @@ package com.view
 			removeChildren();
 			_model.reset();
 			Starling.juggler.remove(_setItemsDelayer);
+			_soundManager.stopSounds();
 		}
 	}
 }
