@@ -30,6 +30,7 @@ package com.view
 		private var _egg:Image;
 		private var _counter:Counter = new Counter();
 		private var _vc:Vector.<Texture> = new Vector.<Texture>();
+		private var _curFrame:uint = 0;
 		public function Egg()
 		{
 			_atlas = Assets.getAtlas("egg");
@@ -75,7 +76,10 @@ package com.view
 				_egg.removeFromParent(true);
 			}
 		}
-		private var _curFrame:uint = 0;
+		
+		override protected function playWhoIsSound():void{//don't show bird note
+		}
+		
 		private function progress():void{
 			removeChild(_egg);
 			_egg = new Image(_vc[_curFrame]);

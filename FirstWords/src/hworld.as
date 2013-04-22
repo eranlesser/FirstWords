@@ -1,5 +1,6 @@
 package
 {
+//	import com.freshplanet.nativeExtensions.Flurry;
 	import com.freshplanet.nativeExtensions.Flurry;
 	import com.model.Session;
 	
@@ -35,9 +36,9 @@ package
 			_starling = new Starling(FirstWordsApp,stage);
 			_starling.start();
 			Starling.current.nativeStage.align = StageAlign.TOP_LEFT;
-			//Starling.current.nativeStage.scaleMode = StageScaleMode.NO_SCALE;
+			Starling.current.nativeStage.scaleMode = StageScaleMode.NO_SCALE;
 			//stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
-			//Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+			Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 			// Gestouch initialization step 1 of 3:
 			
 			// Initialize native (default) input adapter. Needed for non-DisplayList usage.
@@ -65,9 +66,8 @@ package
 			// NB! Use Gestouch#removeTouchHitTester() method if you manage multiple Starling instances during
 			// your application lifetime.
 			Session.init();
-			Flurry.getInstance().setIOSAPIKey("8R342X54FKMXSYP793P9");
+			Flurry.getInstance().setIOSAPIKey("FGJG54WS4ZBX3DYR8T8Q");
 			Flurry.getInstance().startSession();
-			//Flurry.getInstance().setUserId(currentOSUser);//eran
 		}
 		
 		private function orientationChange(e:StageOrientationEvent):void{

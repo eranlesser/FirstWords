@@ -1,7 +1,7 @@
 package com.view
 {
 	import com.Dimentions;
-	import com.freshplanet.nativeExtensions.Flurry;
+	//import com.freshplanet.nativeExtensions.Flurry;
 	import com.model.ScreenModel;
 	import com.view.playRoom.Baloon;
 	import com.view.playRoom.BasketBall;
@@ -168,7 +168,7 @@ package com.view
 		private var _balloons:Vector.<Baloon> = new Vector.<Baloon>();
 		private function onMenuItemDropped(x:int,y:int,id:String):void{
 			
-			Flurry.getInstance().logEvent("playroom "+id);
+			//Flurry.getInstance().logEvent("playroom "+id);
 			switch(id){
 				case "ball":
 					var ball:BasketBall = new BasketBall(_space,_ballCollisionType,x,y);

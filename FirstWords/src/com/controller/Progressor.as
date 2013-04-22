@@ -1,7 +1,6 @@
 package com.controller
 {
 	import com.Dimentions;
-	import com.freshplanet.nativeExtensions.Flurry;
 	import com.model.ScreenModel;
 	import com.model.ScreensModel;
 	import com.model.Session;
@@ -36,11 +35,10 @@ package com.controller
 		}
 		
 		private function goNext():void{
-			//if(_screens.index==Session.FREE_SCREENS_COUNT){
-			//if(_screens.index==1){//Session.FREE_SCREENS_COUNT){
-			//	goTo(-1)
-			//	return;
-			//}
+			if(!Session.fullVersionEnabled && _screens.index==Session.FREE_SCREENS_COUNT){
+					goTo(-1)
+					return;
+			}
 			
 			removeScreen(_currentScreen);;
 			_currentScreen = addScreen(_screens.getNext());
@@ -51,8 +49,11 @@ package com.controller
 			if(screenIndex==-1){
 				if(!_configScr){
 					_configScr = new ConfigurationScreen(_screens);
-					_configScr.goHome.add(function():void{_app.removeChild(_configScr)});
-					_configScr.gotoSignal.add(function onGoTo(indx:int):void{
+					_configScr.goHome.add(function():void{
+						_app.removeChild(_configScr);
+						goHome();
+					});
+					_configScr.menu.gotoSignal.add(function onGoTo(indx:int):void{
 						if(indx>-2)
 							_app.removeChild(_configScr);
 						goTo(indx)
@@ -60,7 +61,7 @@ package com.controller
 					});
 				}
 				_app.addChild(_configScr);
-				_configScr.setSelectedScreen();
+				_configScr.menu.setSelectedScreen();
 			}else if(screenIndex==-2){
 				if(!Session.playRoomEnabled){
 					var rateThisApp:RateThisApp = new RateThisApp();
@@ -75,8 +76,8 @@ package com.controller
 				removeScreen(_currentScreen);
 				_currentScreen = addScreen(_screens.getScreen(screenIndex));
 			}
-			if(_currentScreen && _currentScreen.model)
-			Flurry.getInstance().logEvent("Nav GoTo ",_currentScreen.model.groupName);
+			//sif(_currentScreen && _currentScreen.model)
+			//Flurry.getInstance().logEvent("Nav GoTo ",_currentScreen.model.groupName);
 		}
 		
 		public function goHome():void{
@@ -86,7 +87,7 @@ package com.controller
 			_app.addChild(_homeScreen);
 			_currentScreen = _homeScreen;
 			_homeScreen.gotoSignal.add(goTo);
-			Flurry.getInstance().logEvent("navigate home");
+			//Flurry.getInstance().logEvent("navigate home");
 		}
 		
 		private function removeScreen(screen:IScreen):void{

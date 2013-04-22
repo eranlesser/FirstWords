@@ -27,25 +27,27 @@ package com.view
 		
 		protected var _questionSound:		Sound;
 		protected var _categorySound:		Sound;
-		private var _goHome:Signal = new Signal();
-		private var _done:Signal = new Signal();
-		[Embed(source="../../assets/home/homeBtn.png")]
-		private var homeBt : 			Class;
-		protected var _particlesEffect:	ParticlesEffect;
-		protected var _model:			ScreenModel;
-		protected var _enabled:			Boolean;
-		protected var _categorySoundPlaying:	Boolean=false;
+		protected var _particlesEffect:		ParticlesEffect;
+		protected var _model:				ScreenModel;
+		protected var _enabled:				Boolean;
+		protected var _categorySoundPlaying:Boolean=false;
+		protected var _whoIs:				Item;
+		protected var _guiLayer:			Sprite;
+		protected var _screenLayer:			Sprite;
+		protected var _soundManager:		SoundPlayer = new SoundPlayer();
+
+		private var _wBirdNote:			Button;
+		private var _goHome:			Signal = new Signal();
 		private var _counter:			uint=0;
-		protected var _whoIs:			Item;
-		protected var _guiLayer:		Sprite;
-		protected var _screenLayer:		Sprite;
-		protected var _soundManager:SoundPlayer = new SoundPlayer();
+		private var _setItemsDelayer:	IAnimatable;
 		
 		[Embed(source="../../assets/whereBird.png")]
 		private var wBird : 			Class;
 		[Embed(source="../../assets/whereBird_note.png")]
 		private var wBirdNote : 			Class;
-		private var _wBirdNote:Button;
+		private var _done:Signal = new Signal();
+		[Embed(source="../../assets/home/homeBtn.png")]
+		private var homeBt : 			Class;
 		
 		public function AbstractScreen()
 		{
@@ -65,22 +67,10 @@ package com.view
 		{
 			return _goHome;
 		}
-
-		protected function addNavigation():void{
-			
-			var homeBut:Button = new Button( Texture.fromBitmap(new homeBt()) );
-			_guiLayer.addChild(homeBut);
-			homeBut.x=8;
-			homeBut.y=8;
-			homeBut.addEventListener(starling.events.Event.TRIGGERED, function():void{
-				complete();
-				goHome.dispatch()
-			});
-		}
+		
 		public function get screenLayer():Sprite{
 			return _screenLayer;
 		}
-		
 		
 		public function get model():ScreenModel{
 			return _model;
@@ -119,6 +109,26 @@ package com.view
 			});
 		}
 		
+		public function destroy():void{
+			removeEventListeners();
+			removeChildren();
+			_model.reset();
+			Starling.juggler.remove(_setItemsDelayer);
+			_soundManager.stopSounds();
+		}
+
+		protected function addNavigation():void{
+			var homeBut:Button = new Button( Texture.fromBitmap(new homeBt()) );
+			_guiLayer.addChild(homeBut);
+			homeBut.x=8;
+			homeBut.y=8;
+			homeBut.addEventListener(starling.events.Event.TRIGGERED, function():void{
+				complete();
+				goHome.dispatch()
+			});
+		}
+		
+		
 		protected function playWhoIsSound():void{
 			_wBirdNote.visible=true;
 		}
@@ -142,6 +152,7 @@ package com.view
 			Session.rightAnswer++;
 			return true;
 		}
+		
 		protected function closeCurtains():void{
 			_particlesEffect = new ParticlesEffect();
 			_particlesEffect.y = Dimentions.HEIGHT/2;
@@ -150,7 +161,7 @@ package com.view
 			_particlesEffect.start("drug");
 			
 		}
-		private var _setItemsDelayer:IAnimatable;
+		
 		protected function goodSoundComplete(e:flash.events.Event):void{
 			_setItemsDelayer = Starling.juggler.delayCall(setItems,2);
 			SoundChannel(e.target).removeEventListener(flash.events.Event.SOUND_COMPLETE, goodSoundComplete);
@@ -193,12 +204,5 @@ package com.view
 			_wBirdNote.visible=false;
 		}
 		
-		public function destroy():void{
-			removeEventListeners();
-			removeChildren();
-			_model.reset();
-			Starling.juggler.remove(_setItemsDelayer);
-			_soundManager.stopSounds();
-		}
 	}
 }

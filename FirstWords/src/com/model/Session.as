@@ -1,6 +1,6 @@
 package com.model
 {
-	import com.freshplanet.nativeExtensions.Flurry;
+	//import com.freshplanet.nativeExtensions.Flurry;
 	
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
@@ -11,9 +11,9 @@ package com.model
 	public class Session
 	{
 		public static var currentScreen:int=0;
-		public static var locked:Boolean = true;
 		private static var _playRoomEnabled:Boolean = false;
-		public static const FREE_SCREENS_COUNT:uint=4;
+		private static var _fullVersionEnabled:Boolean = false;
+		public static const FREE_SCREENS_COUNT:uint=40;
 		public static var rightAnswer:uint=0;
 		public static var wrongAnswer:uint=0;
 		public static var changed:Signal = new Signal();
@@ -25,13 +25,24 @@ package com.model
 		{
 			return _playRoomEnabled;
 		}
+		public static function get fullVersionEnabled():Boolean
+		{
+			return _fullVersionEnabled;
+		}
 
 		public static function set playRoomEnabled(value:Boolean):void
 		{
-			Flurry.getInstance().logEvent("playroomEnabled",value);
+			//Flurry.getInstance().logEvent("playroomEnabled",value);
 			_playRoomEnabled = value;
+			exportSessionData();
 			changed.dispatch();
-			exportSessionData(new XML(<playRoomEnabled>{value}</playRoomEnabled>));
+		}
+		public static function set fullVersionEnabled(value:Boolean):void
+		{
+			//Flurry.getInstance().logEvent("playroomEnabled",value);
+			_fullVersionEnabled = value;
+			exportSessionData();
+			changed.dispatch();
 		}
 		
 		public static function init():void{
@@ -41,15 +52,19 @@ package com.model
 				inputStream.open(inputFile, FileMode.READ);
 				var sessionXML:XML = XML(inputStream.readUTFBytes(inputStream.bytesAvailable));
 				inputStream.close();
-				if(sessionXML == "true"){
-					//_playRoomEnabled = true;
+				if(sessionXML.playRoomEnabled == "true"){
+					_playRoomEnabled = true;
+					changed.dispatch();
+				}
+				if(sessionXML.fullVersion == "true"){
+					_fullVersionEnabled = true;
 					changed.dispatch();
 				}
 				trace("sessionXML",sessionXML);
 			}
 		}
 		
-		private static function exportSessionData(sessionXml:XML):void{
+		private static function exportSessionData():void{
 			var folder:File = File.applicationStorageDirectory.resolvePath("sessions");
 			if (!folder.exists) { 
 				folder.createDirectory();
@@ -60,10 +75,9 @@ package com.model
 			}
 			var outputStream:FileStream = new FileStream();
 			outputStream.open(outputFile,FileMode.WRITE);
+			var sessionXml:XML = new XML(<xml><playRoomEnabled>{_playRoomEnabled}</playRoomEnabled><fullVersion>{_fullVersionEnabled}</fullVersion></xml>)
 			var outputString:String = '<?xml version="1.0" encoding="utf-8"?>\n';
-			//outputString += '<userSession>\n';
 			outputString += sessionXml.toXMLString()+'\n';
-			//outputString += '</userSession>\n';
 			outputStream.writeUTFBytes(outputString);
 			outputStream.close();
 		}
