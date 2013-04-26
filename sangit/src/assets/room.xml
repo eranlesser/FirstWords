@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:b3aa28af131f2b7b6e16171626c7b140$ -->
+<TextureAtlas imagePath="room.png">
+    <SubTexture name="bed" x="1258" y="2" width="420" height="375" frameX="-6" frameY="-6" frameWidth="430" frameHeight="385"/>
+    <SubTexture name="big_ball" x="1005" y="944" width="59" height="60" frameX="-8" frameY="-10" frameWidth="75" frameHeight="82"/>
+    <SubTexture name="bridge" x="1134" y="623" width="98" height="112" frameX="-7" frameY="-3" frameWidth="110" frameHeight="118"/>
+    <SubTexture name="car" x="406" y="980" width="42" height="35"/>
+    <SubTexture name="carpet" x="157" y="772" width="247" height="228" frameX="-7" frameY="-6" frameWidth="261" frameHeight="240"/>
+    <SubTexture name="chair" x="2" y="772" width="153" height="236" frameX="-7" frameY="-2" frameWidth="165" frameHeight="242"/>
+    <SubTexture name="closet" x="1028" y="2" width="228" height="619" frameX="-2" frameY="-4" frameWidth="230" frameHeight="625"/>
+    <SubTexture name="comb" x="509" y="980" width="41" height="21" frameX="-3" frameY="-16" frameWidth="45" frameHeight="45"/>
+    <SubTexture name="day_window" x="886" y="772" width="120" height="170"/>
+    <SubTexture name="day_window_sun" x="764" y="772" width="120" height="170"/>
+    <SubTexture name="drawings_boy" x="1278" y="760" width="136" height="90" frameX="-3" frameY="-1" frameWidth="144" frameHeight="96"/>
+    <SubTexture name="drawings_girl" x="1525" y="379" width="136" height="90" frameX="-3" frameY="-1" frameWidth="144" frameHeight="96"/>
+    <SubTexture name="empty_room" x="2" y="2" width="1024" height="768"/>
+    <SubTexture name="horse" x="1008" y="772" width="122" height="154" frameX="-6" frameY="-3" frameWidth="136" frameHeight="162"/>
+    <SubTexture name="lamp_on" x="642" y="944" width="86" height="74" frameX="-6" frameY="-13" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="magic_box" x="942" y="944" width="61" height="61" frameX="-5" frameY="-4" frameWidth="67" frameHeight="67"/>
+    <SubTexture name="night_window" x="642" y="772" width="120" height="170"/>
+    <SubTexture name="orange_cube" x="480" y="980" width="27" height="23" frameX="-4" frameY="-6" frameWidth="35" frameHeight="35"/>
+    <SubTexture name="pins" x="1455" y="478" width="99" height="96" frameX="-13" frameY="-4" frameWidth="115" frameHeight="102"/>
+    <SubTexture name="rabbit" x="1028" y="623" width="104" height="147" frameX="-8" frameY="-4" frameWidth="120" frameHeight="155"/>
+    <SubTexture name="shida" x="1132" y="772" width="144" height="152" frameX="-9" frameY="-2" frameWidth="160" frameHeight="160"/>
+    <SubTexture name="sleepers" x="1276" y="705" width="109" height="53"/>
+    <SubTexture name="small_bed" x="1353" y="593" width="108" height="96" frameX="-1" frameY="-1" frameWidth="110" frameHeight="98"/>
+    <SubTexture name="small_big_ball" x="1005" y="944" width="59" height="60" frameX="-8" frameY="-10" frameWidth="75" frameHeight="82"/>
+    <SubTexture name="small_bridge" x="1258" y="489" width="93" height="106" frameX="-6" frameY="-2" frameWidth="103" frameHeight="110"/>
+    <SubTexture name="small_car" x="406" y="980" width="42" height="35"/>
+    <SubTexture name="small_carpet" x="1417" y="379" width="106" height="97" frameX="-2" frameY="-2" frameWidth="110" frameHeight="101"/>
+    <SubTexture name="small_chair" x="1258" y="379" width="71" height="108" frameX="-2" frameY="-1" frameWidth="75" frameHeight="110"/>
+    <SubTexture name="small_closet" x="1234" y="623" width="40" height="110"/>
+    <SubTexture name="small_comb" x="509" y="980" width="41" height="21" frameX="-3" frameY="-16" frameWidth="45" frameHeight="45"/>
+    <SubTexture name="small_drawings_boy" x="836" y="944" width="104" height="69" frameX="-3" frameY="-1" frameWidth="110" frameHeight="73"/>
+    <SubTexture name="small_drawings_girl" x="730" y="944" width="104" height="69" frameX="-3" frameY="-1" frameWidth="110" frameHeight="73"/>
+    <SubTexture name="small_horse" x="1331" y="379" width="84" height="106" frameX="-3" frameY="-1" frameWidth="92" frameHeight="110"/>
+    <SubTexture name="small_magic_box" x="942" y="944" width="61" height="61" frameX="-5" frameY="-4" frameWidth="67" frameHeight="67"/>
+    <SubTexture name="small_orange_cube" x="480" y="980" width="27" height="23" frameX="-4" frameY="-6" frameWidth="35" frameHeight="35"/>
+    <SubTexture name="small_pins" x="1066" y="928" width="98" height="94" frameX="-11" frameY="-3" frameWidth="110" frameHeight="98"/>
+    <SubTexture name="small_rabbit" x="1276" y="597" width="75" height="106" frameX="-5" frameY="-2" frameWidth="85" frameHeight="110"/>
+    <SubTexture name="small_shida" x="1353" y="487" width="100" height="104" frameX="-6" frameY="-2" frameWidth="110" frameHeight="110"/>
+    <SubTexture name="small_sleepers" x="1276" y="705" width="109" height="53"/>
+    <SubTexture name="small_small_ball" x="450" y="980" width="28" height="28" frameX="-1" frameY="-2" frameWidth="30" frameHeight="30"/>
+    <SubTexture name="small_snaik" x="1387" y="691" width="139" height="48" frameX="-3" frameY="-8" frameWidth="145" frameHeight="60"/>
+    <SubTexture name="small_table" x="1166" y="926" width="110" height="96"/>
+    <SubTexture name="small_ball" x="450" y="980" width="28" height="28" frameX="-1" frameY="-2" frameWidth="30" frameHeight="30"/>
+    <SubTexture name="snaik" x="1387" y="691" width="139" height="48" frameX="-3" frameY="-8" frameWidth="145" frameHeight="60"/>
+    <SubTexture name="sun" x="1463" y="576" width="49" height="47" frameX="0" frameY="-3" frameWidth="49" frameHeight="51"/>
+    <SubTexture name="table" x="406" y="772" width="234" height="206" frameX="-2" frameY="-2" frameWidth="240" frameHeight="210"/>
+</TextureAtlas>
