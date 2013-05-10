@@ -14,9 +14,7 @@ package com.view
 	import flash.events.Event;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
-	import flash.net.URLRequest;
 	
-	import starling.display.Image;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
@@ -25,8 +23,8 @@ package com.view
 		
 		private var _layout:			Layout;
 		private var _goodSound:			Sound;
-		private var _clouds:Clouds;
-		private var _birds:Tweet;
+		private var _clouds:			Clouds;
+		private var _birds:				Tweet;
 		
 		public function WhereIsScreen()
 		{
@@ -74,8 +72,9 @@ package com.view
 		
 		private function onGoodItemClick(img:ImageItem):Boolean{
 			if(super.onGoodClick()){
-				_birds.tweet(true);
+				//_birds.tweet(true);
 				img.onGoodClick();
+				img.touched.remove(onGoodItemClick);
 			}
 			return true;
 		}

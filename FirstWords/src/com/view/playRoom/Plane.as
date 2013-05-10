@@ -79,7 +79,7 @@ package com.view.playRoom
 					_sound.play();
 					var ref:IAnimatable = Starling.juggler.delayCall(function removeParticles():void{
 						_body.gravMassMode = GravMassMode.DEFAULT;
-						_particlesEffect.stop();
+						_particlesEffect.dispose();
 						_particlesEffect.removeFromParent(true);
 						_material.removeChild(_particlesEffect);
 						_climbing = false;

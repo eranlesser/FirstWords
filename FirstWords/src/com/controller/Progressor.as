@@ -5,6 +5,7 @@ package com.controller
 	import com.model.ScreensModel;
 	import com.model.Session;
 	import com.model.rawData.WhereIsData;
+	import com.view.Baloons;
 	import com.view.Egg;
 	import com.view.HomeScreen;
 	import com.view.IScreen;
@@ -68,7 +69,7 @@ package com.controller
 					_app.addChild(rateThisApp);
 				}else{
 					_app.removeChild(_configScr);
-					_currentScreen = addScreen(_screens.getScreen(1));
+					_currentScreen = addScreen(_screens.getScreen(_screens.playRoomIndex));
 					_playRoom.noTimer=true;
 					Session.currentScreen=0;
 				}
@@ -115,6 +116,9 @@ package com.controller
 					break;
 				case "rain":
 					screen = new Rain();
+					break;
+				case "baloons":
+					screen = new Baloons();
 					break;
 				case "playRoom":
 					if(!_playRoom){

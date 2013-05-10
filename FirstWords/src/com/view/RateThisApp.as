@@ -2,6 +2,10 @@ package com.view
 {
 	import com.Dimentions;
 	import com.model.Session;
+	import com.utils.Texter;
+	
+	import flash.net.URLRequest;
+	import flash.net.navigateToURL;
 	
 	import starling.display.Button;
 	import starling.display.Image;
@@ -35,15 +39,15 @@ package com.view
 			popupImg.height=Dimentions.HEIGHT+8;
 			popupImg.x=-4;
 			popupImg.y=-4;
-			var title:TextField = new TextField(800,100,"דרגו את האפליקציה וקבלו גישה חופשית לחדר המשחקים","Verdana",24,0x002661);
+			var title:TextField = new TextField(800,100,Texter.flip("דרגו את האפליקציה וקבלו גישה חופשית לחדר המשחקים"),"Verdana",24,0x002661);
 			title.autoScale=true;
 			addChild(title);
 			title.x=(Dimentions.WIDTH-title.width)/2
 			title.y=80;
-			var okBut:Button = new Button(Texture.fromBitmap(new btn()),"דרג");
+			var okBut:Button = new Button(Texture.fromBitmap(new btn()),Texter.flip("דרג"));
 			okBut.fontSize=22;
 			okBut.fontColor=0x003B94;
-			var noBut:Button = new Button(Texture.fromBitmap(new btn()),"לא תודה");
+			var noBut:Button = new Button(Texture.fromBitmap(new btn()),Texter.flip("לא תודה"));
 			noBut.fontSize=22;
 			noBut.fontColor=0x003B94;
 			addChild(okBut);
@@ -57,6 +61,8 @@ package com.view
 				function():void{
 					removeSelf();
 					Session.playRoomEnabled=true;
+					var url:URLRequest = new URLRequest("https://itunes.apple.com/us/app/zywzym-r-swnym/id638720649?ls=1&mt=8");
+					navigateToURL(url, "_blank");
 				}
 			);
 			

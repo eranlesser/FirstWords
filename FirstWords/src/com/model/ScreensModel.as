@@ -4,14 +4,25 @@ package com.model
 	{
 		private var _screens:Vector.<ScreenModel>;
 		private var _index:int=0;
+		private var _playRoomIndex:int=0;
 		public function ScreensModel(data:XML)
 		{
 			_screens = new Vector.<ScreenModel>();
+			var model:ScreenModel;
 			for each(var screen:XML in data.screens.data){
-				_screens.push(new ScreenModel(screen));
+				model = new ScreenModel(screen);
+				_screens.push(model);
+				if(model.type == "playRoom" && _playRoomIndex==0){
+					_playRoomIndex = _screens.indexOf(model);
+				}
 			}
 		}
 		
+		public function get playRoomIndex():int
+		{
+			return _playRoomIndex;
+		}
+
 		public function get index():int{
 			return _index;
 		}
@@ -29,6 +40,7 @@ package com.model
 		public function getScreen(indx:int):ScreenModel{
 			_index = indx;
 			Session.currentScreen = indx;
+			trace(_screens[index])
 			return _screens[indx];
 		}
 		

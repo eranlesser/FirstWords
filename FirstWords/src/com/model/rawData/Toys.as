@@ -2,7 +2,7 @@ package com.model.rawData
 {
 	public class Toys
 	{
-		public static var data:XML = 
+		public static const data:XML = 
 			<data type="whereIsScreen" groupName="toys1" thumbNail="cubesTmb" categorySound="category/toys.mp3">
 				<item image="ball" sound="toys/ball.mp3" groupId="ball"  />
 				<item image="book" sound="toys/book.mp3"  groupId="book"/>

@@ -35,6 +35,8 @@ package com.view.menu
 		private var about : 			Class;
 		[Embed(source="../../../assets/menu/share.png")]
 		private var share : 			Class;
+		[Embed(source="../../../assets/about.png")]
+		private var aboutPng : Class;
 		
 		public var goHome:Signal = new Signal();
 		private var _navText:TextField;
@@ -69,13 +71,13 @@ package com.view.menu
 			_about = new Sprite();
 			var tField:TextField = new TextField(900,600,AboutText.xml.toString(),"Verdena",19,0X03588C);
 			var title:TextField = new TextField(900,80,AboutText.title,"Verdena",34,0X415A79);
-			_about.addChild(tField);
-			_about.addChild(title);
-			tField.x=20;
-			tField.y=200;
+			_about.addChild(new Image(Texture.fromBitmap(new aboutPng())));
+			//_about.addChild(title);
+			//tField.x=20;
+			//tField.y=200;
 			
-			title.x=20;
-			title.y=120;
+			//title.x=20;
+			_about.y=120;
 			addChild(_about);
 			_about.visible=false;
 			tField.hAlign = "right";
@@ -104,6 +106,7 @@ package com.view.menu
 			_aboutText.touchable = false;
 			_aboutText.x = aboutButton.x;
 			_aboutText.y=_navText.y;
+			setState("nav");
 		}
 		
 		private function setState(stt:String):void{

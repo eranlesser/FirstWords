@@ -278,8 +278,9 @@
 		]]></InfoAdditions>
         <requestedDisplayResolution>high</requestedDisplayResolution>
     </iPhone>
+
 <extensions>
         <extensionID>com.freshplanet.AirFlurry</extensionID>
-    <extensionID>com.adobe.ane.productStore</extensionID>
+        <extensionID>com.adobe.ane.productStore</extensionID>
     </extensions>
 </application>

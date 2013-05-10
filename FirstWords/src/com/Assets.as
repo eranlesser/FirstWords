@@ -100,6 +100,9 @@ package com
 		[Embed(source = "assets/whereIsScene/bathroom.png")] 
 		private static const bathroom:Class;
 		
+		[Embed(source = "assets/transportation/transportation.png")] 
+		private static const transportation:Class;
+		
 		
 		private static var _toysAtlas:TextureAtlas;
 		private static var _animalsAtlas:TextureAtlas;
@@ -209,6 +212,7 @@ package com
 			_assets.push(new Asset("outdoors2",new outdoors2()));
 			_assets.push(new Asset("bathroom",new bathroom()));
 			_assets.push(new Asset("birdsBg",new birdsBg()));
+			_assets.push(new Asset("transportation",new transportation()));
 			
 			
 		}

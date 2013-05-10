@@ -1,22 +1,15 @@
 package com.model.rawData
 {
-	public class Animals
+	public class AnimalCards1
 	{
 		public static var data:XML = 
 			<data type="whereIsScreen" groupName="animals" categorySound="category/animals.mp3" thumbNail="elephantTmb">
 				<item image="bear" sound="animals/bear.mp3" groupId="bear"  />
 				<item image="camel" sound="animals/camel.mp3" groupId="camel"/>
-				<item image="cat" sound="animals/cat.mp3" groupId="cat"/>
-				<item image="chicken" sound="animals/chicken.mp3" groupId="chicken"/>
-				<item image="cow" sound="animals/cow.mp3" groupId="cow"/>
-				<item image="dog" sound="animals/dog.mp3" groupId="dog"/>
-				<item image="dolphin" sound="animals/dolphin.mp3" groupId="dolphin" />
-				<item image="duck" sound="animals/duck.mp3" groupId="duck"/>
 				<item image="elephant" sound="animals/elaphent.mp3" groupId="elephant"/>
 				<item image="horse" sound="animals/horse.mp3" groupId="horse"/>
 				<item image="lion" sound="animals/lion.mp3" groupId="lion"/>
 				<item image="monkey" sound="animals/monkey.mp3" groupId="monkey"/>
-				<item image="trtl" sound="animals/trtel.mp3" groupId="trtl"  />
 				<item image="zebra" sound="animals/zebra.mp3" groupId="zebra"  />
 				
 			</data>;

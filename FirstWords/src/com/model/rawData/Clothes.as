@@ -13,7 +13,6 @@ package com.model.rawData
 				<item image="scarf" sound="clothes/scarf.mp3" groupId="scarf" />
 				<item image="shoes" sound="clothes/shoes.mp3" groupId="shoes" />
 				<item image="socks" sound="clothes/socks.mp3" groupId="socks" />
-				<item image="underwear" sound="clothes/underwear.mp3" groupId="underwear" />
 				
 			</data>
 			

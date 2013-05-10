@@ -137,11 +137,11 @@ import starling.textures.Texture;
 class ThumbNail extends Sprite{
 	public var index:int;
 	private var _btn:Button;
-	private var _selectedFrame:Image;
+	private var _selectedFrame:Button;
 	private var _lock:Image;
 	function ThumbNail(asset:Texture,indx:int,lock:Image=null){
-		var frame:Image = new Image(Texture.fromBitmap(new Assets.Frame))
-		_selectedFrame = new Image(Texture.fromBitmap(new Assets.FrameSelected))
+		var frame:Button = new Button(Texture.fromBitmap(new Assets.Frame))
+		_selectedFrame = new Button(Texture.fromBitmap(new Assets.FrameSelected))
 		
 		var wdt:uint=170;
 		var hgt:uint=136;

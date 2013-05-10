@@ -97,7 +97,7 @@ package com.view.components
 		}
 		
 		public function stop():void{
-			_mParticleSystem.stop(true);
+			_mParticleSystem.dispose();
 			_mParticleSystem.removeFromParent(true);
 		}
 	}

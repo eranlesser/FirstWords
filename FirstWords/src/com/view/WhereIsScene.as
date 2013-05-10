@@ -15,7 +15,6 @@ package com.view
 	import flash.geom.Rectangle;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
-	import flash.net.URLRequest;
 	
 	import starling.core.Starling;
 	import starling.display.Button;
@@ -24,8 +23,6 @@ package com.view
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
-	import starling.filters.BlurFilter;
-	import starling.filters.ColorMatrixFilter;
 	import starling.textures.Texture;
 
 	public class WhereIsScene extends AbstractScreen
@@ -44,11 +41,8 @@ package com.view
 		override public function set model(screenModel:ScreenModel):void{
 			var bg:Image = new Image(Texture.fromBitmap(Assets.getImage(screenModel.backGround)));
 			_screenLayer.addChild(bg);
-			bg.width = Dimentions.WIDTH;
-			bg.height = Dimentions.HEIGHT;
-			
-			
-			
+			bg.x = (Dimentions.WIDTH-bg.width)/2;
+			bg.y = (Dimentions.HEIGHT-bg.height)/2;
 			super.model = screenModel;
 			for(var i:uint=0;i<_model.numItems;i++){
 				addItem(_model.distractor);
@@ -125,7 +119,7 @@ package com.view
 
 					}
 				});
-				wiBtn.alpha=0;
+				wiBtn.alpha=0.5;
 				_whereIsBtns.push(wiBtn);
 			}
 		}
@@ -150,6 +144,7 @@ package com.view
 			sound.play();
 			Session.wrongAnswer++;
 		}
+		
 		private function addItem(item:Item):void{
 			for each(var rect:Rectangle in item.rects){
 

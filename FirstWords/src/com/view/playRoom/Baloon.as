@@ -104,7 +104,7 @@ package com.view.playRoom
 			_particlesEffect.start("jfish");
 			_sound.play();
 			Starling.juggler.delayCall(function removeParticles():void{
-				_particlesEffect.stop();
+				_particlesEffect.dispose();
 				_particlesEffect.removeFromParent(true)
 			},0.3);
 			_material.removeFromParent(true);

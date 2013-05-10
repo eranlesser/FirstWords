@@ -76,8 +76,8 @@ package com.view
 		}
 		
 		private function progress():void{
-			if(_index>=9){
-				_index=9;
+			if(_index>=10){
+				_index=10;
 				_rain.visible=false;
 				Starling.juggler.delayCall(function end():void{
 					dispatchDone()},3);
@@ -93,7 +93,7 @@ package com.view
 			_chnl.stop();
 			_index++;
 			removeChild(_seed);
-			var seedStr:String = ("flower"+_index).toString();
+			var seedStr:String = ("flower"+Math.min(_index,9)).toString();
 			_seed = new Image(_atlas.getTexture(seedStr));
 			addChild(_seed);
 			_seed.x = (Dimentions.WIDTH-_seed.width)/2;

@@ -6,10 +6,10 @@ package com.model.rawData
 			<data type="whereScene" backGround="animals3" >
 				
 				<item  sound="animals/monkey.mp3" groupId="monkey"   >
-					<rect vector="599,380,61,148"/>
+					<rect vector="132,399,163,295"/>
 				</item>
 				<item  sound="body/feet.mp3" groupId="tiger"   >
-					<rect vector="420,531,160,196"/>
+					<rect vector="438,214,392,270"/>
 				</item>
 				
 			</data>;

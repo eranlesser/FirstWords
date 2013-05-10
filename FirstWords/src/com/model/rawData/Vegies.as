@@ -9,7 +9,6 @@ package com.model.rawData
 				<item image="chickpea" sound="fruitsandveg/cpea.mp3" groupId="chickpea" />
 				<item image="corn" sound="fruitsandveg/corn.mp3" groupId="corn" />
 				<item image="cucamber" sound="fruitsandveg/cucamber.mp3" groupId="cucamber" />
-				<item image="eggplant" sound="fruitsandveg/eggplant.mp3" groupId="eggplant" />
 				<item image="tomato" sound="fruitsandveg/tomato.mp3" groupId="tomato" />
 				
 			</data>
