@@ -64,10 +64,10 @@ package com
 		[Embed(source = "assets/bg/birdsBg.png")] 
 		public static const birdsBg:Class;
 		
-		[Embed(source = "assets/frames2.png")] 
+		[Embed(source = "assets/frame2.jpg")] 
 		public static const Frame:Class;
 		
-		[Embed(source = "assets/frames2Selected.png")] 
+		[Embed(source = "assets/frame2_selected.jpg")] 
 		public static const FrameSelected:Class;
 		
 		[Embed(source = "assets/lock.png")] 

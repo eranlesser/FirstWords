@@ -1,6 +1,7 @@
 package com.view
 {
 	import com.Dimentions;
+	import com.model.ScreenModel;
 	import com.view.playRoom.Baloon;
 	
 	import flash.display.Stage;
@@ -18,7 +19,9 @@ package com.view
 	import org.osflash.signals.Signal;
 	
 	import starling.core.Starling;
+	import starling.display.Image;
 	import starling.events.Event;
+	import starling.textures.Texture;
 
 	public class Baloons extends AbstractScreen
 	{
@@ -28,10 +31,12 @@ package com.view
 		private static const GRAVITY_X : Number = 0;
 		private static const GRAVITY_Y : Number = 3000;
 		private static const STEP_TIME : Number = 0.01;
-		
+		[Embed(source="../../assets/balloons/baloonsBg.jpg")]
+		private var bg : Class;
 		public function Baloons()
 		{
 			super();
+			_screenLayer.addChild(new Image(Texture.fromBitmap(new bg())));
 			_ballons = new Vector.<ColoredBaloon>();
 			createSpace();
 			createFloor();
@@ -50,7 +55,9 @@ package com.view
 			const floor:Body = new Body( BodyType.STATIC );
 			
 			// what are all these things?
-			floor.shapes.add( new Polygon( Polygon.rect( 0, Dimentions.HEIGHT/2-80, 1024, 22 ) ) );
+			floor.shapes.add( new Polygon( Polygon.rect( 0, 0, 1024, 22 ) ) );
+			floor.shapes.add( new Polygon( Polygon.rect( 0, 0, 60, 768 ) ) );
+			floor.shapes.add( new Polygon( Polygon.rect( 708, 0, 22, 768 ) ) );
 			
 			floor.space = _space;
 		}
@@ -75,14 +82,15 @@ package com.view
 		}
 		
 		
+		
 		private function init():void{
-			var baloon:ColoredBaloon = new ColoredBaloon("red",_space,new CbType(),200,200);
+			var baloon:ColoredBaloon = new ColoredBaloon("red",_space,new CbType(),300,300);
 			addChild(baloon.material);
-			var blubaloon:ColoredBaloon = new ColoredBaloon("blu",_space,new CbType(),300,200);
+			var blubaloon:ColoredBaloon = new ColoredBaloon("blu",_space,new CbType(),600,300);
 			addChild(blubaloon.material);
-			var greenbaloon:ColoredBaloon = new ColoredBaloon("green",_space,new CbType(),500,200);
+			var greenbaloon:ColoredBaloon = new ColoredBaloon("green",_space,new CbType(),450,300);
 			addChild(greenbaloon.material);
-			var yellowbaloon:ColoredBaloon = new ColoredBaloon("yellow",_space,new CbType(),400,200);
+			var yellowbaloon:ColoredBaloon = new ColoredBaloon("yellow",_space,new CbType(),750,300);
 			addChild(yellowbaloon.material);
 			
 			baloon.poped.add(setWhoIs);
@@ -97,6 +105,12 @@ package com.view
 			
 			
 			setItems();
+			
+		}
+		
+		override public function set model(screenModel:ScreenModel):void{
+			super.model = screenModel;
+			playWhoIsSound();
 		}
 		
 		
@@ -117,6 +131,7 @@ package com.view
 			var sound:Sound = _soundManager.getSound("../assets/sounds/",_ballons[_playIndex].colorSoundFile);
 			var chanel:SoundChannel = sound.play(); 
 			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereSoundDone);
+			_enabled=true;
 		}
 		
 		override protected function setItems():Boolean{
@@ -158,18 +173,19 @@ import starling.textures.Texture;
 
 
 class ColoredBaloon extends PlayItem{
-	[Embed(source="../../assets/balloons/bluBln.png")]
+	[Embed(source="../../assets/balloons/blu.png")]
 	private var bluBln : Class;
-	[Embed(source="../../assets/balloons/greenBln.png")]
+	[Embed(source="../../assets/balloons/green.png")]
 	private var greenBln : Class;
 	[Embed(source="../../assets/balloons/orangeBln.png")]
 	private var orangeBln : Class;
-	[Embed(source="../../assets/balloons/redBln.png")]
+	[Embed(source="../../assets/balloons/red.png")]
 	private var redBln : Class;
 	[Embed(source="../../assets/balloons/turkuizeBln.png")]
 	private var turkuizeBln : Class;
-	[Embed(source="../../assets/balloons/yellowBln.png")]
+	[Embed(source="../../assets/balloons/yellow.png")]
 	private var yellowBln : Class;
+	
 	private var _color:String;
 	private var _sound:Sound;
 	private var _isWho:Boolean=false;
@@ -218,8 +234,8 @@ class ColoredBaloon extends PlayItem{
 	
 	override protected function createBody(cbType:CbType,xx:int,yy:int):void{
 		_body = new Body( BodyType.DYNAMIC, new Vec2( xx, yy ) );
-		_body.shapes.add( new Polygon( Polygon.rect(0,0,_material.width,_material.height), Material.wood() ) );
-		_body.gravMass = 0.2;
+		_body.shapes.add( new Polygon( Polygon.rect(0,0,_material.width,_material.height), Material.rubber() ) );
+		_body.gravMass = -(0.5)+0.2*Math.random();
 		super.createBody(cbType,xx,yy);
 		
 	}
@@ -246,23 +262,27 @@ class ColoredBaloon extends PlayItem{
 	
 	public function pop():void{
 		
-		var _particlesEffect:ParticlesEffect;
-		_particlesEffect = new ParticlesEffect();
-		_particlesEffect.width=_material.width/10;
-		_particlesEffect.height=_material.height/10;
-		_particlesEffect.x=_material.x+_material.width/2;
-		_particlesEffect.y=_material.y+_material.height/2;
-		_material.parent.addChild(_particlesEffect);
-		_particlesEffect.start("jfish");
+		var particlesEffect:ParticlesEffect;
+		particlesEffect = new ParticlesEffect();
+		particlesEffect.width=_material.width/10;
+		particlesEffect.height=_material.height/10;
+		particlesEffect.x=_material.x+_material.width/2;
+		particlesEffect.y=_material.y+_material.height/2;
+		_material.parent.addChild(particlesEffect);
+		particlesEffect.start("jfish");
 		_sound.play();
-		Starling.juggler.delayCall(function removeParticles():void{
-			_particlesEffect.dispose();
-			_particlesEffect.removeFromParent(true);
-			poped.dispatch();
-		},0.3);
+		Starling.juggler.delayCall(removeParticles,0.3,particlesEffect);
 		_material.removeFromParent(true);
 		_space.bodies.remove(_body);
 	}
+	
+	private function removeParticles(particlesEffect:ParticlesEffect):void{
+		particlesEffect.stop();
+		//particlesEffect.dispose();
+		particlesEffect.parent.removeChild(particlesEffect);
+		poped.dispatch();
+	}
+	
 	private function onTouch(e:TouchEvent):void{
 		if(!_isWho ){
 			return;

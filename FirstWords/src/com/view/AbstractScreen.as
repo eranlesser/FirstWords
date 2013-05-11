@@ -170,7 +170,7 @@ package com.view
 		protected function dispatchDone():void{
 			done.dispatch();
 			if(_particlesEffect){
-				_particlesEffect.dispose();
+				_particlesEffect.stop();
 				removeChild(_particlesEffect);
 			}
 		}

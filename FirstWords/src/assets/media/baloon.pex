@@ -22,7 +22,7 @@
   <startParticleSizeVariance value="30.93"/>
   <finishParticleSize value="5.12"/>
   <FinishParticleSizeVariance value="5.00"/>
-  <duration value="-1.00"/>
+  <duration value="2.00"/>
   <emitterType value="1"/>
   <maxRadius value="44.87"/>
   <maxRadiusVariance value="0.00"/>

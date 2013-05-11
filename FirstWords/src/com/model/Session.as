@@ -13,7 +13,7 @@ package com.model
 		public static var currentScreen:int=0;
 		private static var _playRoomEnabled:Boolean = false;
 		private static var _fullVersionEnabled:Boolean = false;
-		public static const FREE_SCREENS_COUNT:uint=40;
+		public static const FREE_SCREENS_COUNT:uint=6;
 		public static var rightAnswer:uint=0;
 		public static var wrongAnswer:uint=0;
 		public static var changed:Signal = new Signal();

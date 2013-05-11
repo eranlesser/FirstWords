@@ -128,6 +128,7 @@ package com.view.components
 
 import com.Assets;
 import com.Dimentions;
+import com.utils.filters.GlowFilter;
 
 import starling.display.Button;
 import starling.display.Image;
@@ -154,17 +155,19 @@ class ThumbNail extends Sprite{
 		addChild(_btn)
 		_btn.x=(frame.width-_btn.width)/2;
 		_btn.y=(frame.height-_btn.height)/2;
-		if(lock){
+		if(lock){//bonus
 			_lock=lock;
 			_lock.x=(wdt-_lock.width)/2;
 			_lock.y=-15;
 		}else{
 			_lock = new Image(Texture.fromBitmap(new Assets.Lock));
-			_lock.x=wdt-_lock.width-8;
-			_lock.y=hgt-_lock.height-5;
+			_lock.x=(wdt-_lock.width)/2;
+			_lock.y=(hgt-_lock.height)/2;
+			_lock.alpha=0.7;
+			_lock.filter = new GlowFilter(0xEDFF19,1,6,6);
 		}
 		addChild(_lock);
-		
+		_lock.touchable=false;
 		index=indx;
 		
 	}
