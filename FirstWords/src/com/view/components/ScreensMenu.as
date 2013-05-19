@@ -22,7 +22,7 @@ package com.view.components
 		[Embed(source = "../../../assets/btn.png")] 
 		private static const btn:Class;
 		private var _restoreButton:Button;
-		private var _inApper:InApper;
+		//private var _inApper:InApper;
 		private var playRoomThmb:ThumbNail;
 		public var gotoSignal:Signal = new Signal();
 		public function ScreensMenu(screens:ScreensModel)
@@ -59,8 +59,8 @@ package com.view.components
 						var thmbNail:ThumbNail = ThumbNail(Button(e.target).parent);
 						if(thmbNail.locked){
 							//Flurry.getInstance().logEvent("productStore.available",productStore.available);
-							_inApper.signal.addOnce(onInApperEvent);
-							_inApper.purchase("babyTweetsHeb.fullContent",1);
+							//_inApper.signal.addOnce(onInApperEvent);
+							//_inApper.purchase("babyTweetsHeb.fullContent",1);
 						}else{
 							gotoSignal.dispatch(thmbNail.index);
 						}
@@ -102,13 +102,13 @@ package com.view.components
 		}
 		
 		private function initInapper():void{
-			_inApper = new InApper();
+			//_inApper = new InApper();
 			
 		}
 		
 		private function onRestoreClicked(e:Event):void{
-			_inApper.signal.addOnce(onInApperEvent);
-			_inApper.restoreTransactions();
+			//_inApper.signal.addOnce(onInApperEvent);
+			//_inApper.restoreTransactions();
 		}
 		
 		private function onInApperEvent(eventType:String,data:Object=null):void{

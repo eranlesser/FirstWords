@@ -9,9 +9,8 @@ package com.model
 		private var _type:				String;
 		private var _backGround:		String;
 		private var _menu:				XMLList;
-		private var _sound:String="where";
 		private var _categorySound:String="";
-		private var _questionType:String;
+		private var _distractorType:String="";
 		
 		public function ScreenModel(data:XML){
 			_items = new Vector.<Item>();
@@ -23,17 +22,18 @@ package com.model
 			_categorySound = data.@categorySound;
 			_type = data.@type;
 			_backGround = data.@backGround;
+			_distractorType = data.@distractorType;
 			if(XMLList(data.menu).length()>0){
 				_menu = data.menu;
 			}
-			_sound = data.@sound;
 			_groupsInScreen = new Vector.<String>();
 		}
 		
-		public function get sound():String
+		public function get distractorType():String
 		{
-			return _sound;
+			return _distractorType;
 		}
+
 		public function get categorySound():String
 		{
 			return _categorySound;

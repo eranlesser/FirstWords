@@ -7,14 +7,16 @@ package com.model
 	public class Item
 	{
 		private var _image:String;
-		private var _sound:String;
+		private var _qSound:String;
+		private var _aSound:String;
 		private var _groupId:String;
 		private var _rects:Vector.<Rectangle>;
 		private var _wasWho:Boolean=false;
 		
 		public function Item(data:XML){
 			_image = data.@image;
-			_sound = data.@sound;
+			_qSound = data.@qsound;
+			_aSound = data.@asound;
 			_groupId = data.@groupId;
 			_rects = new Vector.<Rectangle>();
 			for each(var rectXml:XML in data.rect){
@@ -38,9 +40,13 @@ package com.model
 			_wasWho = value;
 		}
 
-		public function get sound():String
+		public function get qSound():String
 		{
-			return _sound;
+			return _qSound;
+		}
+		public function get aSound():String
+		{
+			return _aSound;
 		}
 
 		public function get image():String

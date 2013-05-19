@@ -4,15 +4,15 @@ package com.model.rawData
 	{
 		
 		public static var data:XML = 
-			<data type="whereIsScreen" groupName="clothes" thumbNail="shoesTmb" categorySound="category/clothes.mp3">
-				<item image="boots" sound="clothes/boots.mp3" groupId="boots"  />
-				<item image="coat" sound="clothes/coat.mp3"  groupId="coat"/>
-				<item image="dress" sound="clothes/dress.mp3" groupId="dress"/>
-				<item image="gloves" sound="clothes/gloves.mp3" groupId="gloves" />
-				<item image="hat" sound="clothes/hat.mp3" groupId="hat" />
-				<item image="scarf" sound="clothes/scarf.mp3" groupId="scarf" />
-				<item image="shoes" sound="clothes/shoes.mp3" groupId="shoes" />
-				<item image="socks" sound="clothes/socks.mp3" groupId="socks" />
+			<data type="whereIsScreen" groupName="clothes" thumbNail="shoesTmb" categorySound="89.mp3">
+				<item image="boots"  groupId="boots" qsound="90.mp3" asound="91.mp3" />
+				<item image="coat"   groupId="coat" qsound="92.mp3" asound="93.mp3"/>
+				<item image="dress"  groupId="dress" qsound="94.mp3" asound="95.mp3"/>
+				<item image="gloves"  groupId="gloves" qsound="96.mp3" asound="97.mp3"/>
+				<item image="hat"  groupId="hat" qsound="98.mp3" asound="99.mp3" />
+				<item image="scarf"  groupId="scarf" qsound="100.mp3" asound="101.mp3" />
+				<item image="shoes"  groupId="shoes" qsound="102.mp3" asound="103.mp3"/>
+				<item image="socks"  groupId="socks" qsound="104.mp3" asound="105.mp3" />
 				
 			</data>
 			

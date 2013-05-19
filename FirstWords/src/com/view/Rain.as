@@ -2,6 +2,8 @@ package com.view
 {
 	import com.Assets;
 	import com.Dimentions;
+	import com.view.components.Counter;
+	import com.view.utils.SoundPlayer;
 	
 	import flash.events.TimerEvent;
 	import flash.media.Sound;
@@ -35,6 +37,7 @@ package com.view
 		private var _atlas:TextureAtlas;
 		private var _index:uint=1;
 		private var _chnl:SoundChannel;
+		private var _counter:Counter = new Counter();
 		public function Rain()
 		{
 			_cloud = new Image(Texture.fromBitmap(new cloud()));
@@ -74,14 +77,19 @@ package com.view
 		private function onTimer():void{
 			progress();
 		}
+		override protected function playWhoIsSound():void{//don't show bird note
+		}
+		
 		
 		private function progress():void{
-			if(_index>=10){
+			if(_index>10){
 				_index=10;
 				_rain.visible=false;
 				Starling.juggler.delayCall(function end():void{
 					dispatchDone()},3);
 				closeCurtains();
+				var soundPlayer:SoundPlayer = new SoundPlayer();
+				soundPlayer.getSound("../../../assets/narration","107.mp3").play();
 				_enabled=false;
 				if(_chnl){
 					_chnl.stop();
@@ -89,13 +97,19 @@ package com.view
 				return;
 			}
 			_rain.visible = false;
-			
+			_counter.progress();
 			_chnl.stop();
 			_index++;
 			removeChild(_seed);
 			var seedStr:String = ("flower"+Math.min(_index,9)).toString();
 			_seed = new Image(_atlas.getTexture(seedStr));
 			addChild(_seed);
+			if(_index>9){
+				_seed.scaleY = 1.1;
+			}
+			if(_index>10){
+				_seed.scaleY = 1.2;
+			}
 			_seed.x = (Dimentions.WIDTH-_seed.width)/2;
 			_seed.y=Dimentions.HEIGHT-_seed.height-20;
 			_enabled=true;

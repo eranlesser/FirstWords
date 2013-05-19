@@ -4,12 +4,12 @@ package com.model.rawData
 	{
 		
 		public static var data:XML = 
-			<data type="whereIsScreen" groupName="musicians" sound="who" thumbNail="singingTmb" categorySound="musicians/music.mp3">
-				<item image="drums" sound="musicians/drums.mp3"  groupId="drums"/>
-				<item image="guitar" sound="musicians/guitar.mp3" groupId="guitar" />
-				<item image="piano" sound="musicians/piano.mp3" groupId="piano" />
-				<item image="singing" sound="musicians/singing.mp3" groupId="singing" />
-				<item image="trumpet" sound="musicians/trumpet.mp3" groupId="trumpet" />
+			<data type="whereIsScreen" groupName="musicians" distractorType="q"  thumbNail="singingTmb" categorySound="117.mp3">
+				<item image="drums" qsound="118.mp3"  groupId="drums"/>
+				<item image="guitar" qsound="119.mp3"  groupId="guitar" />
+				<item image="piano" qsound="120.mp3"  groupId="piano" />
+				<item image="singing" qsound="121.mp3"  groupId="singing" />
+				<item image="trumpet" qsound="122.mp3"  groupId="trumpet" />
 				
 			</data>
 			

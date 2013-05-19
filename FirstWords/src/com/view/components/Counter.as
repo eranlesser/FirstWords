@@ -2,7 +2,9 @@ package com.view.components
 {
 	import com.view.playRoom.Book;
 	
+	import flash.events.Event;
 	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	import flash.net.URLRequest;
 	
 	import org.osflash.signals.Signal;
@@ -17,8 +19,8 @@ package com.view.components
 		private var _delayCall:DelayedCall;
 		public var done:Signal = new Signal();
 		public var tick:Signal = new Signal();
-		private var _soundStr:String = "../../../../assets/sounds/counter/count";
-		private var _knockSound:Sound = new Sound(new URLRequest("../../../../assets/sounds/egg/knock.mp3")); ;
+		public var isDone:Boolean = false;
+		private var _soundStr:String = "../../../../assets/narration/heb/counter/";
 		public function Counter()
 		{
 		}
@@ -33,16 +35,15 @@ package com.view.components
 		
 		public function progress():void{
 			_index++;
-			tick.dispatch();
-			//var coundSound:Sound = new Sound(new URLRequest(_soundStr+_index.toString()+".mp3"));
-			_knockSound.play();
-			try{
-				//coundSound.play();
-			}catch(e:Error){
-				
-			}
+			var coundSound:Sound = new Sound(new URLRequest(_soundStr+_index.toString()+".mp3"));
+			var chnl:SoundChannel = coundSound.play();
+			chnl.addEventListener(Event.SOUND_COMPLETE,function onSound():void{
+				chnl.removeEventListener(Event.SOUND_COMPLETE,onSound);
+				tick.dispatch();
+			});
 			if(_index==_to){
 				done.dispatch();
+				isDone = true;
 			}
 		}
 		

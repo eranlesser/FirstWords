@@ -4,13 +4,13 @@ package com.model.rawData
 	{
 		public static var data:XML = 
 			<data type="whereIsScreen" groupName="animals">
-				<item image="cat" sound="animals/cat.mp3" groupId="cat"/>
-				<item image="chicken" sound="animals/chicken.mp3" groupId="chicken"/>
-				<item image="cow" sound="animals/cow.mp3" groupId="cow"/>
-				<item image="dog" sound="animals/dog.mp3" groupId="dog"/>
-				<item image="dolphin" sound="animals/dolphin.mp3" groupId="dolphin" />
-				<item image="duck" sound="animals/duck.mp3" groupId="duck"/>	
-<item image="trtl" sound="animals/trtel.mp3" groupId="trtl"  />
+				<item image="cat"  groupId="cat" qsound="59.mp3" asound="60.mp3"/>
+				<item image="chicken"  groupId="chicken" qsound="61.mp3" asound="62.mp3"/>
+				<item image="cow"  groupId="cow" qsound="63.mp3" asound="64.mp3"/>
+				<item image="dog"  groupId="dog" qsound="65.mp3" asound="66.mp3"/>
+				<item image="dolphin"  groupId="dolphin" qsound="67.mp3" asound="68.mp3" />
+				<item image="duck"  groupId="duck" qsound="69.mp3" asound="70.mp3"/>	
+				<item image="trtl"  groupId="trtl" qsound="79.mp3" asound="80.mp3" />
 			</data>;
 		
 	}

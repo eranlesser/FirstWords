@@ -3,6 +3,7 @@ package com.view
 	import com.Dimentions;
 	import com.model.ScreenModel;
 	import com.view.playRoom.Baloon;
+	import com.view.playRoom.Book;
 	
 	import flash.display.Stage;
 	import flash.events.Event;
@@ -33,6 +34,7 @@ package com.view
 		private static const STEP_TIME : Number = 0.01;
 		[Embed(source="../../assets/balloons/baloonsBg.jpg")]
 		private var bg : Class;
+		private var _localEnabled:Boolean = false;
 		public function Baloons()
 		{
 			super();
@@ -93,24 +95,26 @@ package com.view
 			var yellowbaloon:ColoredBaloon = new ColoredBaloon("yellow",_space,new CbType(),750,300);
 			addChild(yellowbaloon.material);
 			
-			baloon.poped.add(setWhoIs);
-			blubaloon.poped.add(setWhoIs);
-			greenbaloon.poped.add(setWhoIs);
-			yellowbaloon.poped.add(onLast);
+			baloon.poped.addOnce(setWhoIs);
+			blubaloon.poped.addOnce(setWhoIs);
+			greenbaloon.poped.addOnce(setWhoIs);
+			yellowbaloon.poped.addOnce(onLast);
+			
+			baloon.enable.add(onEnabled);
+			blubaloon.enable.add(onEnabled);
+			greenbaloon.enable.add(onEnabled);
+			yellowbaloon.enable.add(onEnabled);
 			
 			_ballons.push(baloon);
 			_ballons.push(blubaloon);
 			_ballons.push(greenbaloon);
 			_ballons.push(yellowbaloon);
 			
-			
-			setItems();
-			
-		}
+			_ballons[0].isWho = true;		}
 		
 		override public function set model(screenModel:ScreenModel):void{
 			super.model = screenModel;
-			playWhoIsSound();
+			_enabled = true;
 		}
 		
 		
@@ -120,35 +124,33 @@ package com.view
 		}
 		
 		override protected function playWhoIsSound():void{
-			super.playWhoIsSound();
-			var chanel:SoundChannel = _questionSound.play();
-			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
-			_enabled = false;
+			_localEnabled = true;
+			_wBirdNote.visible=true;
+			_ballons[_playIndex].playQuestion();
 		}
 		
-		
-		override protected function onWhereIsPlayed(e:flash.events.Event):void{
-			var sound:Sound = _soundManager.getSound("../assets/sounds/",_ballons[_playIndex].colorSoundFile);
-			var chanel:SoundChannel = sound.play(); 
-			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereSoundDone);
-			_enabled=true;
+		public function get enabled():Boolean{
+			return _localEnabled;
 		}
 		
-		override protected function setItems():Boolean{
-			setWhoIs();
-			return true;
+		private function onEnabled(val:Boolean):void{
+			_localEnabled = val;
+			_wBirdNote.visible = !val;
 		}
 		
 		private function setWhoIs():void{
-			_ballons[_playIndex].isWho = true;
 			_playIndex++;
+			_ballons[_playIndex].isWho = true;
+			playWhoIsSound();
 		}
 		
 	}
 }
 import com.Dimentions;
+import com.view.Baloons;
 import com.view.components.ParticlesEffect;
 import com.view.playRoom.PlayItem;
+import com.view.utils.SoundPlayer;
 
 import flash.media.Sound;
 import flash.media.SoundChannel;
@@ -187,20 +189,18 @@ class ColoredBaloon extends PlayItem{
 	private var yellowBln : Class;
 	
 	private var _color:String;
-	private var _sound:Sound;
+	private var _popSound:Sound;
+	private var _qSound:Sound;
+	private var _aSound:Sound;
 	private var _isWho:Boolean=false;
 	private var _btnmp:Image;
+	public var enable:Signal = new Signal();
 	public var poped:Signal = new Signal();
 	function ColoredBaloon(clr:String,space:Space, cbType:CbType, xx:int, yy:int){
 		_btnmp = getBaloon(clr);
 		super(space, cbType, xx, yy);
-		_sound = new Sound(new URLRequest("../../assets/sounds/playroom/pop.mp3"));
 		//_clrSound = new Sound(new URLRequest("../../assets/sounds/colors/"+clr+"_baloon.mp3"));
 		_color = clr;
-		var cnl:SoundChannel = _sound.play();
-		cnl.stop();
-		//addChild(img);
-		//addEventListener(TouchEvent.TOUCH,onTouch);
 	}
 	
 	public function get colorSoundFile():String{
@@ -211,21 +211,46 @@ class ColoredBaloon extends PlayItem{
 	{
 		_isWho = value;
 	}
+	
+	public function playQuestion():void{
+		if(_material.parent is Baloons && Baloons(_material.parent).enabled){
+			Starling.juggler.delayCall(_qSound.play,1);
+			enable.dispatch(false)
+			Starling.juggler.delayCall(function():void{enable.dispatch(true)},2);
+		}
+	}
+	
+	private function playAnswer():void{
+		if(_material.parent is Baloons && Baloons(_material.parent).enabled){
+			_aSound.play();
+			enable.dispatch(false)
+			Starling.juggler.delayCall(function():void{enable.dispatch(true)},1.2);
+		}
+	}
 
 	private function getBaloon(clr:String):Image{
+		var soundManager:SoundPlayer = new SoundPlayer();
 		var img:Image;
 		switch(clr){
 			case "blu":
 				img = new Image(Texture.fromBitmap(new bluBln()));
+				_qSound = soundManager.getSound("../../../assets/narration","175.mp3");  
+				_aSound = soundManager.getSound("../../../assets/narration","176.mp3");  
 			break;
 			case "green":
 				img = new Image(Texture.fromBitmap(new greenBln()));
+				_qSound = soundManager.getSound("../../../assets/narration","177.mp3");  
+				_aSound = soundManager.getSound("../../../assets/narration","178.mp3");  
 			break;
 			case "red":
 				img = new Image(Texture.fromBitmap(new redBln()));
+				_qSound = soundManager.getSound("../../../assets/narration","173.mp3");  
+				_aSound = soundManager.getSound("../../../assets/narration","174.mp3");  
 			break;
 			case "yellow":
 				img = new Image(Texture.fromBitmap(new yellowBln()));
+				_qSound = soundManager.getSound("../../../assets/narration","179.mp3");  
+				_aSound = soundManager.getSound("../../../assets/narration","180.mp3");  
 			break;
 		}
 		return img;
@@ -235,7 +260,7 @@ class ColoredBaloon extends PlayItem{
 	override protected function createBody(cbType:CbType,xx:int,yy:int):void{
 		_body = new Body( BodyType.DYNAMIC, new Vec2( xx, yy ) );
 		_body.shapes.add( new Polygon( Polygon.rect(0,0,_material.width,_material.height), Material.rubber() ) );
-		_body.gravMass = -(0.5)+0.2*Math.random();
+		_body.gravMass = -(0.3)+0.2*Math.random();
 		super.createBody(cbType,xx,yy);
 		
 	}
@@ -249,14 +274,8 @@ class ColoredBaloon extends PlayItem{
 		_material = new Sprite();
 		
 		_material.addChild( ( _btnmp ) ) as Sprite;
-		_sound = new Sound(new URLRequest("../../../assets/sounds/playroom/pop.mp3"));
-		var cnl:SoundChannel = _sound.play();
-		cnl.stop();
-		//Starling.juggler.delayCall(function():void{
+		_popSound = new Sound(new URLRequest("../../../assets/sounds/playroom/pop.mp3"));
 		_material.addEventListener(TouchEvent.TOUCH,onTouch);
-		//},2);
-		//_material.pivotX = _material.width >> 1;
-		//_material.pivotY = _material.height >> 1;
 	}
 	
 	
@@ -270,7 +289,7 @@ class ColoredBaloon extends PlayItem{
 		particlesEffect.y=_material.y+_material.height/2;
 		_material.parent.addChild(particlesEffect);
 		particlesEffect.start("jfish");
-		_sound.play();
+		_popSound.play();
 		Starling.juggler.delayCall(removeParticles,0.3,particlesEffect);
 		_material.removeFromParent(true);
 		_space.bodies.remove(_body);
@@ -284,15 +303,15 @@ class ColoredBaloon extends PlayItem{
 	}
 	
 	private function onTouch(e:TouchEvent):void{
-		if(!_isWho ){
-			return;
-		}
 		if(e.getTouch(_material.stage).phase == TouchPhase.BEGAN){
-			_material.removeEventListener(TouchEvent.TOUCH,onTouch);
-			pop();
+			if(_material.parent is Baloons && Baloons(_material.parent).enabled){
+				if(!_isWho ){
+					playAnswer();
+					return;
+				}
+				_material.removeEventListener(TouchEvent.TOUCH,onTouch);
+				pop();
+			}
 		}
-	}
-		private function playColor():void{
-		//_clrSound.play();
 	}
 }

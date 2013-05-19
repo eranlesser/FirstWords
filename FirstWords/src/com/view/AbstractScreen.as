@@ -25,7 +25,6 @@ package com.view
 	public class AbstractScreen extends Sprite implements IScreen
 	{
 		
-		protected var _questionSound:		Sound;
 		protected var _categorySound:		Sound;
 		protected var _particlesEffect:		ParticlesEffect;
 		protected var _model:				ScreenModel;
@@ -36,7 +35,7 @@ package com.view
 		protected var _screenLayer:			Sprite;
 		protected var _soundManager:		SoundPlayer = new SoundPlayer();
 
-		private var _wBirdNote:			Button;
+		protected var _wBirdNote:			Button;
 		private var _goHome:			Signal = new Signal();
 		private var _counter:			uint=0;
 		private var _setItemsDelayer:	IAnimatable;
@@ -79,20 +78,11 @@ package com.view
 		public function set model(screenModel:ScreenModel):void{
 			_counter=0;
 			_model=screenModel;
-			if(_model.sound == "where" || _model.sound == ""){
-				_questionSound = _soundManager.getSound("../assets/sounds/","where.mp3")//new Sound(new URLRequest("../assets/sounds/where.mp3"));
-			}else if(_model.sound == "who"){
-				_questionSound = _soundManager.getSound("../assets/sounds","/who.mp3");
-			}
 			if(_model.categorySound!=""){
-				_categorySound = _soundManager.getSound("../assets/sounds/",_model.categorySound);
+				_categorySound = _soundManager.getSound("../assets/narration/",_model.categorySound);
 				var chnl:SoundChannel = _categorySound.play();
 				_categorySoundPlaying=true;
-				chnl.addEventListener(flash.events.Event.SOUND_COMPLETE,function onCatSoundDone(e:flash.events.Event):void{
-					chnl.removeEventListener(flash.events.Event.SOUND_COMPLETE,onCatSoundDone);
-					playWhoIsSound();
-					_categorySoundPlaying=false;
-				});
+				chnl.addEventListener(flash.events.Event.SOUND_COMPLETE,onCatSoundDone);
 			}
 			
 			var whereBird:Button = new Button(Texture.fromBitmap(new wBird()));
@@ -107,6 +97,13 @@ package com.view
 					playWhoIsSound();
 				}
 			});
+		}
+		
+		private function onCatSoundDone(e:flash.events.Event):void{
+			var chnl:SoundChannel = e.target as SoundChannel;
+			chnl.removeEventListener(flash.events.Event.SOUND_COMPLETE,onCatSoundDone);
+			Starling.juggler.delayCall(playWhoIsSound,1);
+			_categorySoundPlaying=false;
 		}
 		
 		public function destroy():void{
@@ -131,18 +128,28 @@ package com.view
 		
 		protected function playWhoIsSound():void{
 			_wBirdNote.visible=true;
+			var sound:Sound = _soundManager.getSound("../assets/narration/",_whoIs.qSound);
+			var chanel:SoundChannel = sound.play(); 
+			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereSoundDone);
+			_enabled=false;
+		}
+		private var _goodFeedBack:String;
+		private function get goodFeedBack():String{
+			var soundFile:String;
+			soundFile = 192+Math.floor(Math.random()*26)+".mp3";
+			if(soundFile==_goodFeedBack){
+				soundFile=goodFeedBack;
+			}
+			_goodFeedBack = soundFile;
+			return soundFile;
 		}
 		
 		protected function onGoodClick():Boolean{ 
 			if(!_enabled){
 				return false;
 			}
-			var soundFile:String;
-			if(Math.random()>0.2)
-				soundFile = "goodA"+Math.ceil(Math.random()*4)+".mp3";
-			else
-				soundFile = "good"+Math.ceil(Math.random()*4)+".mp3";
-			var goodSound:Sound = _soundManager.getSound("../assets/sounds/",soundFile);
+			
+			var goodSound:Sound = _soundManager.getSound("../assets/narration/",goodFeedBack);
 			var channel:SoundChannel = goodSound.play();
 			channel.addEventListener(flash.events.Event.SOUND_COMPLETE,goodSoundComplete);
 			_enabled=false;
@@ -191,11 +198,6 @@ package com.view
 			
 		}
 		
-		protected function onWhereIsPlayed(e:flash.events.Event):void{
-			var sound:Sound = _soundManager.getSound("../assets/sounds/",_whoIs.sound);
-			var chanel:SoundChannel = sound.play(); 
-			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereSoundDone);
-		}
 		
 		protected function onWhereSoundDone(e:flash.events.Event):void{
 			var chanel:SoundChannel= e.target as SoundChannel;

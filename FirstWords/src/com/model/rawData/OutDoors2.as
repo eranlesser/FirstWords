@@ -3,20 +3,20 @@ package com.model.rawData
 	public class OutDoors2
 	{
 		public static var data:XML = 
-			<data type="whereScene" backGround="outdoors2" thumbNail="outdoors2Tmb" sound="who" >
-				<item  sound="outdoors/bikeride.mp3" groupId="bicycle">
+			<data type="whereScene" backGround="outdoors2" thumbNail="outdoors2Tmb" distractorType="q" categorySound="111.mp3" >
+				<item  qsound="112.mp3"  groupId="bicycle">
 					<rect vector="704,296,240,315"/>
 				</item>
-				<item  sound="outdoors/jumprope.mp3" groupId="rope">
+				<item  qsound="113.mp3" groupId="rope">
 					<rect vector="393,297,158,375"/>
 				</item>
-				<item  sound="outdoors/ballplay.mp3" groupId="ball">
+				<item  qsound="114.mp3" groupId="ball">
 					<rect vector="120,101,160,324"/>
 				</item>
-				<item  sound="outdoors/sandboxplay.mp3" groupId="sand">
+				<item  qsound="115.mp3" groupId="sand">
 					<rect vector="63,487,202,237"/>
 				</item>
-				<item  sound="outdoors/bone.mp3" groupId="bone">
+				<item qsound="116.mp3" groupId="bone">
 					<rect vector="252,329,122,120"/>
 				</item>
 				

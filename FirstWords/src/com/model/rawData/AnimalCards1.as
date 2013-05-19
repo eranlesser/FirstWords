@@ -3,20 +3,20 @@ package com.model.rawData
 	public class AnimalCards1
 	{
 		public static var data:XML = 
-			<data type="whereIsScreen" groupName="animals" categorySound="category/animals.mp3" thumbNail="elephantTmb">
-				<item image="bear" sound="animals/bear.mp3" groupId="bear"  />
-				<item image="camel" sound="animals/camel.mp3" groupId="camel"/>
-				<item image="elephant" sound="animals/elaphent.mp3" groupId="elephant"/>
-				<item image="horse" sound="animals/horse.mp3" groupId="horse"/>
-				<item image="lion" sound="animals/lion.mp3" groupId="lion"/>
-				<item image="monkey" sound="animals/monkey.mp3" groupId="monkey"/>
-				<item image="zebra" sound="animals/zebra.mp3" groupId="zebra"  />
+			<data type="whereIsScreen" groupName="animals" categorySound="54.mp3" thumbNail="elephantTmb">
+				<item image="bear"  groupId="bear" qsound="55.mp3" asound="56.mp3"  />
+				<item image="camel" groupId="camel" qsound="57.mp3" asound="58.mp3"/>
+				<item image="horse" groupId="horse" qsound="73.mp3" asound="74.mp3"/>
+				<item image="lion" groupId="lion" qsound="75.mp3" asound="76.mp3"/>
+				<item image="zebra" groupId="zebra" qsound="81.mp3" asound="82.mp3" />
 				
 			</data>;
 		
 	}
 }
 
+//				<!--<item image="elephant" groupId="elephant" qsound="71.mp3" asound="72.mp3"/>-->
+//				<item image="monkey" groupId="monkey" qsound="77.mp3" asound="78.mp3"/>
 /*
 <item image="train2" sound="animals/train.mp3" groupId="trians"/>
 	<item image="train3" sound="animals/train.mp3" groupId="trians"/>

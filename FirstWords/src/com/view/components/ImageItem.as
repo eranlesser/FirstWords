@@ -8,7 +8,8 @@ import starling.events.TouchPhase;
 import starling.textures.Texture;
 
 public class ImageItem extends Image{
-	private var _sound:String;
+	private var _questionSound:String;
+	private var _answerSound:String;
 	private var _bg:Image;
 	private var _frame:Image;
 	private var _frameGood:Image;
@@ -20,8 +21,9 @@ public class ImageItem extends Image{
 	private var frameGood : Class;
 
 	
-	function ImageItem(texture:Texture,sound:String):void{
-		_sound = sound;
+	function ImageItem(texture:Texture,qsound:String,asound:String):void{
+		_questionSound = qsound;
+		_answerSound = asound;
 		super(texture);
 		addEventListener(TouchEvent.TOUCH,onClick);
 	}
@@ -63,9 +65,13 @@ public class ImageItem extends Image{
 		_frameGood.y=_frame.y;
 	}
 
-	public function get sound():String
+	public function get qSound():String
 	{
-		return _sound;
+		return _questionSound;
+	}
+	public function get aSound():String
+	{
+		return _answerSound;
 	}
 }
 }

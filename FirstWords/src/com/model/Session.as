@@ -13,7 +13,7 @@ package com.model
 		public static var currentScreen:int=0;
 		private static var _playRoomEnabled:Boolean = false;
 		private static var _fullVersionEnabled:Boolean = false;
-		public static const FREE_SCREENS_COUNT:uint=6;
+		public static const FREE_SCREENS_COUNT:uint=60;
 		public static var rightAnswer:uint=0;
 		public static var wrongAnswer:uint=0;
 		public static var changed:Signal = new Signal();
@@ -46,7 +46,7 @@ package com.model
 		}
 		
 		public static function init():void{
-			var inputFile:File = File.applicationStorageDirectory.resolvePath("sessions/userSession.xml") ;
+			var inputFile:File = File.applicationStorageDirectory.resolvePath("sessions/userSession1.xml") ;
 			if(inputFile.exists){
 				var inputStream:FileStream = new FileStream();
 				inputStream.open(inputFile, FileMode.READ);
@@ -69,7 +69,7 @@ package com.model
 			if (!folder.exists) { 
 				folder.createDirectory();
 			} 
-			var outputFile:File = folder.resolvePath("userSession.xml");
+			var outputFile:File = folder.resolvePath("userSession1.xml");
 			if(outputFile.exists){
 				outputFile.deleteFile();
 			}

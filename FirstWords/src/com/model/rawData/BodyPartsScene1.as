@@ -3,19 +3,19 @@ package com.model.rawData
 	public class BodyPartsScene1
 	{
 		public static var data:XML = 
-			<data type="whereScene" backGround="boyFull2">
+			<data type="whereScene" backGround="boyFull2" categorySound="45.mp3">
 				
-				<item  sound="body/hands.mp3" groupId="hand1"   >
+				<item  groupId="hand1" qsound="46.mp3" asound="47.mp3"  >
 					<rect vector="296,316,109,200"/>
 					<rect vector="599,316,100,200"/>
 				</item>
-				<item  sound="body/feet.mp3" groupId="feet"   >
+				<item  groupId="feet"  qsound="48.mp3" asound="49.mp3" >
 					<rect vector="420,531,160,200"/>
 				</item>
-				<item  sound="body/tummy.mp3" groupId="tummy"   >
+				<item  groupId="tummy" qsound="50.mp3" asound="51.mp3"  >
 					<rect vector="440,360,120,98"/>
 				</item>
-				<item  sound="body/hair.mp3" groupId="hair"   >
+				<item  groupId="hair" qsound="52.mp3" asound="53.mp3"  >
 					<rect vector="394,64,72,96"/>
 					<rect vector="449,47,139,57"/>
 				</item>

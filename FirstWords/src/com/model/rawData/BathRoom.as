@@ -3,11 +3,11 @@ package com.model.rawData
 	public class BathRoom
 	{
 		public static var data:XML = 
-			<data type="whereScene" backGround="bathroom" sound="who" thumbNail="bathroomTmb" categorySound="category/bathroom.mp3">
-				<item  sound="bathroom/tubbing.mp3" groupId="sandbox">
+			<data type="whereScene" backGround="bathroom" distractorType="q" thumbNail="bathroomTmb" categorySound="108.mp3">
+				<item  groupId="sandbox" qsound="110.mp3">
 					<rect vector="195,225,225,241"/>
 				</item>
-				<item  sound="bathroom/bruhing.mp3" groupId="swing">
+				<item  sound="bathroom/bruhing.mp3" groupId="swing" qsound="109.mp3" >
 					<rect vector="536,178,219,357"/>
 				</item>
 			</data>;

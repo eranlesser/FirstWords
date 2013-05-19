@@ -103,17 +103,17 @@ package com.view
 		private function setDistractors(items:Vector.<Item>, atlas:TextureAtlas):void{
 			var images:Vector.<ImageItem> = new Vector.<ImageItem>();
 			for each(var item:Item in items){
-				var img:ImageItem = getDistractor(item.image,item.sound, atlas)
+				var img:ImageItem = getDistractor(item.image,item.qSound,item.aSound, atlas)
 				images.push(img);
 				img.touched.add(onDistractorTouch);
 			}
 			_layout.layout(images);
 		}
 		
-		private function getDistractor(itemName:String,sound:String,atlas:TextureAtlas):ImageItem
+		private function getDistractor(itemName:String,qsound:String,asound:String,atlas:TextureAtlas):ImageItem
 		{
 			var distractor:Texture = atlas.getTexture(itemName);
-			var img:ImageItem = new ImageItem(distractor,sound);
+			var img:ImageItem = new ImageItem(distractor,qsound,asound);
 			return img;
 		}
 		
@@ -121,7 +121,12 @@ package com.view
 			if(!_enabled){
 				return;
 			}
-			var sound:Sound = _soundManager.getSound("../assets/sounds/",imageItem.sound);
+			var sound:Sound;
+			if(_model.distractorType == ""){
+				sound = _soundManager.getSound("../assets/narration/",imageItem.aSound);
+			}else{
+				sound = _soundManager.getSound("../assets/narration/",_whoIs.qSound);
+			}	
 			var chnl:SoundChannel = sound.play();
 			chnl.addEventListener(Event.SOUND_COMPLETE,function onChnl():void{
 				chnl.removeEventListener(Event.SOUND_COMPLETE,onChnl);
@@ -133,7 +138,7 @@ package com.view
 		
 		private function setWhoIs(item:Item,atlas:TextureAtlas):void{
 			_whoIs = item;
-			var img:ImageItem = new ImageItem(atlas.getTexture(_whoIs.image),item.sound) 
+			var img:ImageItem = new ImageItem(atlas.getTexture(_whoIs.image),item.qSound,item.aSound) 
 			var images:Vector.<ImageItem> = new Vector.<ImageItem>();
 			images.push(img);
 			_layout.layout(images);
@@ -143,13 +148,13 @@ package com.view
 			}
 		}
 		
-		override protected function playWhoIsSound():void{
-			var chanel:SoundChannel = _questionSound.play();
-			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
-			_enabled=false;
-			//_birds.tweet();
-			super.playWhoIsSound();
-		}
+//		override protected function playWhoIsSound():void{
+//			var chanel:SoundChannel = _questionSound.play();
+//			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
+//			_enabled=false;
+//			//_birds.tweet();
+//			super.playWhoIsSound();
+//		}
 		
 		
 	}

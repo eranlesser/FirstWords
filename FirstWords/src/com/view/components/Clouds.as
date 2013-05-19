@@ -2,11 +2,11 @@ package com.view.components
 {
 	import com.Dimentions;
 	
-	import flash.display.Bitmap;
 	import flash.net.getClassByAlias;
 	
 	import starling.animation.DelayedCall;
 	import starling.core.Starling;
+	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	
@@ -71,10 +71,21 @@ package com.view.components
 				cloud.x = xx;
 				cloud.y = Math.random()*Dimentions.HEIGHT/10;
 				cloud.alpha=Math.random();
-				Starling.juggler.tween(cloud,Math.random()*4+22,{x:xx-Dimentions.WIDTH-200, onComplete: function():void { 
+				Starling.juggler.tween(cloud,Math.random()*4+22,{x:-cloud.width, onComplete:cloudTweenComlplete });
+			}
+		}
+		
+		private function cloudTweenComlplete():void {
+			var cloud:DisplayObject;
+			for(var i:int = this.numChildren-1;i>0;i--){
+				
+				cloud = this.getChildAt(i);
+				trace(cloud.x,cloud.width)
+				if(cloud.x<=-cloud.width+5){
 					Starling.juggler.removeTweens(cloud);
-					removeChild(cloud); 
-				}});
+					removeChild(cloud);
+					trace("removed")
+				}
 			}
 		}
 		
@@ -106,10 +117,7 @@ package com.view.components
 			cloud.x = Dimentions.WIDTH;
 			cloud.y = Math.random()*Dimentions.HEIGHT/10;
 			cloud.alpha=Math.random();
-			Starling.juggler.tween(cloud,Math.random()*4+22,{x:-cloud.width, onComplete: function():void { 
-				Starling.juggler.removeTweens(cloud);
-				removeChild(cloud); 
-			}});
+			Starling.juggler.tween(cloud,Math.random()*4+22,{x:-cloud.width, onComplete:cloudTweenComlplete});
 		}
 	}
 }

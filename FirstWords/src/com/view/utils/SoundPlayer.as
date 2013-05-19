@@ -13,6 +13,7 @@ package com.view.utils
 		}
 		
 		public function getSound(prefix:String,soundStr:String):Sound{
+			trace(prefix+"/heb/"+soundStr)
 			var sound:Sound = new Sound(new URLRequest(prefix+"/heb/"+soundStr));
 			return sound;
 		}

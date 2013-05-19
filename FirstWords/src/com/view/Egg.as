@@ -31,6 +31,7 @@ package com.view
 		private var _counter:Counter = new Counter();
 		private var _vc:Vector.<Texture> = new Vector.<Texture>();
 		private var _curFrame:uint = 0;
+		private var _knockSound:Sound = new Sound(new URLRequest("../../../../assets/sounds/egg/knock.mp3"));
 		public function Egg()
 		{
 			_atlas = Assets.getAtlas("egg");
@@ -43,7 +44,7 @@ package com.view
 			_vc.push(_atlas.getTexture("egg3"));
 			_vc.push(_atlas.getTexture("egg6"));
 			_enabled=true;
-			_counter.count(4);
+			_counter.count(10);
 			_counter.done.add(onCounter);
 		}
 		
@@ -53,6 +54,13 @@ package com.view
 			}
 			if(e.getTouch(stage) &&e.getTouch(stage).phase == TouchPhase.BEGAN){
 				_counter.progress();
+				_knockSound.play();
+				_enabled = false;
+				_counter.tick.addOnce(function():void{
+					if(!_counter.isDone){
+						_enabled=true
+					}
+				});
 			}
 			
 		}
@@ -64,6 +72,8 @@ package com.view
 				function onComplete():void{
 					sc.removeEventListener(Event.SOUND_COMPLETE, onComplete);
 					chirp.play();
+					var chickSound:Sound = _soundManager.getSound("../../../assets/narration","25.mp3");
+					chickSound.play();
 				}
 			);
 			var delayer:DelayedCall =Starling.juggler.delayCall(progress,1.2);

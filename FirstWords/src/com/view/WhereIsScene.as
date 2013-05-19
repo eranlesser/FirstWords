@@ -119,16 +119,9 @@ package com.view
 
 					}
 				});
-				wiBtn.alpha=0.5;
+				wiBtn.alpha=0;
 				_whereIsBtns.push(wiBtn);
 			}
-		}
-		
-		override protected function playWhoIsSound():void{
-			super.playWhoIsSound();
-			var chanel:SoundChannel = _questionSound.play();
-			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereIsPlayed);
-			_enabled = false;
 		}
 		
 		override protected function onWhereSoundDone(e:flash.events.Event):void{
@@ -140,7 +133,12 @@ package com.view
 			if(!_enabled){
 				return;
 			}
-			var sound:Sound = _soundManager.getSound("../assets/sounds/",imageItem.sound);
+			var sound:Sound;
+			if(_model.distractorType == ""){
+				sound = _soundManager.getSound("../assets/narration/",imageItem.aSound);
+			}else{
+				sound = _soundManager.getSound("../assets/narration/",_whoIs.qSound);
+			}
 			sound.play();
 			Session.wrongAnswer++;
 		}
@@ -154,7 +152,7 @@ package com.view
 			shp.graphics.endFill();
 			var btmData:BitmapData = new BitmapData(shp.width,shp.height);
 			btmData.draw(shp);
-			var img:ImageItem = new ImageItem(Texture.fromBitmapData(btmData),item.sound);
+			var img:ImageItem = new ImageItem(Texture.fromBitmapData(btmData),item.qSound,item.aSound);
 			img.x = rect.x;
 			img.y = rect.y;
 			img.alpha=0;

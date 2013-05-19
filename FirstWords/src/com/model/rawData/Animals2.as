@@ -6,7 +6,7 @@ package com.model.rawData
 		public static var data:XML = 
 			<data type="whereScene" backGround="animals2"  >
 				
-				<item  sound="animals/elaphent.mp3" groupId="elephant"   >
+				<item  qsound="71.mp3" asound="72.mp3" groupId="elephant"   >
 					<rect vector="53,371,368,303"/>
 				</item>
 			</data>;
