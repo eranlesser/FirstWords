@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:f3bb550c72b65e1594c8d720b214f316$ -->
+<TextureAtlas imagePath="room.png">
+    <SubTexture name="bed" x="2" y="1539" width="420" height="375" frameX="-6" frameY="-6" frameWidth="430" frameHeight="385"/>
+    <SubTexture name="big_ball" x="1446" y="1986" width="59" height="60" frameX="-8" frameY="-10" frameWidth="75" frameHeight="82"/>
+    <SubTexture name="bowling-pin-light-blue" x="1568" y="1746" width="37" height="76"/>
+    <SubTexture name="bowling-pin-orenge" x="1554" y="1837" width="37" height="76"/>
+    <SubTexture name="bowling-pin-purple" x="1529" y="1759" width="37" height="76"/>
+    <SubTexture name="bridge" x="120" y="1916" width="98" height="112" frameX="-7" frameY="-3" frameWidth="110" frameHeight="118"/>
+    <SubTexture name="car" x="1411" y="1630" width="42" height="35"/>
+    <SubTexture name="carpet" x="579" y="1539" width="247" height="228" frameX="-7" frameY="-6" frameWidth="261" frameHeight="240"/>
+    <SubTexture name="carrot-with-string" x="1367" y="1538" width="16" height="91"/>
+    <SubTexture name="chair" x="424" y="1539" width="153" height="236" frameX="-7" frameY="-2" frameWidth="165" frameHeight="242"/>
+    <SubTexture name="closet" x="1028" y="2" width="228" height="619" frameX="-2" frameY="-4" frameWidth="230" frameHeight="625"/>
+    <SubTexture name="comb" x="453" y="1887" width="41" height="21" frameX="-3" frameY="-16" frameWidth="45" frameHeight="45"/>
+    <SubTexture name="darkness new" x="1024" y="772" width="1019" height="764" frameX="-2" frameY="-2" frameWidth="1023" frameHeight="768"/>
+    <SubTexture name="day_window" x="1184" y="1843" width="120" height="170"/>
+    <SubTexture name="day_window_sun" x="799" y="1875" width="120" height="170"/>
+    <SubTexture name="drawings_boy" x="1415" y="1667" width="136" height="90" frameX="-3" frameY="-1" frameWidth="144" frameHeight="96"/>
+    <SubTexture name="drawings_girl" x="1385" y="1538" width="136" height="90" frameX="-3" frameY="-1" frameWidth="144" frameHeight="96"/>
+    <SubTexture name="dubi-only crop" x="1455" y="1759" width="72" height="78"/>
+    <SubTexture name="dubi-only" x="1187" y="1692" width="125" height="147" frameX="0" frameY="-110" frameWidth="125" frameHeight="257"/>
+    <SubTexture name="globus alone" x="1523" y="1538" width="93" height="87"/>
+    <SubTexture name="globus clips" x="2" y="1916" width="110" height="126" frameX="0" frameY="-2" frameWidth="120" frameHeight="128"/>
+    <SubTexture name="horse" x="675" y="1877" width="122" height="154" frameX="-6" frameY="-3" frameWidth="136" frameHeight="162"/>
+    <SubTexture name="lamp-cable-full" x="1593" y="1899" width="56" height="72"/>
+    <SubTexture name="lamp-cable-only" x="1607" y="1746" width="56" height="72"/>
+    <SubTexture name="lamp-full-light-on" x="1027" y="1845" width="155" height="182"/>
+    <SubTexture name="lamp-only" x="361" y="1916" width="155" height="108" frameX="0" frameY="-52" frameWidth="155" frameHeight="160"/>
+    <SubTexture name="lamp_on" x="1618" y="1538" width="86" height="74" frameX="-6" frameY="-13" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="line dubi" x="114" y="1916" width="4" height="113" frameX="0" frameY="-1" frameWidth="6" frameHeight="115"/>
+    <SubTexture name="line l" x="1463" y="1936" width="4" height="47" frameX="-1" frameY="-2" frameWidth="6" frameHeight="51"/>
+    <SubTexture name="line middle" x="114" y="1916" width="4" height="113" frameX="0" frameY="-1" frameWidth="6" frameHeight="115"/>
+    <SubTexture name="line right" x="1673" y="1883" width="4" height="61" frameX="-1" frameY="-1" frameWidth="6" frameHeight="63"/>
+    <SubTexture name="magic_box" x="1654" y="1820" width="61" height="61" frameX="-5" frameY="-4" frameWidth="67" frameHeight="67"/>
+    <SubTexture name="moon crop" x="1332" y="1632" width="39" height="38"/>
+    <SubTexture name="night room good 1" x="2" y="772" width="1020" height="765" frameX="0" frameY="0" frameWidth="1024" frameHeight="769"/>
+    <SubTexture name="night_window" x="1064" y="1538" width="120" height="175"/>
+    <SubTexture name="orange_cube" x="424" y="1887" width="27" height="23" frameX="-4" frameY="-6" frameWidth="35" frameHeight="35"/>
+    <SubTexture name="pins" x="1314" y="1692" width="99" height="96" frameX="-13" frameY="-4" frameWidth="115" frameHeight="102"/>
+    <SubTexture name="rabbit-only" x="220" y="1916" width="97" height="111"/>
+    <SubTexture name="rabbit" x="1306" y="1841" width="104" height="147" frameX="-8" frameY="-4" frameWidth="120" frameHeight="155"/>
+    <SubTexture name="roon-only-with-shelf" x="2" y="2" width="1024" height="768"/>
+    <SubTexture name="shida" x="1186" y="1538" width="144" height="152" frameX="-9" frameY="-2" frameWidth="160" frameHeight="160"/>
+    <SubTexture name="sleepers" x="1335" y="1990" width="109" height="53"/>
+    <SubTexture name="small/bed" x="1077" y="1745" width="108" height="96" frameX="-1" frameY="-1" frameWidth="110" frameHeight="98"/>
+    <SubTexture name="small/big_ball" x="1446" y="1986" width="59" height="60" frameX="-8" frameY="-10" frameWidth="75" frameHeight="82"/>
+    <SubTexture name="small/bridge" x="497" y="1777" width="93" height="106" frameX="-6" frameY="-2" frameWidth="103" frameHeight="110"/>
+    <SubTexture name="small/car" x="1411" y="1630" width="42" height="35"/>
+    <SubTexture name="small/carpet" x="857" y="1747" width="106" height="97" frameX="-2" frameY="-2" frameWidth="110" frameHeight="101"/>
+    <SubTexture name="small/chair" x="424" y="1777" width="71" height="108" frameX="-2" frameY="-1" frameWidth="75" frameHeight="110"/>
+    <SubTexture name="small/closet" x="319" y="1916" width="40" height="110"/>
+    <SubTexture name="small/comb" x="453" y="1887" width="41" height="21" frameX="-3" frameY="-16" frameWidth="45" frameHeight="45"/>
+    <SubTexture name="small/drawings_boy" x="1613" y="1973" width="104" height="69" frameX="-3" frameY="-1" frameWidth="110" frameHeight="73"/>
+    <SubTexture name="small/drawings_girl" x="1507" y="1977" width="104" height="69" frameX="-3" frameY="-1" frameWidth="110" frameHeight="73"/>
+    <SubTexture name="small/horse" x="592" y="1769" width="84" height="106" frameX="-3" frameY="-1" frameWidth="92" frameHeight="110"/>
+    <SubTexture name="small/magic_box" x="1654" y="1820" width="61" height="61" frameX="-5" frameY="-4" frameWidth="67" frameHeight="67"/>
+    <SubTexture name="small/orange_cube" x="424" y="1887" width="27" height="23" frameX="-4" frameY="-6" frameWidth="35" frameHeight="35"/>
+    <SubTexture name="small/pins" x="1454" y="1840" width="98" height="94" frameX="-11" frameY="-3" frameWidth="110" frameHeight="98"/>
+    <SubTexture name="small/rabbit" x="678" y="1769" width="75" height="106" frameX="-5" frameY="-2" frameWidth="85" frameHeight="110"/>
+    <SubTexture name="small/shida" x="755" y="1769" width="100" height="104" frameX="-6" frameY="-2" frameWidth="110" frameHeight="110"/>
+    <SubTexture name="small/sleepers" x="1335" y="1990" width="109" height="53"/>
+    <SubTexture name="small/small_ball" x="1064" y="1715" width="28" height="28" frameX="-1" frameY="-2" frameWidth="30" frameHeight="30"/>
+    <SubTexture name="small/snaik" x="1314" y="1790" width="139" height="48" frameX="-3" frameY="-8" frameWidth="145" frameHeight="60"/>
+    <SubTexture name="small/table" x="965" y="1747" width="110" height="96"/>
+    <SubTexture name="small_ball" x="1064" y="1715" width="28" height="28" frameX="-1" frameY="-2" frameWidth="30" frameHeight="30"/>
+    <SubTexture name="snaik" x="1314" y="1790" width="139" height="48" frameX="-3" frameY="-8" frameWidth="145" frameHeight="60"/>
+    <SubTexture name="star-lcrop" x="1373" y="1631" width="36" height="37"/>
+    <SubTexture name="star-middle crop" x="1531" y="1627" width="33" height="32"/>
+    <SubTexture name="star-middle" x="1455" y="1630" width="39" height="35"/>
+    <SubTexture name="sun" x="1412" y="1937" width="49" height="47" frameX="0" frameY="-3" frameWidth="49" frameHeight="51"/>
+    <SubTexture name="table" x="828" y="1539" width="234" height="206" frameX="-2" frameY="-2" frameWidth="240" frameHeight="210"/>
+    <SubTexture name="transperant/dubi-cable" x="1003" y="1845" width="22" height="189" frameX="-4" frameY="0" frameWidth="80" frameHeight="189"/>
+    <SubTexture name="transperant/dubi-full" x="921" y="1846" width="80" height="189"/>
+    <SubTexture name="transperant/dubi-only" x="1553" y="1661" width="80" height="83" frameX="0" frameY="-106" frameWidth="80" frameHeight="189"/>
+    <SubTexture name="transperant/lamp-cable-only" x="1306" y="1990" width="27" height="56" frameX="-98" frameY="0" frameWidth="155" frameHeight="160"/>
+    <SubTexture name="transperant/lamp-full-no-light" x="518" y="1885" width="155" height="160"/>
+    <SubTexture name="transperant/lamp-only" x="361" y="1916" width="155" height="108" frameX="0" frameY="-52" frameWidth="155" frameHeight="160"/>
+    <SubTexture name="transperant/star-left-cable" x="1651" y="1886" width="20" height="63" frameX="0" frameY="0" frameWidth="40" frameHeight="95"/>
+    <SubTexture name="transperant/star-left-ful" x="1412" y="1840" width="40" height="95"/>
+    <SubTexture name="transperant/star-left-only" x="1529" y="1936" width="34" height="39" frameX="-6" frameY="-56" frameWidth="40" frameHeight="95"/>
+    <SubTexture name="transperant/star-middle-cable" x="1635" y="1820" width="17" height="64" frameX="-14" frameY="0" frameWidth="33" frameHeight="92"/>
+    <SubTexture name="transperant/star-middle-full" x="1332" y="1538" width="33" height="92"/>
+    <SubTexture name="transperant/star-middle-only" x="1496" y="1630" width="33" height="34" frameX="0" frameY="-58" frameWidth="33" frameHeight="92"/>
+    <SubTexture name="transperant/star-right-cable" x="1469" y="1936" width="18" height="41" frameX="-22" frameY="0" frameWidth="40" frameHeight="73"/>
+    <SubTexture name="transperant/star-right-full" x="1593" y="1824" width="40" height="73"/>
+    <SubTexture name="transperant/star-right-only" x="1489" y="1936" width="38" height="39" frameX="0" frameY="-34" frameWidth="40" frameHeight="73"/>
+</TextureAtlas>
