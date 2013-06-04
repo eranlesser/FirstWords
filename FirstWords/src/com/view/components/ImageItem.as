@@ -10,6 +10,7 @@ import starling.textures.Texture;
 public class ImageItem extends Image{
 	private var _questionSound:String;
 	private var _answerSound:String;
+	private var _hSound:String;
 	private var _bg:Image;
 	private var _frame:Image;
 	private var _frameGood:Image;
@@ -21,9 +22,10 @@ public class ImageItem extends Image{
 	private var frameGood : Class;
 
 	
-	function ImageItem(texture:Texture,qsound:String,asound:String):void{
+	function ImageItem(texture:Texture,qsound:String,asound:String,hSound:String):void{
 		_questionSound = qsound;
 		_answerSound = asound;
+		_hSound = hSound;
 		super(texture);
 		addEventListener(TouchEvent.TOUCH,onClick);
 	}
@@ -73,5 +75,10 @@ public class ImageItem extends Image{
 	{
 		return _answerSound;
 	}
+	
+	public function get enhanceSound():String{
+		return _hSound;
+	}
+	
 }
 }

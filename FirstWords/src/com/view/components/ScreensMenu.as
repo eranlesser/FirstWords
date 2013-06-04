@@ -22,7 +22,7 @@ package com.view.components
 		[Embed(source = "../../../assets/btn.png")] 
 		private static const btn:Class;
 		private var _restoreButton:Button;
-		//private var _inApper:InApper;
+		private var _inApper:InApper;
 		private var playRoomThmb:ThumbNail;
 		public var gotoSignal:Signal = new Signal();
 		public function ScreensMenu(screens:ScreensModel)
@@ -59,8 +59,8 @@ package com.view.components
 						var thmbNail:ThumbNail = ThumbNail(Button(e.target).parent);
 						if(thmbNail.locked){
 							//Flurry.getInstance().logEvent("productStore.available",productStore.available);
-							//_inApper.signal.addOnce(onInApperEvent);
-							//_inApper.purchase("babyTweetsHeb.fullContent",1);
+							_inApper.signal.addOnce(onInApperEvent);
+							_inApper.purchase("babyTweetsHeb.fullContent",1);
 						}else{
 							gotoSignal.dispatch(thmbNail.index);
 						}
@@ -74,8 +74,8 @@ package com.view.components
 			playRoomThmb.addEventListener(starling.events.Event.TRIGGERED,function onTriggered(e:starling.events.Event):void{
 				gotoSignal.dispatch(ThumbNail(Button(e.target).parent).index);
 			});
-			playRoomThmb.x=width-playRoomThmb.width-4;
-			playRoomThmb.y=height-playRoomThmb.height-4;
+			playRoomThmb.x = (n%4)*wdt + (n%4)*gap;//menuThmb.x-5;
+			playRoomThmb.y = Math.floor(n/4)*(hgt+gap);//menuThmb.y-5;
 			x=(Dimentions.WIDTH-width)/2;
 			y=140;
 			_restoreButton = new Button(Texture.fromBitmap(new btn()),"RESTORE TRANSACTIONS");
@@ -88,7 +88,7 @@ package com.view.components
 		
 		public function setSelectedScreen():void{
 			for(var i:uint = 0;i<numChildren-2;i++){ // subtract restore btn
-				if(i>Session.FREE_SCREENS_COUNT-1 && !Session.fullVersionEnabled){//apply lock
+				if(i>Session.FREE_THUMBS_COUNT-1 && !Session.fullVersionEnabled){//apply lock
 					(getChildAt(i) as ThumbNail).locked=true;
 				}else{
 					(getChildAt(i) as ThumbNail).locked=false;
@@ -102,13 +102,13 @@ package com.view.components
 		}
 		
 		private function initInapper():void{
-			//_inApper = new InApper();
+			_inApper = new InApper();
 			
 		}
 		
 		private function onRestoreClicked(e:Event):void{
-			//_inApper.signal.addOnce(onInApperEvent);
-			//_inApper.restoreTransactions();
+			_inApper.signal.addOnce(onInApperEvent);
+			_inApper.restoreTransactions();
 		}
 		
 		private function onInApperEvent(eventType:String,data:Object=null):void{
@@ -130,6 +130,9 @@ import com.Assets;
 import com.Dimentions;
 import com.utils.filters.GlowFilter;
 
+import flash.display.BitmapData;
+import flash.display.Shape;
+
 import starling.display.Button;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -141,28 +144,24 @@ class ThumbNail extends Sprite{
 	private var _selectedFrame:Button;
 	private var _lock:Image;
 	function ThumbNail(asset:Texture,indx:int,lock:Image=null){
-		var frame:Button = new Button(Texture.fromBitmap(new Assets.Frame))
-		_selectedFrame = new Button(Texture.fromBitmap(new Assets.FrameSelected))
-		
-		var wdt:uint=170;
-		var hgt:uint=136;
+		var frame:Button = new Button((getFrame(1)))
+		_selectedFrame = new Button((getFrame(2)))
+		_selectedFrame.filter=new GlowFilter(0x041626,1,12,12);
 		addChild(frame);
 		addChild(_selectedFrame);
 		_selectedFrame.visible=false;
-		frame.width = wdt;
-		frame.height = hgt;
 		_btn = new Button(asset);
 		addChild(_btn)
 		_btn.x=(frame.width-_btn.width)/2;
 		_btn.y=(frame.height-_btn.height)/2;
 		if(lock){//bonus
 			_lock=lock;
-			_lock.x=(wdt-_lock.width)/2;
+			_lock.x=(frame.width-_lock.width)/2;
 			_lock.y=-15;
 		}else{
 			_lock = new Image(Texture.fromBitmap(new Assets.Lock));
-			_lock.x=(wdt-_lock.width)/2;
-			_lock.y=(hgt-_lock.height)/2;
+			_lock.x=(frame.width-_lock.width)/2;
+			_lock.y=(frame.height-_lock.height)/2;
 			_lock.alpha=0.7;
 			_lock.filter = new GlowFilter(0xEDFF19,1,6,6);
 		}
@@ -172,13 +171,27 @@ class ThumbNail extends Sprite{
 		
 	}
 	
+	private function getFrame(lineWidth:uint):Texture{
+			var nBox:Shape = new Shape();
+			nBox.graphics.lineStyle(1,0x008DB2)
+			nBox.graphics.beginFill(0xFFFFFF);
+			nBox.graphics.drawRect(0,0,170,136);
+			nBox.graphics.endFill();
+			
+			var nBMP_D:BitmapData = new BitmapData(172, 138, true, 0x00000000);
+			nBMP_D.draw(nBox);
+			
+			var nTxtr:Texture = Texture.fromBitmapData(nBMP_D, false, false);
+			return nTxtr;
+	}
+	
 	public function set selected(val:Boolean):void{
 		_selectedFrame.visible=val;
 	}
 	
 	public function set locked(val:Boolean):void{
 		_lock.visible=val;
-		//this.touchable = !val;
+		this.touchable = !val;
 	}
 	
 	public function get locked():Boolean{

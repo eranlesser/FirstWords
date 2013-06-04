@@ -58,12 +58,6 @@ package com
 		[Embed(source="assets/egg/atlas.png")]
 		public static const egg:Class;
 		
-		[Embed(source = "assets/bg/bgStripe1.jpg")] 
-		public static const BackgroundImage:Class;
-		
-		[Embed(source = "assets/bg/birdsBg.png")] 
-		public static const birdsBg:Class;
-		
 		[Embed(source = "assets/frame2.jpg")] 
 		public static const Frame:Class;
 		
@@ -81,14 +75,6 @@ package com
 		private static const animals2:Class;
 		[Embed(source = "assets/whereIsScene/animals3.png")] 
 		private static const animals3:Class;
-		[Embed(source = "assets/whereIsScene/animals4.png")] 
-		private static const animals4:Class;
-		[Embed(source = "assets/whereIsScene/animals5.png")] 
-		private static const animals5:Class;
-		[Embed(source = "assets/whereIsScene/toys1.png")] 
-		private static const toysScene1:Class;
-		[Embed(source = "assets/whereIsScene/toys2.png")] 
-		private static const toysScene2:Class;
 		[Embed(source = "assets/bodyparts/boyFull2.png")] 
 		private static const boyFull2:Class;
 		[Embed(source = "assets/bodyparts/girlFace.png")] 
@@ -202,16 +188,11 @@ package com
 			_assets = new Vector.<Asset>()
 			_assets.push(new Asset("animals2",new animals2()));
 			_assets.push(new Asset("animals3",new animals3()));
-			_assets.push(new Asset("animals4",new animals4()));
-			_assets.push(new Asset("animals5",new animals5()));
 			_assets.push(new Asset("boyFull2",new boyFull2()));
 			_assets.push(new Asset("girlFace",new girlFace()));
-			_assets.push(new Asset("toysScene1",new toysScene1()));
-			_assets.push(new Asset("toysScene2",new toysScene2()));
 			_assets.push(new Asset("outdoors1",new outdoors1()));
 			_assets.push(new Asset("outdoors2",new outdoors2()));
 			_assets.push(new Asset("bathroom",new bathroom()));
-			_assets.push(new Asset("birdsBg",new birdsBg()));
 			_assets.push(new Asset("transportation",new transportation()));
 			
 			

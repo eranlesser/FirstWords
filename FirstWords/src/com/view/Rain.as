@@ -82,14 +82,16 @@ package com.view
 		
 		
 		private function progress():void{
-			if(_index>10){
+			if(_index==10){
 				_index=10;
+				_counter.progress();
 				_rain.visible=false;
 				Starling.juggler.delayCall(function end():void{
-					dispatchDone()},3);
+					var soundPlayer:SoundPlayer = new SoundPlayer();
+					soundPlayer.getSound("../../../assets/narration","107.mp3").play();
+					Starling.juggler.delayCall(dispatchDone,2.5);
+				},1);
 				closeCurtains();
-				var soundPlayer:SoundPlayer = new SoundPlayer();
-				soundPlayer.getSound("../../../assets/narration","107.mp3").play();
 				_enabled=false;
 				if(_chnl){
 					_chnl.stop();

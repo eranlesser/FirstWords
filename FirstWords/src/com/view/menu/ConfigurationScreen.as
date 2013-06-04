@@ -1,6 +1,5 @@
 package com.view.menu
 {
-	import assets.texts.heb.AboutText;
 	
 	import com.Assets;
 	import com.Dimentions;
@@ -69,8 +68,6 @@ package com.view.menu
 				goHome.dispatch()
 			});
 			_about = new Sprite();
-			var tField:TextField = new TextField(900,600,AboutText.xml.toString(),"Verdena",19,0X03588C);
-			var title:TextField = new TextField(900,80,AboutText.title,"Verdena",34,0X415A79);
 			_about.addChild(new Image(Texture.fromBitmap(new aboutPng())));
 			//_about.addChild(title);
 			//tField.x=20;
@@ -80,8 +77,6 @@ package com.view.menu
 			_about.y=120;
 			addChild(_about);
 			_about.visible=false;
-			tField.hAlign = "right";
-			title.hAlign = "right";
 			//return;
 			var navButton:Button = new Button( Texture.fromBitmap(new screens()) );
 			var aboutButton:Button = new Button( Texture.fromBitmap(new about()));
@@ -90,17 +85,17 @@ package com.view.menu
 			navButton.addEventListener(starling.events.Event.TRIGGERED,function():void{setState("nav")});
 			addChild(aboutButton);
 			aboutButton.addEventListener(starling.events.Event.TRIGGERED,function():void{setState("about")});
-			navButton.x=Dimentions.WIDTH/2-navButton.width-20;
+			navButton.x=Dimentions.WIDTH/2+20;
 			navButton.y=18;
-			aboutButton.x=Dimentions.WIDTH/2+20;
+			aboutButton.x=Dimentions.WIDTH/2-navButton.width-20;
 			aboutButton.y=18;
-			_navText = new TextField(navButton.width,40,Texter.flip("תפריט"),"Verdana",19,0x003B94);
+			_navText = new TextField(navButton.width,40,Texter.flip("תפריט"),"Verdana",21,0x003B94);
 			_navText.hAlign = "center";
 			addChild(_navText);
 			_navText.touchable=false;
 			_navText.x = navButton.x;
 			_navText.y=navButton.y + navButton.height - 42;
-			_aboutText = new TextField(aboutButton.width,40,Texter.flip("מידע כללי"),"Verdana",19,0x002661);
+			_aboutText = new TextField(aboutButton.width,40,Texter.flip("מידע כללי"),"Verdana",21,0x002661);
 			_aboutText.hAlign = "center";
 			addChild(_aboutText);
 			_aboutText.touchable = false;
@@ -110,16 +105,16 @@ package com.view.menu
 		}
 		
 		private function setState(stt:String):void{
-			_navText.color = 0x111111;
-			_aboutText.color = 0x111111;
+			_navText.color = 0x003B94;
+			_aboutText.color = 0x003B94;
 			switch(stt){
 				case "nav":
-						_navText.color = 0x999999;
+						_navText.color = 0x002661;
 						_menu.visible = true;
 						_about.visible=false;
 					break;
 				case "about":
-						_aboutText.color = 0x999999;
+						_aboutText.color = 0x002661;
 						_menu.visible = false;
 						_about.visible=true;
 					break;

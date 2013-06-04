@@ -22,8 +22,9 @@ package com.view.playRoom
 			_body.space = _space;
 			_body.userData.graphic = _material;
 			_body.userData.graphicUpdate = updateGraphics;
-			if(cbType)
-			_body.cbTypes.add(cbType);
+			if(cbType){
+				_body.cbTypes.add(cbType);
+			}
 		}
 		
 		protected function createMaterial():void{

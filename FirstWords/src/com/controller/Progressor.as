@@ -5,6 +5,7 @@ package com.controller
 	import com.model.ScreensModel;
 	import com.model.Session;
 	import com.model.rawData.WhereIsData;
+	import com.view.AbstractScreen;
 	import com.view.Baloons;
 	import com.view.Egg;
 	import com.view.HomeScreen;
@@ -36,13 +37,14 @@ package com.controller
 		}
 		
 		private function goNext():void{
-			if(!Session.fullVersionEnabled && _screens.index==Session.FREE_SCREENS_COUNT){
+			var nextScreen:ScreenModel = _screens.getNext();
+			if(!Session.fullVersionEnabled && !nextScreen.isFree){
 					goTo(-1)
 					return;
 			}
 			
 			removeScreen(_currentScreen);;
-			_currentScreen = addScreen(_screens.getNext());
+			_currentScreen = addScreen(nextScreen);
 			
 		}
 		
@@ -74,11 +76,16 @@ package com.controller
 					Session.currentScreen=0;
 				}
 			}else{
+				var nextScreen:ScreenModel = _screens.getScreen(screenIndex)
+				if(!Session.fullVersionEnabled && !nextScreen.isFree){
+					goTo(0)
+					return;
+				}
 				removeScreen(_currentScreen);
-				_currentScreen = addScreen(_screens.getScreen(screenIndex));
+				_currentScreen = addScreen(nextScreen);
 			}
-			//sif(_currentScreen && _currentScreen.model)
-			//Flurry.getInstance().logEvent("Nav GoTo ",_currentScreen.model.groupName);
+			//if(_currentScreen && _currentScreen.model)
+				//Flurry.getInstance().logEvent("Nav GoTo ",_currentScreen.model.groupName);
 		}
 		
 		public function goHome():void{

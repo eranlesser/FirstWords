@@ -13,12 +13,32 @@ package com.model
 		public static var currentScreen:int=0;
 		private static var _playRoomEnabled:Boolean = false;
 		private static var _fullVersionEnabled:Boolean = false;
-		public static const FREE_SCREENS_COUNT:uint=60;
-		public static var rightAnswer:uint=0;
-		public static var wrongAnswer:uint=0;
+		public static const FREE_THUMBS_COUNT:uint=6;
 		public static var changed:Signal = new Signal();
+		private static var _ratio:Number;
+		public static var rationChanged:Signal = new Signal();
+		private static var _lang:String;
 		public function Session()
 		{
+		}
+		
+		public static function get lang():String
+		{
+			return _lang;
+		}
+
+		public static function set lang(value:String):void
+		{
+			_lang = value;
+		}
+
+		public static function get ratio():Number{
+			return _ratio;
+		}
+		
+		public static function set ratio(rt:Number):void{
+			_ratio = rt;
+			rationChanged.dispatch();
 		}
 
 		public static function get playRoomEnabled():Boolean
@@ -80,6 +100,10 @@ package com.model
 			outputString += sessionXml.toXMLString()+'\n';
 			outputStream.writeUTFBytes(outputString);
 			outputStream.close();
+		}
+		
+		public static function setLanguage(lang:String):void{
+			
 		}
 
 	}

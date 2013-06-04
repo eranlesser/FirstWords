@@ -3,7 +3,7 @@ package com.model.rawData
 	public class BodyPartsScene2
 	{
 		public static var data:XML = 
-			<data type="whereScene" backGround="girlFace" thumbNail="girlFaceTmb" categorySound="36.mp3">
+			<data type="whereScene" backGround="girlFace" thumbNail="girlFaceTmb" categorySound="36.mp3" isFree="true">
 				<item  qsound="37.mp3" asound="38.mp3" groupId="eyes">
 					<rect vector="419,265,80,75"/>
 					<rect vector="557,265,80,75"/>

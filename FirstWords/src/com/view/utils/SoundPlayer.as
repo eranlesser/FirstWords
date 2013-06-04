@@ -1,5 +1,7 @@
 package com.view.utils
 {
+	import com.model.Session;
+	
 	import flash.media.Sound;
 	import flash.media.SoundMixer;
 	import flash.net.URLRequest;
@@ -13,8 +15,8 @@ package com.view.utils
 		}
 		
 		public function getSound(prefix:String,soundStr:String):Sound{
-			trace(prefix+"/heb/"+soundStr)
-			var sound:Sound = new Sound(new URLRequest(prefix+"/heb/"+soundStr));
+			trace(prefix+Session.lang+soundStr)
+			var sound:Sound = new Sound(new URLRequest(prefix+"/"+Session.lang+"/"+soundStr));
 			return sound;
 		}
 		

@@ -23,7 +23,7 @@ package com.view
 		
 		private var _layout:			Layout;
 		private var _goodSound:			Sound;
-		private var _clouds:			Clouds;
+		//private var _clouds:			Clouds;
 		private var _birds:				Tweet;
 		
 		public function WhereIsScreen()
@@ -34,8 +34,8 @@ package com.view
 		
 		private function init():void{
 			_layout = new ThreeLayout(this.screenLayer);
-			_clouds = new Clouds()
-			_screenLayer.addChild(_clouds);
+			//_clouds = new Clouds()
+			//_screenLayer.addChild(_clouds);
 			_birds = new Tweet(null,null);
 			_screenLayer.addChild(_birds);
 			_birds.clicked.add(
@@ -46,14 +46,14 @@ package com.view
 					}
 				}
 			);
-			_birds.y=110;
+			_birds.y=50;
 			_birds.x = Dimentions.WIDTH+12;
 			_birds.scaleX=-1;
 			
 		}
 		
 		override public function destroy():void{
-			_clouds.stop();
+		//	_clouds.stop();
 			super.destroy();
 		}
 		
@@ -103,42 +103,25 @@ package com.view
 		private function setDistractors(items:Vector.<Item>, atlas:TextureAtlas):void{
 			var images:Vector.<ImageItem> = new Vector.<ImageItem>();
 			for each(var item:Item in items){
-				var img:ImageItem = getDistractor(item.image,item.qSound,item.aSound, atlas)
+				var img:ImageItem = getDistractor(item.image,item.qSound,item.aSound,item.hSound, atlas)
 				images.push(img);
 				img.touched.add(onDistractorTouch);
 			}
 			_layout.layout(images);
 		}
 		
-		private function getDistractor(itemName:String,qsound:String,asound:String,atlas:TextureAtlas):ImageItem
+		private function getDistractor(itemName:String,qsound:String,asound:String,hsound:String,atlas:TextureAtlas):ImageItem
 		{
 			var distractor:Texture = atlas.getTexture(itemName);
-			var img:ImageItem = new ImageItem(distractor,qsound,asound);
+			var img:ImageItem = new ImageItem(distractor,qsound,asound,hsound);
 			return img;
 		}
 		
-		private function  onDistractorTouch(imageItem:ImageItem):void{
-			if(!_enabled){
-				return;
-			}
-			var sound:Sound;
-			if(_model.distractorType == ""){
-				sound = _soundManager.getSound("../assets/narration/",imageItem.aSound);
-			}else{
-				sound = _soundManager.getSound("../assets/narration/",_whoIs.qSound);
-			}	
-			var chnl:SoundChannel = sound.play();
-			chnl.addEventListener(Event.SOUND_COMPLETE,function onChnl():void{
-				chnl.removeEventListener(Event.SOUND_COMPLETE,onChnl);
-				_enabled=true;
-			});
-			_enabled = false;
-			Session.wrongAnswer++;
-		}
+		
 		
 		private function setWhoIs(item:Item,atlas:TextureAtlas):void{
 			_whoIs = item;
-			var img:ImageItem = new ImageItem(atlas.getTexture(_whoIs.image),item.qSound,item.aSound) 
+			var img:ImageItem = new ImageItem(atlas.getTexture(_whoIs.image),item.qSound,item.aSound,item.hSound) 
 			var images:Vector.<ImageItem> = new Vector.<ImageItem>();
 			images.push(img);
 			_layout.layout(images);

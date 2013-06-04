@@ -5,7 +5,9 @@ package com.view
 	import com.model.ScreenModel;
 	import com.model.ScreensModel;
 	import com.model.Session;
+	import com.utils.filters.GlowFilter;
 	import com.view.components.Clouds;
+	import com.view.components.FlagsMenu;
 	
 	import flash.display.Stage;
 	
@@ -15,6 +17,8 @@ package com.view
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 	import starling.textures.Texture;
 	import starling.utils.AssetManager;
 	
@@ -28,11 +32,10 @@ package com.view
 		private var tweets : Class;
 		[Embed(source="../../assets/home/home.png")]
 		private var home : Class;
-		[Embed(source="../../assets/bg/btrflies.png")]
-		private var btrflies : Class;
-		[Embed(source="../../assets/home/confBut.png")]
+		[Embed(source="../../assets/confBut.png")]
 		private var wBird : 			Class;
 		private var _clouds:Clouds;
+		private var _flags:FlagsMenu;
 		public function HomeScreen(screens:ScreensModel)
 		{
 			Assets.load();
@@ -44,6 +47,10 @@ package com.view
 			var tweetsText:Image = new Image(Texture.fromBitmap(new tweets()));
 			tweetsText.x=600;
 			tweetsText.y=200;
+			_flags = new FlagsMenu();
+			_flags.x=22;
+			_flags.y=140;
+			_screenLayer.addChild(_flags);
 			//_screenLayer.addChild(tweetsText);
 			//_screenLayer.addChild(btrflies);
 			var whereBird:Button = new Button(Texture.fromBitmap(new wBird()));
@@ -60,7 +67,13 @@ package com.view
 			//playBut.scaleY=0.75;
 			playBut.addEventListener(Event.TRIGGERED,function():void{gotoSignal.dispatch(Session.currentScreen)});
 			//initMenu(screens);
-			
+			this.addEventListener(TouchEvent.TOUCH,onTouch);
+		}
+		
+		private function onTouch(t:TouchEvent):void{
+			if(t.getTouch(stage)&&(t.getTouch(stage).phase == TouchPhase.BEGAN)){
+				_flags.close();
+			}
 		}
 		
 		private function openMenu():void{

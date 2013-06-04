@@ -2,7 +2,6 @@ package com.view.playRoom
 {
 	import com.Assets;
 	import com.Dimentions;
-	import com.model.Item;
 	import com.model.ScreenModel;
 	
 	import flash.display.Bitmap;

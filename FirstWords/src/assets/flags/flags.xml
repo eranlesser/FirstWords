@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:5d445983a41202e58146b78a7664fff9$ -->
+<TextureAtlas imagePath="flags.png">
+    <SubTexture name="brazil" x="204" y="2" width="200" height="140"/>
+    <SubTexture name="france" x="2" y="284" width="200" height="133"/>
+    <SubTexture name="holland" x="2" y="149" width="200" height="133"/>
+    <SubTexture name="israel" x="2" y="2" width="200" height="145"/>
+    <SubTexture name="russia" x="204" y="144" width="200" height="133"/>
+    <SubTexture name="uk" x="204" y="279" width="200" height="100"/>
+</TextureAtlas>

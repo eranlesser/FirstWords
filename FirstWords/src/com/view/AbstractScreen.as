@@ -75,6 +75,28 @@ package com.view
 			return _model;
 		}
 		
+		protected function  onDistractorTouch(imageItem:ImageItem):void{
+			if(!_enabled){
+				return;
+			}
+			var sound:Sound;
+			if(_model.distractorType == ""){
+				sound = _soundManager.getSound("../assets/narration/",imageItem.aSound);
+			}else{
+				sound = _soundManager.getSound("../assets/narration/",_whoIs.qSound);
+			}	
+			var chnl:SoundChannel = sound.play();
+			chnl.addEventListener(flash.events.Event.SOUND_COMPLETE,function onChnl():void{
+				chnl.removeEventListener(flash.events.Event.SOUND_COMPLETE,onChnl);
+				if(imageItem.enhanceSound!=""){
+					var hSound:Sound = new Sound(new URLRequest("../assets/sounds/effects/"+imageItem.enhanceSound));
+					hSound.play();
+				}
+				_enabled=true;
+			});
+			_enabled = false;
+		}
+		
 		public function set model(screenModel:ScreenModel):void{
 			_counter=0;
 			_model=screenModel;
@@ -136,7 +158,16 @@ package com.view
 		private var _goodFeedBack:String;
 		private function get goodFeedBack():String{
 			var soundFile:String;
-			soundFile = 192+Math.floor(Math.random()*26)+".mp3";
+			soundFile = 192+Math.floor(Math.random()*19)+".mp3";
+			if(soundFile==_goodFeedBack){
+				soundFile=goodFeedBack;
+			}
+			_goodFeedBack = soundFile;
+			return soundFile;
+		}
+		private function get goodLastFeedBack():String{
+			var soundFile:String;
+			soundFile = 300+Math.floor(Math.random()*6)+".mp3";
 			if(soundFile==_goodFeedBack){
 				soundFile=goodFeedBack;
 			}
@@ -148,15 +179,16 @@ package com.view
 			if(!_enabled){
 				return false;
 			}
-			
-			var goodSound:Sound = _soundManager.getSound("../assets/narration/",goodFeedBack);
+			var goodSound:Sound;
+			if(_counter>=_model.numItems){
+				closeCurtains();
+				goodSound = _soundManager.getSound("../assets/narration/",goodLastFeedBack);
+			}else{
+				goodSound = _soundManager.getSound("../assets/narration/",goodFeedBack);
+			}
 			var channel:SoundChannel = goodSound.play();
 			channel.addEventListener(flash.events.Event.SOUND_COMPLETE,goodSoundComplete);
 			_enabled=false;
-			if(_counter>=_model.numItems){
-				closeCurtains();
-			}
-			Session.rightAnswer++;
 			return true;
 		}
 		

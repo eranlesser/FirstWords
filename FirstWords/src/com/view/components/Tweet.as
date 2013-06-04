@@ -29,11 +29,21 @@ package com.view.components
 		[Embed(source="../../../assets/tweets/birds4.png")]
 		private var birds4 : Class;
 		private var _lastNoteImage:Image;
+		private var _birdNotes:Vector.<Image> = new Vector.<Image>();
+		private var _tweets:Vector.<Sound> = new Vector.<Sound>();
 		public var clicked:Signal = new Signal();
 		public function Tweet(bg:String,tweets:XML)
 		{
 			addChild(new Image(Texture.fromBitmap(new birds())));
 			addEventListener(TouchEvent.TOUCH,onTouch);
+			_birdNotes.push(new Image(Texture.fromBitmap(new birds1())));
+			_birdNotes.push(new Image(Texture.fromBitmap(new birds2())));
+			_birdNotes.push(new Image(Texture.fromBitmap(new birds3())));
+			_birdNotes.push(new Image(Texture.fromBitmap(new birds4())));
+			_tweets.push(new Sound(new URLRequest("../../assets/sounds/heb/birds2.mp3")))
+			_tweets.push(new Sound(new URLRequest("../../assets/sounds/heb/birds3.mp3")))
+			_tweets.push(new Sound(new URLRequest("../../assets/sounds/heb/birds4.mp3")))
+			_tweets.push(new Sound(new URLRequest("../../assets/sounds/heb/birds5.mp3")))
 		}
 		
 		public function play(tweet:Boolean=true):void{
@@ -53,13 +63,13 @@ package com.view.components
 				var rand:Number = Math.random();
 				var sound:Sound;
 				if(rand<0.2){
-					sound = new Sound(new URLRequest("../../assets/sounds/heb/birds2.mp3"))
+					sound = _tweets[0];
 				}else if(rand<0.4){
-					sound = new Sound(new URLRequest("../../assets/sounds/heb/birds3.mp3"))
+					sound = _tweets[1];
 				}else if(rand<0.6){
-					sound = new Sound(new URLRequest("../../assets/sounds/heb/birds4.mp3"))
+					sound = _tweets[2];
 				}else{
-					sound = new Sound(new URLRequest("../../assets/sounds/heb/birds5.mp3"))
+					sound = _tweets[3];
 				}
 				sound.play();
 			}
@@ -79,16 +89,13 @@ package com.view.components
 			var rand:Number = Math.random();
 			var img:Image;
 			if(rand<0.25){
-				img=new Image(Texture.fromBitmap(new birds1()));
+				img=_birdNotes[0];
 			}else if(rand<0.5){
-				img=new Image(Texture.fromBitmap(new birds2()));
-				
+				img=_birdNotes[1];
 			}else if(rand<0.75){
-				img=new Image(Texture.fromBitmap(new birds3()));
-				
+				img=_birdNotes[2];
 			}else{
-				img=new Image(Texture.fromBitmap(new birds4()));
-				
+				img=_birdNotes[3];
 			}
 			if(_lastNoteImage==img){
 				return getRandomImage();				

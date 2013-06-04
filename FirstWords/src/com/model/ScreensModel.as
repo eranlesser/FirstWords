@@ -29,7 +29,7 @@ package com.model
 		
 		public function getNext():ScreenModel{
 			_index++;
-			if(_index==_screens.length-1){
+			if(_index==_screens.length){
 				_index=0;
 			}
 			var  scr:ScreenModel = _screens[_index];
@@ -40,7 +40,6 @@ package com.model
 		public function getScreen(indx:int):ScreenModel{
 			_index = indx;
 			Session.currentScreen = indx;
-			trace(_screens[index])
 			return _screens[indx];
 		}
 		

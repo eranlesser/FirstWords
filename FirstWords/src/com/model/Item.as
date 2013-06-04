@@ -9,6 +9,7 @@ package com.model
 		private var _image:String;
 		private var _qSound:String;
 		private var _aSound:String;
+		private var _hSound:String;
 		private var _groupId:String;
 		private var _rects:Vector.<Rectangle>;
 		private var _wasWho:Boolean=false;
@@ -17,6 +18,7 @@ package com.model
 			_image = data.@image;
 			_qSound = data.@qsound;
 			_aSound = data.@asound;
+			_hSound = data.@hsound;
 			_groupId = data.@groupId;
 			_rects = new Vector.<Rectangle>();
 			for each(var rectXml:XML in data.rect){
@@ -47,6 +49,10 @@ package com.model
 		public function get aSound():String
 		{
 			return _aSound;
+		}
+		public function get hSound():String
+		{
+			return _hSound;
 		}
 
 		public function get image():String

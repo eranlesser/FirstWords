@@ -9,16 +9,16 @@ package com.model.rawData
 		
 		public static var data:XML = 
 			<data type="whereScene" backGround="transportation"  thumbNail="transportationTmb">
-				<item   groupId="struck" qsound="90.mp3" asound="91.mp3">
+				<item   groupId="boat" qsound="190.mp3" asound="191.mp3">
 					<rect vector="10,10,500,380"/>
 				</item>
-				<item  qsound="92.mp3" asound="93.mp3" groupId="boat">
+				<item  qsound="184.mp3" asound="185.mp3" groupId="car">
 					<rect vector="505,10,500,380"/>
 				</item>
-				<item  qsound="94.mp3" asound="95.mp3" groupId="car">
+				<item  qsound="188.mp3" asound="189.mp3" groupId="truck">
 					<rect vector="10,390,500,380"/>
 				</item>
-				<item  qsound="96.mp3" asound="97.mp3" groupId="plane">
+				<item  qsound="186.mp3" asound="187.mp3" groupId="plane">
 					<rect vector="505,390,500,380"/>
 				</item>
 			</data>;

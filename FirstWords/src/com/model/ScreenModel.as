@@ -1,5 +1,7 @@
 package com.model
 {
+	
+
 	public class ScreenModel
 	{
 		private var _items:				Vector.<Item>;
@@ -11,7 +13,7 @@ package com.model
 		private var _menu:				XMLList;
 		private var _categorySound:String="";
 		private var _distractorType:String="";
-		
+		private var _isFree:Boolean = false;
 		public function ScreenModel(data:XML){
 			_items = new Vector.<Item>();
 			for each(var itemData:XML in data.item){
@@ -26,9 +28,17 @@ package com.model
 			if(XMLList(data.menu).length()>0){
 				_menu = data.menu;
 			}
+			if(data.@isFree=="true"){
+				_isFree = true;
+			}
 			_groupsInScreen = new Vector.<String>();
 		}
 		
+		public function get isFree():Boolean
+		{
+			return _isFree;
+		}
+
 		public function get distractorType():String
 		{
 			return _distractorType;

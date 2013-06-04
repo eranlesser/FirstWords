@@ -129,19 +129,7 @@ package com.view
 			super.onWhereSoundDone(e);
 		}
 		
-		private function  onDistractorTouch(imageItem:ImageItem):void{
-			if(!_enabled){
-				return;
-			}
-			var sound:Sound;
-			if(_model.distractorType == ""){
-				sound = _soundManager.getSound("../assets/narration/",imageItem.aSound);
-			}else{
-				sound = _soundManager.getSound("../assets/narration/",_whoIs.qSound);
-			}
-			sound.play();
-			Session.wrongAnswer++;
-		}
+		
 		
 		private function addItem(item:Item):void{
 			for each(var rect:Rectangle in item.rects){
@@ -152,7 +140,7 @@ package com.view
 			shp.graphics.endFill();
 			var btmData:BitmapData = new BitmapData(shp.width,shp.height);
 			btmData.draw(shp);
-			var img:ImageItem = new ImageItem(Texture.fromBitmapData(btmData),item.qSound,item.aSound);
+			var img:ImageItem = new ImageItem(Texture.fromBitmapData(btmData),item.qSound,item.aSound,item.hSound);
 			img.x = rect.x;
 			img.y = rect.y;
 			img.alpha=0;
