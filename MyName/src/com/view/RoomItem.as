@@ -1,6 +1,10 @@
 package com.view
 {
 	import com.model.ItemModel;
+	import com.utils.Line;
+	
+	import flash.display.BitmapData;
+	import flash.display.Shape;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -27,9 +31,9 @@ package com.view
 		private var _bg:Image;
 		public function RoomItem(thmb:Image,img:Image,itemModel:ItemModel)
 		{
-			_bg = new Image(Texture.fromBitmap(new frame()));
+			_bg = new Image(getFrame(1));
 			addChild(_bg);
-			_bg.alpha = 0.5;
+			//_bg.alpha = 0;
 			_thumbImage=thmb//new Image(_atlas.getTexture("small_"+itemModel.texture));
 			_model = itemModel;
 			addChild(_thumbImage);
@@ -40,7 +44,19 @@ package com.view
 			_onStageImage.visible=false;
 			
 		}
-		
+		private function getFrame(lineWidth:uint):Texture{
+			var nBox:Shape = new Shape();
+			nBox.graphics.lineStyle(3,0xFFFFFF,0.3)
+			nBox.graphics.beginFill(0xFFFFFF,0);
+			nBox.graphics.drawRect(0,0,108,108);
+			nBox.graphics.endFill();
+			
+			var nBMP_D:BitmapData = new BitmapData(111, 111, true, 0x00000000);
+			nBMP_D.draw(nBox);
+			
+			var nTxtr:Texture = Texture.fromBitmapData(nBMP_D, false, false);
+			return nTxtr;
+		}
 		
 		
 		public function get model():ItemModel{

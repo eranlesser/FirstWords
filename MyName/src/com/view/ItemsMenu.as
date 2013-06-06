@@ -30,7 +30,7 @@ package com.view
 			super();
 			//alpha=0.5;
 			//addEventListener(GestureEvent.GESTURE_BEGAN,onGesture);
-			addChild(new Image(Texture.fromBitmap(new menuBg()))).alpha=0.5;
+			addChild(new Image(Texture.fromBitmap(new menuBg()))).alpha=0;
 			addEventListener(TouchEvent.TOUCH,onGesture);
 			_thumbsLayer = new Sprite();
 			addChild(_thumbsLayer);
@@ -76,7 +76,6 @@ package com.view
 				}
 			}
 			//if(newX<1){
-			trace(isTweening)
 			if(!isTweening){
 				t.animate("x",newX);
 				isTweening = true;

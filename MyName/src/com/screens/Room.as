@@ -8,6 +8,7 @@ package com.screens
 	import com.view.RoomItem;
 	import com.view.roomItems.*;
 	
+	import flash.display.DisplayObject;
 	import flash.display.Stage;
 	import flash.events.AccelerometerEvent;
 	import flash.events.MouseEvent;
@@ -17,17 +18,22 @@ package com.screens
 	import flash.sensors.Accelerometer;
 	import flash.utils.getTimer;
 	
+	import nape.constraint.Constraint;
 	import nape.constraint.PivotJoint;
+	import nape.constraint.PulleyJoint;
 	import nape.geom.Vec2;
 	import nape.phys.Body;
 	import nape.phys.BodyList;
 	import nape.phys.BodyType;
 	import nape.shape.Polygon;
 	import nape.space.Space;
+	import nape.util.BitmapDebug;
+	import nape.util.Debug;
 	
 	import starling.animation.Tween;
 	import starling.core.Starling;
 	import starling.display.Button;
+	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -52,7 +58,7 @@ package com.screens
 		private var _nativeStage : Stage;
 		private var _space : Space;
 		private var _hand : PivotJoint;
-		
+		private var _ceiling:Body;
 		public static var atlas:TextureAtlas;
 		private var _menuAtlas:TextureAtlas;
 		private var _menu:ItemsMenu;
@@ -63,7 +69,7 @@ package com.screens
 		
 		private var _frontLayer:Sprite;
 		private var _backLayer:Sprite;
-		
+		private var debug:Debug;
 		public function Room(data:XML)
 		{
 			super();
@@ -94,14 +100,111 @@ package com.screens
 			listenForEnterFrame();
 			useAccelerometer();
 			createFloor();
-			var lamp:Lamp = new Lamp(_space,null);
-			addChild(lamp.material);
-			lamp.lightChanged.add(onLightChanged);
-			lamp.material.x=435;
+			addLamp();
+			addStars();
 			_frontLayer = new Sprite();
 			_backLayer = new Sprite();
 			addChild(_backLayer);
 			addChild(_frontLayer);
+			debug = new BitmapDebug(_nativeStage.stageWidth, _nativeStage.stageHeight, _nativeStage.color);
+			var display:flash.display.DisplayObject = debug.display;
+			_nativeStage.addChild(display);
+			display.alpha=.2
+		}
+		
+		
+		
+		private function addLamp():void{
+			var lamp:Lamp = new Lamp(_space,null,435);
+			addChild(lamp.material);
+			lamp.lightChanged.add(onLightChanged);
+			lamp.material.x=435;
+		}
+		
+		// Cell sizes
+		private function addStars():void{
+			
+
+			var star:Star;
+			var b1:Body = box(260,0,22, true);
+			star = new Star(_space,null,260,"transperant/star-left-only",60);
+			addChild(star.material);
+			star.material.x=260;
+			var anchor1:Vec2 = star.body.worldPointToLocal(new Vec2(272,3));
+			var anchor2:Vec2 = b1.worldPointToLocal(new Vec2(272,3));
+			var pivotJoint:Constraint = new PivotJoint(b1,star.body,anchor2,anchor1);
+			pivotJoint.space = _space;
+			pivotJoint.stiff = false;
+			
+			
+			var b3:Body = box(380,0,22, true);
+			star = new Star(_space,null,380,"transperant/star-middle-only",60);
+			addChild(star.material);
+			star.material.x=380;
+			var anchor5:Vec2 = star.body.worldPointToLocal(new Vec2(392,3));
+			var anchor6:Vec2 = b3.worldPointToLocal(new Vec2(392,3));
+			var pivotJoint3:Constraint = new PivotJoint(b3,star.body,anchor5,anchor6);
+			pivotJoint3.space = _space;
+			pivotJoint3.stiff = false;
+			
+			
+			var b2:Body = box(650,0,22, true);
+			star = new Star(_space,null,650,"transperant/star-right-only",60);
+			addChild(star.material);
+			star.material.x=650;
+			var anchor3:Vec2 = star.body.worldPointToLocal(new Vec2(662,3));
+			var anchor4:Vec2 = b2.worldPointToLocal(new Vec2(662,3));
+			var pivotJoint2:Constraint = new PivotJoint(b2,star.body,anchor3,anchor4);
+			pivotJoint2.space = _space;
+			pivotJoint2.stiff = false;
+			
+			var b4:Body = box(290,0,50, true);
+			var tedd:Teddy = new Teddy(_space,null,310,"transperant/dubi-only",100);
+			addChild(tedd.material);
+			tedd.material.x=310;
+			var anchor7:Vec2 = tedd.body.worldPointToLocal(new Vec2(322,3));
+			var anchor8:Vec2 = b4.worldPointToLocal(new Vec2(322,3));
+			var pivotJoint4:Constraint = new PivotJoint(b4,tedd.body,anchor7,anchor8);
+			pivotJoint4.space = _space;
+			pivotJoint4.stiff = false;
+			
+			
+//			var b2:Body = box((1*cellWidth/3),(cellHeight/2),size/2);
+//			var b3:Body = box((2*cellWidth/3),(cellHeight/2),size);
+//			
+//			format(new PulleyJoint(
+//				b1, b2,
+//				b1, b3,
+//				Vec2.weak(-size*2, 0), Vec2.weak(0, -size/2),
+//				Vec2.weak( size*2, 0), Vec2.weak(0, -size),
+//				/*jointMin*/ cellHeight*0.75,
+//				/*jointMax*/ cellHeight*0.75,
+//				/*ratio*/ 2.5
+//			));
+			
+			
+		}
+		private function format(c:Constraint):void  {
+				c.stiff = false;
+				c.frequency = 20.0;
+				c.damping = 1.0;
+				c.space = _space;
+			};
+		// Box utility.
+		private function box(x:Number, y:Number, radius:Number, pinned:Boolean=false):Body {
+			var body:Body = new Body();
+			body.position.setxy(x, y);
+			body.shapes.add(new Polygon(Polygon.box(radius*2, radius*2)));
+			body.space = _space;
+			if (pinned) {
+				var pin:PivotJoint = new PivotJoint(
+					_space.world, body,
+					body.position,
+					Vec2.weak(0,0)
+				);
+				pin.space = _space;
+			}
+			return body;
 		}
 		
 		private function onLightChanged(val:uint):void{
@@ -216,15 +319,19 @@ package com.screens
 					playItem= new Cube(_space,null,x,y);
 					_frontLayer.addChild(playItem.material);
 					break;
+				case "car":
+					playItem= new Car(_space,null,x,y);
+					_frontLayer.addChild(playItem.material);
+					break;
 				case "bridge":
 					playItem = new Bridge(_space,null,x,y);
 					_frontLayer.addChild(playItem.material);
 					break;
 				case "pins":
 					//playItem = new Bridge(_space,null,x,y);
-					_frontLayer.addChild(new Pin(_space,null,x-20,y-5,"bowling-pin-light-blue").material);
-					_frontLayer.addChild(new Pin(_space,null,x,y,"bowling-pin-orenge").material);
-					_frontLayer.addChild(new Pin(_space,null,x+20,y-5,"bowling-pin-purple").material);
+					_frontLayer.addChild(new Pin(_space,null,x-20,768 - ItemsMenu.ITEM_WIDTH - 80,"bowling-pin-light-blue").material);
+					_frontLayer.addChild(new Pin(_space,null,x,768 - ItemsMenu.ITEM_WIDTH - 80,"bowling-pin-orenge").material);
+					_frontLayer.addChild(new Pin(_space,null,x+20,768 - ItemsMenu.ITEM_WIDTH - 80,"bowling-pin-purple").material);
 					break;
 //				case "ball":
 //					var ball:BasketBall = new BasketBall(_space,_ballCollisionType,x,y);
@@ -283,13 +390,13 @@ package com.screens
 		private function createFloor():void
 		{
 			const floor:Body = new Body( BodyType.STATIC );
-			
+			_ceiling = new Body(BodyType.STATIC);
 			// what are all these things?
 			floor.shapes.add( new Polygon( Polygon.rect( 0, 768 - ItemsMenu.ITEM_WIDTH - 2-30, 1024, 200 ) ) );
 			floor.shapes.add( new Polygon( Polygon.rect( 1024-WALL_WIDTH, 0, WALL_WIDTH, 768 ) ) );
-			floor.shapes.add( new Polygon( Polygon.rect( 0, -20, 1024, 22 ) ) );
+			_ceiling.shapes.add( new Polygon( Polygon.rect( 0, 0, 1024, 22 ) ) );
 			floor.shapes.add( new Polygon( Polygon.rect( 0, 0, WALL_WIDTH, 768 ) ) );
-			
+			_ceiling.space = _space;
 			floor.space = _space;
 			//floor.cbTypes.add(_floorCollisionType);
 		}
@@ -341,6 +448,12 @@ package com.screens
 						body.userData.graphicUpdate(body);
 					}
 				}
+				// Clear the debug display.
+				//debug.clear();
+				// Draw our Space.
+				//debug.draw(_space);
+				// Flush draw calls, until this is called nothing will actually be displayed.
+				//debug.flush();
 			});
 		}
 		

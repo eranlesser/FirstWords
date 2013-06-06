@@ -21,8 +21,8 @@ package com.view.roomItems
 	
 	public class Lamp extends PlayItem{
 		private var _lamp:Button;
-		function Lamp(space:Space,cbType:CbType):void{
-			super(space,cbType,453,0);
+		function Lamp(space:Space,cbType:CbType,x:int):void{
+			super(space,cbType,x,0);
 			
 			
 		}
