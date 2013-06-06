@@ -11,13 +11,15 @@ package com.model
 		private var _type:				String;
 		private var _backGround:		String;
 		private var _menu:				XMLList;
+		private var _folder:			String;
 		private var _categorySound:String="";
 		private var _distractorType:String="";
 		private var _isFree:Boolean = false;
 		public function ScreenModel(data:XML){
+			_folder = "/"+data.@folder;
 			_items = new Vector.<Item>();
 			for each(var itemData:XML in data.item){
-				_items.push(new Item(itemData));
+				_items.push(new Item(itemData,_folder));
 			}
 			_groupName = data.@groupName;
 			_thumbNail = data.@thumbNail;
@@ -28,12 +30,17 @@ package com.model
 			if(XMLList(data.menu).length()>0){
 				_menu = data.menu;
 			}
-			if(data.@isFree=="true"){
+			//if(data.@isFree=="true"){
 				_isFree = true;
-			}
+			//}
 			_groupsInScreen = new Vector.<String>();
 		}
 		
+		public function get folder():String
+		{
+			return _folder;
+		}
+
 		public function get isFree():Boolean
 		{
 			return _isFree;

@@ -234,23 +234,23 @@ class ColoredBaloon extends PlayItem{
 		switch(clr){
 			case "blu":
 				img = new Image(Texture.fromBitmap(new bluBln()));
-				_qSound = soundManager.getSound("../../../assets/narration","175.mp3");  
-				_aSound = soundManager.getSound("../../../assets/narration","176.mp3");  
+				_qSound = soundManager.getSound("../../../assets/narration/","/colors/4.mp3");  
+				_aSound = soundManager.getSound("../../../assets/narration/","/colors/5.mp3");  
 			break;
 			case "green":
 				img = new Image(Texture.fromBitmap(new greenBln()));
-				_qSound = soundManager.getSound("../../../assets/narration","177.mp3");  
-				_aSound = soundManager.getSound("../../../assets/narration","178.mp3");  
+				_qSound = soundManager.getSound("../../../assets/narration/","/colors/6.mp3");  
+				_aSound = soundManager.getSound("../../../assets/narration/","/colors/7.mp3");  
 			break;
 			case "red":
 				img = new Image(Texture.fromBitmap(new redBln()));
-				_qSound = soundManager.getSound("../../../assets/narration","173.mp3");  
-				_aSound = soundManager.getSound("../../../assets/narration","174.mp3");  
+				_qSound = soundManager.getSound("../../../assets/narration/","/colors/2.mp3");  
+				_aSound = soundManager.getSound("../../../assets/narration/","/colors/3.mp3");  
 			break;
 			case "yellow":
 				img = new Image(Texture.fromBitmap(new yellowBln()));
-				_qSound = soundManager.getSound("../../../assets/narration","179.mp3");  
-				_aSound = soundManager.getSound("../../../assets/narration","180.mp3");  
+				_qSound = soundManager.getSound("../../../assets/narration/","/colors/8.mp3");  
+				_aSound = soundManager.getSound("../../../assets/narration/","/colors/9.mp3");  
 			break;
 		}
 		return img;

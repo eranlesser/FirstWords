@@ -9,6 +9,7 @@ package com.view.components
 	
 	import org.osflash.signals.Signal;
 	
+	import starling.core.Starling;
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -28,6 +29,10 @@ package com.view.components
 		public function ScreensMenu(screens:ScreensModel)
 		{
 			init(screens);
+			Starling.juggler.delayCall(initIPurchases,3);
+		}
+		
+		private function initIPurchases():void{
 			initInapper();
 			Session.changed.add(onsessionChanged);
 			onsessionChanged();

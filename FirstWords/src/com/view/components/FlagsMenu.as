@@ -16,6 +16,7 @@ package com.view.components
 		private var _atlas:TextureAtlas;
 		private var _selectedFlag:Flag;
 		private var _container:Sprite;
+		public static const FLAG_WIDTH:uint = 80;
 		public function FlagsMenu()
 		{
 			var texture:Texture=  Texture.fromBitmap(new flags());
@@ -42,7 +43,7 @@ package com.view.components
 		
 		private function onOpen(lang:String):void
 		{
-			_container.visible=true;
+			_container.visible=!_container.visible;
 			// TODO Auto Generated method stub
 			
 		}
@@ -57,16 +58,16 @@ package com.view.components
 			_container.y=62;
 			addFlag("israel");
 			addFlag("russia");
-			addFlag("uk");
-			addFlag("brazil");
-			addFlag("france");
-			addFlag("holland");
+			//addFlag("uk");
+			//addFlag("brazil");
+			//addFlag("france");
+			//addFlag("holland");
 		}
 		private var _hgt:uint=0;
 		private function addFlag(name:String):void{
 			var flag:Flag = new Flag(_atlas.getTexture(name),name);
 			_container.addChild(flag);
-			flag.width=80;
+			flag.width=FLAG_WIDTH;
 			flag.height=60;
 			flag.y=_hgt;
 			flag.clicked.add(setSelectedFlag);

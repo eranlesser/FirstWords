@@ -9,16 +9,16 @@ package com.model.rawData
 			{PlayRoomData.data}
 			{OutDoors1.data}
 			{EggData.data}
+			{PlayRoomData.data}
+			{Clothes.data}
+			{BaloonsData.data}
 			{BodyPartsScene2.data}
 			{BodyPartsScene1.data}
-			{PlayRoomData.data}
 			{AnimalCards1.data}
 			{Animals2.data}
-			{Animals3.data}
 			{AnimalCards2.data}
-			{BaloonsData.data}
+			{Animals3.data}
 			{Transportation.data}
-			{Clothes.data}
 			{RainData.data}
 			{BathRoom.data}
 			{PlayRoomData.data}

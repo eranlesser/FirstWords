@@ -1,26 +1,19 @@
 package com.view
 {
 	import com.Assets;
-	import com.Dimentions;
-	import com.model.ScreenModel;
 	import com.model.ScreensModel;
 	import com.model.Session;
-	import com.utils.filters.GlowFilter;
 	import com.view.components.Clouds;
 	import com.view.components.FlagsMenu;
-	
-	import flash.display.Stage;
 	
 	import org.osflash.signals.Signal;
 	
 	import starling.display.Button;
 	import starling.display.Image;
-	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	import starling.textures.Texture;
-	import starling.utils.AssetManager;
 	
 	public class HomeScreen extends AbstractScreen
 	{
@@ -48,8 +41,8 @@ package com.view
 			tweetsText.x=600;
 			tweetsText.y=200;
 			_flags = new FlagsMenu();
-			_flags.x=22;
-			_flags.y=140;
+			_flags.x=400;
+			_flags.y=325;
 			_screenLayer.addChild(_flags);
 			//_screenLayer.addChild(tweetsText);
 			//_screenLayer.addChild(btrflies);
@@ -61,7 +54,7 @@ package com.view
 			
 			var playBut:Button = new Button( Texture.fromBitmap(new playBt()) );
 			addChild(playBut);
-			playBut.x=186//(Dimentions.WIDTH-playBut.width)/3;
+			playBut.x=110//(Dimentions.WIDTH-playBut.width)/3;
 			playBut.y=168;
 			//playBut.scaleX=0.75;
 			//playBut.scaleY=0.75;
@@ -72,6 +65,9 @@ package com.view
 		
 		private function onTouch(t:TouchEvent):void{
 			if(t.getTouch(stage)&&(t.getTouch(stage).phase == TouchPhase.BEGAN)){
+				if(t.getTouch(stage).target is Image && (t.getTouch(stage).target as Image).width == 200){
+					return;
+				}
 				_flags.close();
 			}
 		}

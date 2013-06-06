@@ -3,7 +3,7 @@ package com.model.rawData
 	public class RainData
 	{
 		public static var data:XML = 
-			<data type="rain" thumbNail="flowerTmb" categorySound="106.mp3"  >
+			<data type="rain" thumbNail="flowerTmb" folder="counter" categorySound="13.mp3"  >
 				
 				
 			</data>;

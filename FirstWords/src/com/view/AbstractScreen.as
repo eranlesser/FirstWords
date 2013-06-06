@@ -101,7 +101,7 @@ package com.view
 			_counter=0;
 			_model=screenModel;
 			if(_model.categorySound!=""){
-				_categorySound = _soundManager.getSound("../assets/narration/",_model.categorySound);
+				_categorySound = _soundManager.getSound("../assets/narration/",_model.folder +"/"+ _model.categorySound);
 				var chnl:SoundChannel = _categorySound.play();
 				_categorySoundPlaying=true;
 				chnl.addEventListener(flash.events.Event.SOUND_COMPLETE,onCatSoundDone);
@@ -158,7 +158,8 @@ package com.view
 		private var _goodFeedBack:String;
 		private function get goodFeedBack():String{
 			var soundFile:String;
-			soundFile = 192+Math.floor(Math.random()*19)+".mp3";
+			//soundFile = 192+Math.floor(Math.random()*19)+".mp3";
+			soundFile = "/good/"+int(1+Math.floor(Math.random()*19.8))+".mp3";
 			if(soundFile==_goodFeedBack){
 				soundFile=goodFeedBack;
 			}
@@ -167,7 +168,7 @@ package com.view
 		}
 		private function get goodLastFeedBack():String{
 			var soundFile:String;
-			soundFile = 300+Math.floor(Math.random()*6)+".mp3";
+			soundFile = "/good/"+int(20+Math.floor(Math.random()*6.8))+".mp3";
 			if(soundFile==_goodFeedBack){
 				soundFile=goodFeedBack;
 			}

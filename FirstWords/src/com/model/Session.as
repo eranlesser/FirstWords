@@ -13,7 +13,7 @@ package com.model
 		public static var currentScreen:int=0;
 		private static var _playRoomEnabled:Boolean = false;
 		private static var _fullVersionEnabled:Boolean = false;
-		public static const FREE_THUMBS_COUNT:uint=6;
+		public static const FREE_THUMBS_COUNT:uint=40;
 		public static var changed:Signal = new Signal();
 		private static var _ratio:Number;
 		public static var rationChanged:Signal = new Signal();

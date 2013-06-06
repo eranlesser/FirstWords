@@ -3,12 +3,12 @@ package com.model.rawData
 	public class AnimalCards1
 	{
 		public static var data:XML = 
-			<data type="whereIsScreen" groupName="animals" categorySound="54.mp3" thumbNail="elephantTmb" isFree="true">
-				<item image="bear"  groupId="bear" qsound="55.mp3" asound="56.mp3" hsound="animals/Bear.mp3"  />
-				<item image="camel" groupId="camel" qsound="57.mp3" asound="58.mp3" hsound="animals/camel.mp3"/>
-				<item image="horse" groupId="horse" qsound="73.mp3" asound="74.mp3" hsound="animals/horse.mp3"/>
-				<item image="lion" groupId="lion" qsound="75.mp3" asound="76.mp3" hsound="animals/lion.mp3"/>
-				<item image="zebra" groupId="zebra" qsound="81.mp3" asound="82.mp3" hsound="animals/zebra.mp3"/>
+			<data type="whereIsScreen" groupName="animals" categorySound="1.mp3" folder="animals" thumbNail="elephantTmb" >
+				<item image="bear"  groupId="bear" qsound="2.mp3" asound="3.mp3" hsound="animals/Bear.mp3"  />
+				<item image="camel" groupId="camel" qsound="4.mp3" asound="5.mp3" hsound="animals/camel.mp3"/>
+				<item image="horse" groupId="horse" qsound="20.mp3" asound="21.mp3" hsound="animals/horse.mp3"/>
+				<item image="lion" groupId="lion" qsound="22.mp3" asound="23.mp3" hsound="animals/lion.mp3"/>
+				<item image="zebra" groupId="zebra" qsound="28.mp3" asound="29.mp3" hsound="animals/zebra.mp3"/>
 				
 			</data>;
 		

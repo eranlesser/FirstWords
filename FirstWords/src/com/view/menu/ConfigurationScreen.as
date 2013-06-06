@@ -32,8 +32,6 @@ package com.view.menu
 		private var screens : 			Class;
 		[Embed(source="../../../assets/menu/about.png")]
 		private var about : 			Class;
-		[Embed(source="../../../assets/menu/share.png")]
-		private var share : 			Class;
 		[Embed(source="../../../assets/about.png")]
 		private var aboutPng : Class;
 		
@@ -67,16 +65,7 @@ package com.view.menu
 			homeBut.addEventListener(starling.events.Event.TRIGGERED, function():void{
 				goHome.dispatch()
 			});
-			_about = new Sprite();
-			_about.addChild(new Image(Texture.fromBitmap(new aboutPng())));
-			//_about.addChild(title);
-			//tField.x=20;
-			//tField.y=200;
 			
-			//title.x=20;
-			_about.y=120;
-			addChild(_about);
-			_about.visible=false;
 			//return;
 			var navButton:Button = new Button( Texture.fromBitmap(new screens()) );
 			var aboutButton:Button = new Button( Texture.fromBitmap(new about()));
@@ -110,13 +99,29 @@ package com.view.menu
 			switch(stt){
 				case "nav":
 						_navText.color = 0x002661;
+						_navText.bold=true;
+						_aboutText.bold=false;
 						_menu.visible = true;
-						_about.visible=false;
+						if(_about)
+							_about.visible=false;
 					break;
 				case "about":
+					if(!_about){
+						_about = new Sprite();
+						_about.addChild(new Image(Texture.fromBitmap(new aboutPng())));
+						//_about.addChild(title);
+						//tField.x=20;
+						//tField.y=200;
+						
+						//title.x=20;
+						_about.y=120;
+						addChild(_about);
+					}
 						_aboutText.color = 0x002661;
 						_menu.visible = false;
 						_about.visible=true;
+						_navText.bold=false;
+						_aboutText.bold=true;
 					break;
 			
 			}

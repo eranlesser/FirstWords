@@ -1,5 +1,6 @@
 package com.view.components
 {
+	import com.model.Session;
 	import com.view.playRoom.Book;
 	
 	import flash.events.Event;
@@ -20,7 +21,7 @@ package com.view.components
 		public var done:Signal = new Signal();
 		public var tick:Signal = new Signal();
 		public var isDone:Boolean = false;
-		private var _soundStr:String = "../../../../assets/narration/heb/counter/";
+		private var _soundStr:String = "../../../../assets/narration/"+Session.lang+"/counter/";
 		public function Counter()
 		{
 		}

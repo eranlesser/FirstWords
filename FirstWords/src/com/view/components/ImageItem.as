@@ -1,7 +1,6 @@
 package com.view.components{
 	
 import org.osflash.signals.Signal;
-
 import starling.display.Image;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;

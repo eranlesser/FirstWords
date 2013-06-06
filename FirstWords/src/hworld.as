@@ -57,7 +57,7 @@ package
 			Starling.current.nativeStage.scaleMode = StageScaleMode.NO_SCALE;
 			Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 			stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGING, orientationChange);
-			
+			Starling.juggler.delayCall(setDisplaySize,3);
 			Session.init();
 		}
 		

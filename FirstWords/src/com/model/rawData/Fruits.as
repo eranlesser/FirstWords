@@ -3,16 +3,16 @@ package com.model.rawData
 	public class Fruits
 	{
 		public static var data:XML = 
-			<data type="whereIsScreen" groupName="fruitsAndVeg" thumbNail="toot" categorySound="151.mp3">
-							<item image="apple" qsound="152.mp3" asound="153.mp3" groupId="apple"  />
-							<item image="banana" qsound="154.mp3" asound="155.mp3"  groupId="banana"/>
-							<item image="cherry" qsound="156.mp3" asound="157.mp3" groupId="cherry" />
-							<item image="grapes" qsound="158.mp3" asound="159.mp3" groupId="grapes" />
-							<item image="lemon" qsound="160.mp3" asound="161.mp3" groupId="lemon" />
-							<item image="orange" qsound="164.mp3" asound="165.mp3" groupId="orange" />
-							<item image="pineapple" qsound="166.mp3" asound="167.mp3" groupId="pineapple" />
-							<item image="strawberry" qsound="168.mp3" asound="169.mp3" groupId="strawberry" />
-							<item image="wmellon" qsound="170.mp3" asound="171.mp3" groupId="wmellon" />
+			<data type="whereIsScreen" groupName="fruitsAndVeg" thumbNail="toot" folder="fruits" categorySound="1.mp3">
+							<item image="apple" qsound="2.mp3" asound="153.mp3" groupId="apple"  />
+							<item image="banana" qsound="4.mp3" asound="5.mp3"  groupId="banana"/>
+							<item image="cherry" qsound="6.mp3" asound="7.mp3" groupId="cherry" />
+							<item image="grapes" qsound="8.mp3" asound="9.mp3" groupId="grapes" />
+							<item image="lemon" qsound="10.mp3" asound="11.mp3" groupId="lemon" />
+							<item image="orange" qsound="14.mp3" asound="15.mp3" groupId="orange" />
+							<item image="pineapple" qsound="16.mp3" asound="17.mp3" groupId="pineapple" />
+							<item image="strawberry" qsound="18.mp3" asound="19.mp3" groupId="strawberry" />
+							<item image="wmellon" qsound="20.mp3" asound="21.mp3" groupId="wmellon" />
 							
 						</data>
 						

@@ -14,10 +14,10 @@ package com.model
 		private var _rects:Vector.<Rectangle>;
 		private var _wasWho:Boolean=false;
 		
-		public function Item(data:XML){
+		public function Item(data:XML,folder:String){
 			_image = data.@image;
-			_qSound = data.@qsound;
-			_aSound = data.@asound;
+			_qSound = folder+"/"+data.@qsound;
+			_aSound = folder+"/"+data.@asound;
 			_hSound = data.@hsound;
 			_groupId = data.@groupId;
 			_rects = new Vector.<Rectangle>();

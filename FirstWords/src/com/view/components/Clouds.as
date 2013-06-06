@@ -30,9 +30,9 @@ package com.view.components
 		private var _juggler:DelayedCall;
 		public function Clouds()
 		{
-			_juggler = Starling.juggler.delayCall(addCloud,5);
-			_juggler.repeatCount = 0;
-			setClouds();
+			//_juggler = Starling.juggler.delayCall(addCloud,5);
+			//_juggler.repeatCount = 0;
+			//setClouds();
 		}
 		
 		public function stop():void{
@@ -80,11 +80,9 @@ package com.view.components
 			for(var i:int = this.numChildren-1;i>0;i--){
 				
 				cloud = this.getChildAt(i);
-				trace(cloud.x,cloud.width)
 				if(cloud.x<=-cloud.width+5){
 					Starling.juggler.removeTweens(cloud);
 					removeChild(cloud);
-					trace("removed")
 				}
 			}
 		}

@@ -88,7 +88,7 @@ package com.view
 				_rain.visible=false;
 				Starling.juggler.delayCall(function end():void{
 					var soundPlayer:SoundPlayer = new SoundPlayer();
-					soundPlayer.getSound("../../../assets/narration","107.mp3").play();
+					soundPlayer.getSound("../../../assets/narration","/counter/14.mp3").play();
 					Starling.juggler.delayCall(dispatchDone,2.5);
 				},1);
 				closeCurtains();

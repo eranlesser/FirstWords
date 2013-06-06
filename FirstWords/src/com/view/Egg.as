@@ -56,9 +56,13 @@ package com.view
 				_counter.progress();
 				_knockSound.play();
 				_enabled = false;
+				_egg.scaleX=1.1;
+				_egg.scaleY=1.1;
 				_counter.tick.addOnce(function():void{
 					if(!_counter.isDone){
 						_enabled=true
+						_egg.scaleX=1;
+						_egg.scaleY=1;
 					}
 				});
 			}
@@ -72,7 +76,7 @@ package com.view
 				function onComplete():void{
 					sc.removeEventListener(Event.SOUND_COMPLETE, onComplete);
 					chirp.play();
-					var chickSound:Sound = _soundManager.getSound("../../../assets/narration","25.mp3");
+					var chickSound:Sound = _soundManager.getSound("../../../assets/narration/","/counter/12.mp3");
 					chickSound.play();
 				}
 			);
