@@ -6,8 +6,8 @@ package com.view.menu
 	import com.model.ScreenModel;
 	import com.model.ScreensModel;
 	import com.model.Session;
-	//import com.utils.InApper;
-	import com.utils.Texter;
+	import com.model.rawData.Texts;
+	import com.utils.InApper;
 	import com.view.components.ScreensMenu;
 	
 	import org.osflash.signals.Signal;
@@ -18,6 +18,8 @@ package com.view.menu
 	import starling.events.Event;
 	import starling.text.TextField;
 	import starling.textures.Texture;
+	import starling.utils.HAlign;
+	import starling.utils.VAlign;
 	
 	public class ConfigurationScreen extends Sprite
 	{
@@ -39,12 +41,12 @@ package com.view.menu
 		private var _navText:TextField;
 		private var _aboutText:TextField;
 		private var _displayLayer:Sprite;
-		private var _about:Sprite;
+		private var _aboutHeb:Sprite;
+		private var _about:TextField;
 		private var _menu:ScreensMenu;
-		
+		private var _texts:Texts;
 		public function ConfigurationScreen(screensModel:ScreensModel)
 		{
-			//init();
 			addChild(new Image(Texture.fromBitmap(new bg())));
 			_menu = new ScreensMenu(screensModel);
 			addChild(_menu);
@@ -65,8 +67,7 @@ package com.view.menu
 			homeBut.addEventListener(starling.events.Event.TRIGGERED, function():void{
 				goHome.dispatch()
 			});
-			
-			//return;
+			_texts = new Texts();
 			var navButton:Button = new Button( Texture.fromBitmap(new screens()) );
 			var aboutButton:Button = new Button( Texture.fromBitmap(new about()));
 			
@@ -78,19 +79,33 @@ package com.view.menu
 			navButton.y=18;
 			aboutButton.x=Dimentions.WIDTH/2-navButton.width-20;
 			aboutButton.y=18;
-			_navText = new TextField(navButton.width,40,Texter.flip("תפריט"),"Verdana",21,0x003B94);
+			_navText = new TextField(navButton.width,40,(_texts.getText("nav")),"Verdana",19,0x003B94);
 			_navText.hAlign = "center";
 			addChild(_navText);
 			_navText.touchable=false;
 			_navText.x = navButton.x;
 			_navText.y=navButton.y + navButton.height - 42;
-			_aboutText = new TextField(aboutButton.width,40,Texter.flip("מידע כללי"),"Verdana",21,0x002661);
+			_aboutText = new TextField(aboutButton.width,40,(_texts.getText("about")),"Verdana",19,0x002661);
 			_aboutText.hAlign = "center";
 			addChild(_aboutText);
 			_aboutText.touchable = false;
 			_aboutText.x = aboutButton.x;
 			_aboutText.y=_navText.y;
 			setState("nav");
+			Session.langChanged.add(setTexts);
+			addEventListener(Event.REMOVED_FROM_STAGE,onRemoved);
+		}
+		
+		private function onRemoved(e:Event):void
+		{
+			// TODO Auto Generated method stub
+			setState("nav");
+			
+		}
+		
+		private function setTexts():void{
+			_aboutText.text = _texts.getText("about");
+			_navText.text =  _texts.getText("nav");
 		}
 		
 		private function setState(stt:String):void{
@@ -99,32 +114,42 @@ package com.view.menu
 			switch(stt){
 				case "nav":
 						_navText.color = 0x002661;
-						_navText.bold=true;
-						_aboutText.bold=false;
+						//_navText.bold=true;
+						//_aboutText.bold=false;
 						_menu.visible = true;
 						if(_about)
 							_about.visible=false;
+						if(_aboutHeb)
+							_aboutHeb.visible=false;
 					break;
 				case "about":
-					if(!_about){
-						_about = new Sprite();
-						_about.addChild(new Image(Texture.fromBitmap(new aboutPng())));
-						//_about.addChild(title);
-						//tField.x=20;
-						//tField.y=200;
-						
-						//title.x=20;
-						_about.y=120;
+					if(Session.lang=="israel"){
+						if(!_aboutHeb){
+							_aboutHeb = new Sprite();
+							_aboutHeb.addChild(new Image(Texture.fromBitmap(new aboutPng())));
+							_aboutHeb.y=120;
+							addChild(_aboutHeb);
+						}
+						_aboutHeb.visible=true;
+					}else{
+						_about = new TextField(700,600,_texts.getAboutText("eng"),"Verdana",18);
 						addChild(_about);
-					}
+						_about.y=180;
+						_about.vAlign = VAlign.TOP;
+						_about.hAlign = HAlign.LEFT;
+						_about.x=185;
+						_aboutText.visible=true;
 						_aboutText.color = 0x002661;
-						_menu.visible = false;
-						_about.visible=true;
-						_navText.bold=false;
-						_aboutText.bold=true;
+					}
+					
+					//_aboutText.bold=true;
+					//_navText.bold=false;
+					_menu.visible = false;
+					
+					
 					break;
+				}
 			
-			}
 		}
 		
 		

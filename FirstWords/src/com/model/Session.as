@@ -15,6 +15,7 @@ package com.model
 		private static var _fullVersionEnabled:Boolean = false;
 		public static const FREE_THUMBS_COUNT:uint=40;
 		public static var changed:Signal = new Signal();
+		public static var langChanged:Signal = new Signal();
 		private static var _ratio:Number;
 		public static var rationChanged:Signal = new Signal();
 		private static var _lang:String;
@@ -30,6 +31,7 @@ package com.model
 		public static function set lang(value:String):void
 		{
 			_lang = value;
+			langChanged.dispatch();
 		}
 
 		public static function get ratio():Number{
@@ -66,7 +68,7 @@ package com.model
 		}
 		
 		public static function init():void{
-			var inputFile:File = File.applicationStorageDirectory.resolvePath("sessions/userSession1.xml") ;
+			var inputFile:File = File.applicationStorageDirectory.resolvePath("sessions/tmp.xml") ;
 			if(inputFile.exists){
 				var inputStream:FileStream = new FileStream();
 				inputStream.open(inputFile, FileMode.READ);

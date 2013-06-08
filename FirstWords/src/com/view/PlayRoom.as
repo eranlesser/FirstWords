@@ -1,7 +1,6 @@
 package com.view
 {
 	import com.Dimentions;
-	//import com.freshplanet.nativeExtensions.Flurry;
 	import com.model.ScreenModel;
 	import com.view.playRoom.Baloon;
 	import com.view.playRoom.BasketBall;
@@ -13,6 +12,7 @@ package com.view
 	import com.view.playRoom.Menu;
 	import com.view.playRoom.Plane;
 	import com.view.playRoom.Train;
+	import com.view.utils.SoundPlayer;
 	
 	import flash.display.BitmapData;
 	import flash.display.Shape;
@@ -93,7 +93,9 @@ package com.view
 		private var _sound:Sound;
 		public function PlayRoom()
 		{
-			_sound = new Sound(new URLRequest("../assets/sounds/heb/playRoom.mp3"));
+			var soundPlayer:SoundPlayer = new SoundPlayer();
+			_sound = soundPlayer.getSound("../assets/narration/","/playRoom.mp3");
+			//new Sound(new URLRequest(heb/playRoom.mp3"));
 			
 		}
 		

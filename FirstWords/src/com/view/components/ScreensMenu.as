@@ -23,6 +23,7 @@ package com.view.components
 		[Embed(source = "../../../assets/btn.png")] 
 		private static const btn:Class;
 		private var _restoreButton:Button;
+		private var _buyButton:Button;
 		private var _inApper:InApper;
 		private var playRoomThmb:ThumbNail;
 		public var gotoSignal:Signal = new Signal();
@@ -33,7 +34,7 @@ package com.view.components
 		}
 		
 		private function initIPurchases():void{
-			initInapper();
+			//initInapper();
 			Session.changed.add(onsessionChanged);
 			onsessionChanged();
 		}
@@ -45,6 +46,7 @@ package com.view.components
 			setSelectedScreen();
 			
 			_restoreButton.visible = !Session.fullVersionEnabled;
+			_buyButton.visible = !Session.fullVersionEnabled;
 		}
 		
 		private function init(screens:ScreensModel):void
@@ -64,8 +66,7 @@ package com.view.components
 						var thmbNail:ThumbNail = ThumbNail(Button(e.target).parent);
 						if(thmbNail.locked){
 							//Flurry.getInstance().logEvent("productStore.available",productStore.available);
-							_inApper.signal.addOnce(onInApperEvent);
-							_inApper.purchase("babyTweetsHeb.fullContent",1);
+							buyFullVersion();
 						}else{
 							gotoSignal.dispatch(thmbNail.index);
 						}
@@ -89,6 +90,12 @@ package com.view.components
 			_restoreButton.y=-72;
 			_restoreButton.addEventListener(Event.TRIGGERED,onRestoreClicked);
 			_restoreButton.visible = !Session.fullVersionEnabled;
+			_buyButton = new Button(Texture.fromBitmap(new btn()),"Buy Full Version");
+			addChild(_buyButton);
+			_buyButton.x=this.width-12-_buyButton.width;
+			_buyButton.y=-72;
+			_buyButton.addEventListener(Event.TRIGGERED,buyFullVersion);
+			_buyButton.visible = !Session.fullVersionEnabled;
 		}//function
 		
 		public function setSelectedScreen():void{
@@ -106,15 +113,27 @@ package com.view.components
 			}
 		}
 		
+		private function onRestoreClicked(e:Event):void{
+			if(!_inApper){
+				initInapper();
+			}
+			_inApper.signal.addOnce(onInApperEvent);
+			_inApper.restoreTransactions();
+		}
+		
+		private function buyFullVersion():void{
+			if(!_inApper){
+				initInapper();
+			}
+			_inApper.signal.addOnce(onInApperEvent);
+			_inApper.purchase("babyTweetsHeb.fullContent",1);
+		}
+		
 		private function initInapper():void{
 			_inApper = new InApper();
 			
 		}
 		
-		private function onRestoreClicked(e:Event):void{
-			_inApper.signal.addOnce(onInApperEvent);
-			_inApper.restoreTransactions();
-		}
 		
 		private function onInApperEvent(eventType:String,data:Object=null):void{
 			switch(eventType){
@@ -148,6 +167,7 @@ class ThumbNail extends Sprite{
 	private var _btn:Button;
 	private var _selectedFrame:Button;
 	private var _lock:Image;
+	private var isBonusThumb:Boolean=false;
 	function ThumbNail(asset:Texture,indx:int,lock:Image=null){
 		var frame:Button = new Button((getFrame(1)))
 		_selectedFrame = new Button((getFrame(2)))
@@ -163,6 +183,7 @@ class ThumbNail extends Sprite{
 			_lock=lock;
 			_lock.x=(frame.width-_lock.width)/2;
 			_lock.y=-15;
+			isBonusThumb=true;
 		}else{
 			_lock = new Image(Texture.fromBitmap(new Assets.Lock));
 			_lock.x=(frame.width-_lock.width)/2;
@@ -196,7 +217,9 @@ class ThumbNail extends Sprite{
 	
 	public function set locked(val:Boolean):void{
 		_lock.visible=val;
-		this.touchable = !val;
+		if(!isBonusThumb){
+			this.touchable = !val;
+		}
 	}
 	
 	public function get locked():Boolean{

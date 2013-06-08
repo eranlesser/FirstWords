@@ -2,7 +2,7 @@ package com.view
 {
 	import com.Dimentions;
 	import com.model.Session;
-	import com.utils.Texter;
+	import com.model.rawData.Texts;
 	
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
@@ -24,13 +24,17 @@ package com.view
 		
 		[Embed(source = "../../assets/btn.png")] 
 		private static const btn:Class;
-		
+		private var _texts:Texts;
+		private var _rateTitle:TextField;
+		private var _okBut:Button;
+		private var _noThanksBut:Button;
 		public function RateThisApp()
 		{
 			init();
 		}
 		
 		private function init():void{
+			_texts = new Texts();
 			var popupImg:Image = new Image(Texture.fromBitmap(new popup()));
 			addChild(popupImg);
 			var playRoomImg:Image = new Image(Texture.fromBitmap(new playRoom()));
@@ -39,25 +43,25 @@ package com.view
 			popupImg.height=Dimentions.HEIGHT+8;
 			popupImg.x=-4;
 			popupImg.y=-4;
-			var title:TextField = new TextField(800,100,Texter.flip("דרגו את האפליקציה וקבלו גישה חופשית לחדר המשחקים"),"Verdana",24,0x002661);
-			title.autoScale=true;
-			addChild(title);
-			title.x=(Dimentions.WIDTH-title.width)/2
-			title.y=80;
-			var okBut:Button = new Button(Texture.fromBitmap(new btn()),Texter.flip("דרג"));
-			okBut.fontSize=22;
-			okBut.fontColor=0x003B94;
-			var noBut:Button = new Button(Texture.fromBitmap(new btn()),Texter.flip("לא תודה"));
-			noBut.fontSize=22;
-			noBut.fontColor=0x003B94;
-			addChild(okBut);
-			addChild(noBut);
-			okBut.y=title.y+title.height-22;
-			noBut.y=title.y+title.height-22;
-			noBut.x=Dimentions.WIDTH/2-noBut.width-22;
-			okBut.x=Dimentions.WIDTH/2+22;
-			noBut.addEventListener(Event.TRIGGERED,removeSelf);
-			okBut.addEventListener(Event.TRIGGERED,
+			_rateTitle = new TextField(800,100,_texts.getText("rateText"),"Verdana",24,0x002661);
+			_rateTitle.autoScale=true;
+			addChild(_rateTitle);
+			_rateTitle.x=(Dimentions.WIDTH-_rateTitle.width)/2
+			_rateTitle.y=80;
+			_okBut = new Button(Texture.fromBitmap(new btn()),_texts.getText("rate"));
+			_okBut.fontSize=22;
+			_okBut.fontColor=0x003B94;
+			_noThanksBut = new Button(Texture.fromBitmap(new btn()),_texts.getText("noThanks"));
+			_noThanksBut.fontSize=22;
+			_noThanksBut.fontColor=0x003B94;
+			addChild(_okBut);
+			addChild(_noThanksBut);
+			_okBut.y=_rateTitle.y+_rateTitle.height-22;
+			_noThanksBut.y=_rateTitle.y+_rateTitle.height-22;
+			_noThanksBut.x=Dimentions.WIDTH/2-_noThanksBut.width-22;
+			_okBut.x=Dimentions.WIDTH/2+22;
+			_noThanksBut.addEventListener(Event.TRIGGERED,removeSelf);
+			_okBut.addEventListener(Event.TRIGGERED,
 				function():void{
 					removeSelf();
 					Session.playRoomEnabled=true;
@@ -65,7 +69,13 @@ package com.view
 					navigateToURL(url, "_blank");
 				}
 			);
-			
+			Session.langChanged.add(setTexts);
+		}
+		
+		private function setTexts():void{
+			_rateTitle.text = _texts.getText("rateText");
+			_okBut.text = _texts.getText("rate");
+			_noThanksBut.text = _texts.getText("noThanks");
 		}
 		
 		private function removeSelf():void{

@@ -2,8 +2,6 @@ package com.view.components
 {
 	import com.Dimentions;
 	
-	import flash.net.getClassByAlias;
-	
 	import starling.animation.DelayedCall;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
