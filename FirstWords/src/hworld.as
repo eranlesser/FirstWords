@@ -1,6 +1,6 @@
 package
 {
-//	import com.freshplanet.nativeExtensions.Flurry;
+	//	import com.freshplanet.nativeExtensions.Flurry;
 	//import com.freshplanet.nativeExtensions.Flurry;
 	import com.Dimentions;
 	import com.model.Session;
@@ -18,7 +18,7 @@ package
 	import starling.display.DisplayObject;
 	
 	[SWF( frameRate="60", backgroundColor="#F2D399")]
-
+	
 	public class hworld extends Sprite
 	{
 		
@@ -43,9 +43,7 @@ package
 		
 		private function init(e:Event):void{
 			
-			var screenWidth:int  = stage.fullScreenWidth;
-			var screenHeight:int = stage.fullScreenHeight;
-			var viewPort:Rectangle = new Rectangle(0, 0, screenWidth, screenHeight)
+			var viewPort:Rectangle = new Rectangle(0, 0, Dimentions.WIDTH, Dimentions.HEIGHT)
 			setDisplaySize();
 			
 			//starling = new Starling(Game, stage, viewPort);
@@ -64,6 +62,9 @@ package
 		private function setDisplaySize():void{
 			var ratio:Number = Math.max(stage.fullScreenWidth,stage.fullScreenHeight) / Dimentions.WIDTH;
 			Session.ratio = ratio;
+			if(_starling){
+				_starling.viewPort = new Rectangle(0,0,stage.fullScreenWidth,stage.fullScreenHeight);
+			}
 			//_starling.stage.scaleX=ratio;
 			//_starling.stage.scaleY=ratio;
 		}

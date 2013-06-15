@@ -64,7 +64,7 @@ package com.view
 			_okBut.addEventListener(Event.TRIGGERED,
 				function():void{
 					removeSelf();
-					Session.playRoomEnabled=true;
+					//Session.playRoomEnabled=true;
 					var url:URLRequest = new URLRequest("https://itunes.apple.com/us/app/zywzym-r-swnym/id638720649?ls=1&mt=8");
 					navigateToURL(url, "_blank");
 				}

@@ -5,6 +5,7 @@ package com.utils
 	import com.adobe.ane.productStore.ProductStore;
 	import com.adobe.ane.productStore.Transaction;
 	import com.adobe.ane.productStore.TransactionEvent;
+	import com.sticksports.nativeExtensions.flurry.Flurry;
 	
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
@@ -24,6 +25,12 @@ package com.utils
 		public function InApper()
 		{
 			productStore = new ProductStore();
+//			productStore.addEventListener(ProductEvent.PRODUCT_DETAILS_SUCCESS,productDetailsSucceeded);
+//			productStore.addEventListener(ProductEvent.PRODUCT_DETAILS_FAIL, productDetailsFailed);
+			
+//			var vector:Vector.<String> = new Vector.<String>(3);
+//			vector[0] = "babyTweetsHeb.fullVersion";
+//			productStore.requestProductsDetails(vector);
 		}
 		
 		public function productDetailsSucceeded(e:ProductEvent):void
@@ -75,6 +82,7 @@ package com.utils
 				signal.dispatch(PRODUCT_TRANSACTION_SUCCEEDED,e.transactions);
 			}
 			getPendingTransaction(productStore);
+			Flurry.logEvent("purchase succeed");
 		}
 		
 		protected function purchaseTransactionCanceled(e:TransactionEvent):void{
@@ -90,6 +98,7 @@ package com.utils
 				productStore.finishTransaction(t.identifier);
 			}
 			getPendingTransaction(productStore);
+			Flurry.logEvent("purchase canceled");
 		}
 		
 		protected function purchaseTransactionFailed(e:TransactionEvent):void
@@ -146,6 +155,7 @@ package com.utils
 				printTransaction(t);
 				i++;
 			}
+			Flurry.logEvent("purchase succeed");
 		}
 		
 		public function purchase(product:String,quantety:uint):void{
@@ -153,6 +163,7 @@ package com.utils
 			productStore.addEventListener(TransactionEvent.PURCHASE_TRANSACTION_CANCEL, purchaseTransactionCanceled);
 			productStore.addEventListener(TransactionEvent.PURCHASE_TRANSACTION_FAIL, purchaseTransactionFailed);
 			productStore.makePurchaseTransaction(product,quantety);
+			Flurry.logEvent("purchase");
 		}
 		
 		public function restoreTransactions():void
@@ -162,6 +173,7 @@ package com.utils
 			productStore.addEventListener(TransactionEvent.RESTORE_TRANSACTION_FAIL, restoreTransactionFailed);
 			productStore.addEventListener(TransactionEvent.RESTORE_TRANSACTION_COMPLETE,  restoreTransactionCompleted);
 			productStore.restoreTransactions();
+			Flurry.logEvent("restore");
 			
 		}
 		

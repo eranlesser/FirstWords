@@ -34,6 +34,23 @@ package com.controller
 			_app = app;
 			_screens = new ScreensModel(WhereIsData.data);
 			_homeScreen = new HomeScreen(_screens);
+			initConfigScreen();
+		}
+		
+		private function initConfigScreen():void{
+			_configScr = new ConfigurationScreen(_screens);
+			_configScr.goHome.add(function():void{
+				_app.removeChild(_configScr);
+				goHome();
+			});
+			_configScr.menu.gotoSignal.add(onGoTo);
+		}
+		
+		private function onGoTo(indx:int):void{
+			if(indx>-2){
+				_app.removeChild(_configScr);
+			}
+			goTo(indx);
 		}
 		
 		private function goNext():void{
@@ -50,31 +67,18 @@ package com.controller
 		
 		public function goTo(screenIndex:int):void{
 			if(screenIndex==-1){
-				if(!_configScr){
-					_configScr = new ConfigurationScreen(_screens);
-					_configScr.goHome.add(function():void{
-						_app.removeChild(_configScr);
-						goHome();
-					});
-					_configScr.menu.gotoSignal.add(function onGoTo(indx:int):void{
-						if(indx>-2)
-							_app.removeChild(_configScr);
-						goTo(indx)
-					
-					});
-				}
 				_app.addChild(_configScr);
 				_configScr.menu.setSelectedScreen();
 			}else if(screenIndex==-2){
-				if(!Session.playRoomEnabled){
-					var rateThisApp:RateThisApp = new RateThisApp();
-					_app.addChild(rateThisApp);
-				}else{
+//				if(!Session.playRoomEnabled){
+//					var rateThisApp:RateThisApp = new RateThisApp();
+//					_app.addChild(rateThisApp);
+//				}else{
 					_app.removeChild(_configScr);
 					_currentScreen = addScreen(_screens.getScreen(_screens.playRoomIndex));
 					_playRoom.noTimer=true;
 					Session.currentScreen=0;
-				}
+				//}
 			}else{
 				var nextScreen:ScreenModel = _screens.getScreen(screenIndex)
 				if(!Session.fullVersionEnabled && !nextScreen.isFree){

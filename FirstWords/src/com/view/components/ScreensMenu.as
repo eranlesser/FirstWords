@@ -26,6 +26,7 @@ package com.view.components
 		private var _buyButton:Button;
 		private var _inApper:InApper;
 		private var playRoomThmb:ThumbNail;
+		private var _screenThumbs:Vector.<ThumbNail> = new Vector.<ThumbNail>();
 		public var gotoSignal:Signal = new Signal();
 		public function ScreensMenu(screens:ScreensModel)
 		{
@@ -34,14 +35,14 @@ package com.view.components
 		}
 		
 		private function initIPurchases():void{
-			//initInapper();
+			initInapper();
 			Session.changed.add(onsessionChanged);
 			onsessionChanged();
 		}
 		
 		private function onsessionChanged():void{
 			//update bonus screen
-			playRoomThmb.locked = !Session.playRoomEnabled;
+			playRoomThmb.locked = false;//!Session.playRoomEnabled;
 			//update selected screen + inapp purchase
 			setSelectedScreen();
 			
@@ -59,6 +60,7 @@ package com.view.components
 			for each(var screen:ScreenModel in screens.screens){
 				if(screen.thumbNail!=""){
 					var menuThmb:ThumbNail = new ThumbNail(Assets.getAtlas("thumbs").getTexture(screen.thumbNail),i);
+					_screenThumbs.push(menuThmb);
 					menuThmb.x = (n%4)*wdt + (n%4)*gap;//menuThmb.x-5;
 					menuThmb.y = Math.floor(n/4)*(hgt+gap);//menuThmb.y-5;
 					addChild(menuThmb);
@@ -99,16 +101,16 @@ package com.view.components
 		}//function
 		
 		public function setSelectedScreen():void{
-			for(var i:uint = 0;i<numChildren-2;i++){ // subtract restore btn
+			for(var i:uint = 0;i<_screenThumbs.length;i++){ // subtract restore btn
 				if(i>Session.FREE_THUMBS_COUNT-1 && !Session.fullVersionEnabled){//apply lock
-					(getChildAt(i) as ThumbNail).locked=true;
+					(_screenThumbs[i]).locked=true;
 				}else{
-					(getChildAt(i) as ThumbNail).locked=false;
+					(_screenThumbs[i]).locked=false;
 				}
-				if((getChildAt(i) as ThumbNail).index==Session.currentScreen){//apply selected screen
-					(getChildAt(i) as ThumbNail).selected = true;
+				if(_screenThumbs[i].index==Session.currentScreen){//apply selected screen
+					_screenThumbs[i].selected = true;
 				}else{
-					(getChildAt(i) as ThumbNail).selected = false;
+					_screenThumbs[i].selected = false;
 				}
 			}
 		}
@@ -126,7 +128,7 @@ package com.view.components
 				initInapper();
 			}
 			_inApper.signal.addOnce(onInApperEvent);
-			_inApper.purchase("babyTweetsHeb.fullContent",1);
+			_inApper.purchase("babyTweetsHeb.fullVersion",1);
 		}
 		
 		private function initInapper():void{

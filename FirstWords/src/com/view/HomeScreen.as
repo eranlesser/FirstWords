@@ -43,7 +43,7 @@ package com.view
 			_flags = new FlagsMenu();
 			_flags.x=400;
 			_flags.y=325;
-			_screenLayer.addChild(_flags);
+			//_screenLayer.addChild(_flags);
 			//_screenLayer.addChild(tweetsText);
 			//_screenLayer.addChild(btrflies);
 			var whereBird:Button = new Button(Texture.fromBitmap(new wBird()));

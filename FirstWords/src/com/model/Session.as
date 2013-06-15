@@ -2,6 +2,8 @@ package com.model
 {
 	//import com.freshplanet.nativeExtensions.Flurry;
 	
+	import com.sticksports.nativeExtensions.flurry.Flurry;
+	
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
@@ -13,7 +15,7 @@ package com.model
 		public static var currentScreen:int=0;
 		private static var _playRoomEnabled:Boolean = false;
 		private static var _fullVersionEnabled:Boolean = false;
-		public static const FREE_THUMBS_COUNT:uint=40;
+		public static const FREE_THUMBS_COUNT:uint=4;
 		public static var changed:Signal = new Signal();
 		public static var langChanged:Signal = new Signal();
 		private static var _ratio:Number;
@@ -43,22 +45,13 @@ package com.model
 			rationChanged.dispatch();
 		}
 
-		public static function get playRoomEnabled():Boolean
-		{
-			return _playRoomEnabled;
-		}
+		
 		public static function get fullVersionEnabled():Boolean
 		{
 			return _fullVersionEnabled;
 		}
 
-		public static function set playRoomEnabled(value:Boolean):void
-		{
-			//Flurry.getInstance().logEvent("playroomEnabled",value);
-			_playRoomEnabled = value;
-			exportSessionData();
-			changed.dispatch();
-		}
+		
 		public static function set fullVersionEnabled(value:Boolean):void
 		{
 			//Flurry.getInstance().logEvent("playroomEnabled",value);
@@ -68,7 +61,7 @@ package com.model
 		}
 		
 		public static function init():void{
-			var inputFile:File = File.applicationStorageDirectory.resolvePath("sessions/tmp.xml") ;
+			var inputFile:File = File.applicationStorageDirectory.resolvePath("sessions/userSessionData.xml") ;
 			if(inputFile.exists){
 				var inputStream:FileStream = new FileStream();
 				inputStream.open(inputFile, FileMode.READ);
@@ -91,7 +84,7 @@ package com.model
 			if (!folder.exists) { 
 				folder.createDirectory();
 			} 
-			var outputFile:File = folder.resolvePath("userSession1.xml");
+			var outputFile:File = folder.resolvePath("userSessionData.xml");
 			if(outputFile.exists){
 				outputFile.deleteFile();
 			}

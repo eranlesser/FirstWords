@@ -10,12 +10,17 @@ package com.view.menu
 	import com.utils.InApper;
 	import com.view.components.ScreensMenu;
 	
+	import flash.net.URLRequest;
+	import flash.net.navigateToURL;
+	
 	import org.osflash.signals.Signal;
 	
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 	import starling.text.TextField;
 	import starling.textures.Texture;
 	import starling.utils.HAlign;
@@ -36,6 +41,11 @@ package com.view.menu
 		private var about : 			Class;
 		[Embed(source="../../../assets/about.png")]
 		private var aboutPng : Class;
+		[Embed(source="../../../assets/TexturePacker.png")]
+		private var tp : Class;
+		[Embed(source="../../../assets/starling.png")]
+		private var strlng : Class;
+		
 		
 		public var goHome:Signal = new Signal();
 		private var _navText:TextField;
@@ -45,6 +55,9 @@ package com.view.menu
 		private var _about:TextField;
 		private var _menu:ScreensMenu;
 		private var _texts:Texts;
+		private var _crText:TextField;
+		private var _tp:Image;
+		private var _strling:Image;
 		public function ConfigurationScreen(screensModel:ScreensModel)
 		{
 			addChild(new Image(Texture.fromBitmap(new bg())));
@@ -91,9 +104,31 @@ package com.view.menu
 			_aboutText.touchable = false;
 			_aboutText.x = aboutButton.x;
 			_aboutText.y=_navText.y;
-			setState("nav");
 			Session.langChanged.add(setTexts);
+			_strling = new Image(Texture.fromBitmap(new strlng()))
+			_tp = new Image(Texture.fromBitmap(new tp()))
+			_crText = new TextField(400,80,"Developed by www.creativelamas.com","Verdana",19);
 			addEventListener(Event.REMOVED_FROM_STAGE,onRemoved);
+			addChild(_strling)
+			addChild(_tp)
+			addChild(_crText)
+			setState("nav");
+			_crText.y=680;
+			_crText.x=50;
+			_strling.y=700;
+			_strling.x=500;
+			_tp.y=700;
+			_tp.x=670;
+			_crText.addEventListener(TouchEvent.TOUCH,goToSite)
+		}
+		
+		private function goToSite(t:TouchEvent):void
+		{
+			// TODO Auto Generated method stub
+			if(t.getTouch(stage)&&(t.getTouch(stage).phase == TouchPhase.BEGAN)){
+				var url:URLRequest = new URLRequest("http://www.creativelamas.com");
+				navigateToURL(url, "_blank");
+			}
 		}
 		
 		private function onRemoved(e:Event):void
@@ -121,8 +156,14 @@ package com.view.menu
 							_about.visible=false;
 						if(_aboutHeb)
 							_aboutHeb.visible=false;
+						(_strling).visible=false;
+						(_tp).visible=false;
+						(_crText).visible=false;
 					break;
 				case "about":
+						(_strling).visible=true;
+						(_tp).visible=true;
+						(_crText).visible=true;
 					if(Session.lang=="israel"){
 						if(!_aboutHeb){
 							_aboutHeb = new Sprite();

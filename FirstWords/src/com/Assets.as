@@ -48,11 +48,6 @@ package com
 		[Embed(source="assets/thumbnails/atlas.png")]
 		public static const thumbNails:Class;
 
-		[Embed(source="assets/bodyparts/bodyParts.xml", mimeType="application/octet-stream")]
-		public static const bodyParts_xml:Class;
-		[Embed(source="assets/bodyparts/bodyParts.png")]
-		public static const bodyParts:Class;
-		
 		[Embed(source="assets/egg/atlas.xml", mimeType="application/octet-stream")]
 		public static const egg_xml:Class;
 		[Embed(source="assets/egg/atlas.png")]
@@ -67,9 +62,6 @@ package com
 		[Embed(source = "assets/lock.png")] 
 		public static const Lock:Class;
 		
-		
-		[Embed(source = "assets/home/room_backround.PNG")] 
-		public static const roomThumb:Class;
 		
 		[Embed(source = "assets/whereIsScene/animals2.png")] 
 		private static const animals2:Class;
@@ -125,13 +117,6 @@ package com
 						_playRoomAtlas = new TextureAtlas(texture,new XML(new Assets.playRoom_xml()) as XML);
 					}
 					atlas = _playRoomAtlas;
-					break;
-				case "bodyParts":
-					if(_bodyPartsAtlas == null){
-						texture =  Texture.fromBitmap(new Assets.bodyParts());
-						_bodyPartsAtlas = new TextureAtlas(texture,new XML(new Assets.bodyParts_xml()) as XML);
-					}
-					atlas = _bodyPartsAtlas;
 					break;
 				case "clothes":
 					if(_clothesAtlas == null){
