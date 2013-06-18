@@ -53,12 +53,6 @@ package com
 		[Embed(source="assets/egg/atlas.png")]
 		public static const egg:Class;
 		
-		[Embed(source = "assets/frame2.jpg")] 
-		public static const Frame:Class;
-		
-		[Embed(source = "assets/frame2_selected.jpg")] 
-		public static const FrameSelected:Class;
-		
 		[Embed(source = "assets/lock.png")] 
 		public static const Lock:Class;
 		

@@ -34,8 +34,6 @@ package com.view.menu
 		
 		[Embed(source="../../../assets/menu/bg.png")]
 		private var bg : 			Class;
-		[Embed(source="../../../assets/menu/ogm.png")]
-		private var ogm : 			Class;
 		[Embed(source="../../../assets/menu/screens.png")]
 		private var screens : 			Class;
 		[Embed(source="../../../assets/menu/about.png")]

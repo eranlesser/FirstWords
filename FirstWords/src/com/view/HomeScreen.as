@@ -25,8 +25,6 @@ package com.view
 		public var gotoSignal:Signal = new Signal();
 		[Embed(source="../../assets/home/plybtn.png")]
 		private var playBt : Class;
-		[Embed(source="../../assets/home/tweets.png")]
-		private var tweets : Class;
 		[Embed(source="../../assets/home/home.png")]
 		private var home : Class;
 		[Embed(source="../../assets/confBut.png")]
@@ -40,19 +38,12 @@ package com.view
 		{
 			Assets.load();
 			_texts = new Texts();
-			//_clouds = new Clouds();
 			var homeBg:Image = new Image(Texture.fromBitmap(new home()))
-			//_screenLayer.addChild(_clouds);
 			_screenLayer.addChild(homeBg);
-			var tweetsText:Image = new Image(Texture.fromBitmap(new tweets()));
-			tweetsText.x=600;
-			tweetsText.y=200;
 			_flags = new FlagsMenu();
 			_flags.y=16;
 			_flags.x=Dimentions.WIDTH-_flags.width-8;
 			_screenLayer.addChild(_flags);
-			//_screenLayer.addChild(tweetsText);
-			//_screenLayer.addChild(btrflies);
 			var whereBird:Button = new Button(Texture.fromBitmap(new wBird()));
 			_screenLayer.addChild(whereBird);
 			whereBird.x=8;
@@ -77,10 +68,7 @@ package com.view
 			addChild(playBut);
 			playBut.x=110//(Dimentions.WIDTH-playBut.width)/3;
 			playBut.y=168;
-			//playBut.scaleX=0.75;
-			//playBut.scaleY=0.75;
 			playBut.addEventListener(Event.TRIGGERED,function():void{gotoSignal.dispatch(Session.currentScreen)});
-			//initMenu(screens);
 			this.addEventListener(TouchEvent.TOUCH,onTouch);
 		}
 		

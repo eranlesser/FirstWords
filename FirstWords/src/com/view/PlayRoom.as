@@ -60,24 +60,7 @@ package com.view
 		private var Background:Class;
 		[Embed(source="../../assets/playroom/broom.png")]
 		private var broom:Class;
-		[Embed(source="../../assets/playroom/play_room_bed.png")]
-		private var bed:Class;
-		[Embed(source="../../assets/playroom/play_room_box.png")]
-		private var box:Class;
-		[Embed(source="../../assets/playroom/play_room_lamp.png")]
-		private var lamp:Class;
-		[Embed(source="../../assets/playroom/play_room_light.png")]
-		private var light:Class;
-		[Embed(source="../../assets/playroom/play_room_shelf.png")]
-		private var shelf:Class;
-		[Embed(source="../../assets/playroom/play_room_leftBoard.png")]
-		private var leftBoard:Class;
-		[Embed(source="../../assets/playroom/play_room_rightBoard.png")]
-		private var rightBoard:Class;
-		[Embed(source="../../assets/playroom/play_room_win.png")]
-		private var win:Class;
-		[Embed(source="../../assets/playroom/play_room_winBg.png")]
-		private var winBg:Class;
+		
 		
 		private var _nativeStage : Stage;
 		private var _space : Space;

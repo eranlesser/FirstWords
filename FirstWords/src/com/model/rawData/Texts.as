@@ -32,7 +32,7 @@ package com.model.rawData
 		
 		public function getText(id:String):String{
 			if(Session.lang=="israel"){
-				return (_hebTexts[id]);
+				return flip(_hebTexts[id]);
 			}else{
 				return _engTexts[id];
 			}
