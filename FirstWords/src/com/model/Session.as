@@ -13,13 +13,10 @@ package com.model
 	public class Session
 	{
 		public static var currentScreen:int=0;
-		private static var _playRoomEnabled:Boolean = false;
 		private static var _fullVersionEnabled:Boolean = false;
 		public static const FREE_THUMBS_COUNT:uint=4;
 		public static var changed:Signal = new Signal();
 		public static var langChanged:Signal = new Signal();
-		private static var _ratio:Number;
-		public static var rationChanged:Signal = new Signal();
 		private static var _lang:String;
 		public function Session()
 		{
@@ -36,41 +33,29 @@ package com.model
 			langChanged.dispatch();
 		}
 
-		public static function get ratio():Number{
-			return _ratio;
-		}
-		
-		public static function set ratio(rt:Number):void{
-			_ratio = rt;
-			rationChanged.dispatch();
-		}
 
 		
 		public static function get fullVersionEnabled():Boolean
 		{
-			return _fullVersionEnabled;
+			return true//_fullVersionEnabled;
 		}
 
 		
 		public static function set fullVersionEnabled(value:Boolean):void
 		{
-			//Flurry.getInstance().logEvent("playroomEnabled",value);
+			Flurry.logEvent("fullVersionEnabled",value);
 			_fullVersionEnabled = value;
 			exportSessionData();
 			changed.dispatch();
 		}
 		
 		public static function init():void{
-			var inputFile:File = File.applicationStorageDirectory.resolvePath("sessions/userSessionData.xml") ;
+			var inputFile:File = File.applicationStorageDirectory.resolvePath("sessions/userSessionData2.xml") ;
 			if(inputFile.exists){
 				var inputStream:FileStream = new FileStream();
 				inputStream.open(inputFile, FileMode.READ);
 				var sessionXML:XML = XML(inputStream.readUTFBytes(inputStream.bytesAvailable));
 				inputStream.close();
-				if(sessionXML.playRoomEnabled == "true"){
-					_playRoomEnabled = true;
-					changed.dispatch();
-				}
 				if(sessionXML.fullVersion == "true"){
 					_fullVersionEnabled = true;
 					changed.dispatch();
@@ -84,13 +69,13 @@ package com.model
 			if (!folder.exists) { 
 				folder.createDirectory();
 			} 
-			var outputFile:File = folder.resolvePath("userSessionData.xml");
+			var outputFile:File = folder.resolvePath("userSessionData2.xml");
 			if(outputFile.exists){
 				outputFile.deleteFile();
 			}
 			var outputStream:FileStream = new FileStream();
 			outputStream.open(outputFile,FileMode.WRITE);
-			var sessionXml:XML = new XML(<xml><playRoomEnabled>{_playRoomEnabled}</playRoomEnabled><fullVersion>{_fullVersionEnabled}</fullVersion></xml>)
+			var sessionXml:XML = new XML(<xml><fullVersion>{_fullVersionEnabled}</fullVersion></xml>)
 			var outputString:String = '<?xml version="1.0" encoding="utf-8"?>\n';
 			outputString += sessionXml.toXMLString()+'\n';
 			outputStream.writeUTFBytes(outputString);

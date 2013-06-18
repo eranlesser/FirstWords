@@ -1,8 +1,12 @@
 package com.view.components
 {
 	import com.model.Session;
+	import com.sticksports.nativeExtensions.flurry.Flurry;
 	
+	import starling.display.Button;
+	import starling.display.Image;
 	import starling.display.Sprite;
+	import starling.events.Event;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
@@ -13,6 +17,9 @@ package com.view.components
 		
 		[Embed(source="assets/flags/flags.png")]
 		private  const flags:Class;
+		[Embed(source="assets/flags/combo.png")]
+		private  const bg:Class;
+		
 		private var _atlas:TextureAtlas;
 		private var _selectedFlag:Flag;
 		private var _container:Sprite;
@@ -21,24 +28,29 @@ package com.view.components
 		{
 			var texture:Texture=  Texture.fromBitmap(new flags());
 			_atlas = new TextureAtlas(texture,new XML(new flags_xml()) as XML);
-			
+			var btn:Button = addChild(new Button(Texture.fromBitmap(new bg()))) as Button;
+			btn.addEventListener(Event.TRIGGERED,onOpen);
+			btn.x=-16;
+			btn.y=-6;
+			btn.alpha=0.6;
 			addFlags();
 			setSelectedFlag("israel")
 		}
 		
 		private function setSelectedFlag(lang:String):void{
 			if(_selectedFlag){
-				removeChild(_selectedFlag);
-				_selectedFlag.clicked.remove(onOpen)
+			//	removeChild(_selectedFlag);
+			//	_selectedFlag.clicked.remove(onOpen)
 			}
 			_selectedFlag = new Flag(_atlas.getTexture(lang),lang);
 			addChild(_selectedFlag);
-			_selectedFlag.clicked.add(onOpen)
 			_selectedFlag.width=80;
 			_selectedFlag.height=60;
 			Session.setLanguage(lang);
 			_container.visible=false;
 			Session.lang = lang;
+			_selectedFlag.touchable = false;
+			Flurry.logEvent("language=",lang);
 		}
 		
 		private function onOpen(lang:String):void
@@ -57,8 +69,8 @@ package com.view.components
 			addChild(_container);
 			_container.y=62;
 			addFlag("israel");
-			addFlag("russia");
-			//addFlag("uk");
+			//addFlag("russia");
+			addFlag("uk");
 			//addFlag("brazil");
 			//addFlag("france");
 			//addFlag("holland");

@@ -1,7 +1,5 @@
 package
 {
-	//	import com.freshplanet.nativeExtensions.Flurry;
-	//import com.freshplanet.nativeExtensions.Flurry;
 	import com.Dimentions;
 	import com.model.Session;
 	
@@ -14,6 +12,7 @@ package
 	import flash.events.StageOrientationEvent;
 	import flash.geom.Rectangle;
 	
+	import starling.animation.DelayedCall;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	
@@ -55,22 +54,20 @@ package
 			Starling.current.nativeStage.scaleMode = StageScaleMode.NO_SCALE;
 			Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 			stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGING, orientationChange);
-			Starling.juggler.delayCall(setDisplaySize,3);
+			var delayCall:DelayedCall = Starling.juggler.delayCall(setDisplaySize,0.5);
+			delayCall.repeatCount = 8;
 			Session.init();
 		}
 		
 		private function setDisplaySize():void{
-			var ratio:Number = Math.max(stage.fullScreenWidth,stage.fullScreenHeight) / Dimentions.WIDTH;
-			Session.ratio = ratio;
-			if(_starling){
-				_starling.viewPort = new Rectangle(0,0,stage.fullScreenWidth,stage.fullScreenHeight);
+			var wdt:int = Math.max(stage.fullScreenWidth,stage.fullScreenHeight);
+			var hgt:int = Math.min(stage.fullScreenWidth,stage.fullScreenHeight);
+			if(_starling && (_starling.viewPort.width != wdt || _starling.viewPort.height != hgt)){
+				_starling.viewPort = new Rectangle(0,0,wdt,hgt);
 			}
-			//_starling.stage.scaleX=ratio;
-			//_starling.stage.scaleY=ratio;
 		}
 		
 		private function orientationChange(e:StageOrientationEvent):void{
-			//onOrientationChanged(e.afterOrientation);
 			if (e.afterOrientation != StageOrientation.ROTATED_LEFT && e.afterOrientation != StageOrientation.ROTATED_RIGHT)
 			{
 				e.preventDefault();

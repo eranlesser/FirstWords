@@ -1,8 +1,11 @@
 package com.view
 {
 	import com.Assets;
+	import com.Dimentions;
 	import com.model.ScreensModel;
 	import com.model.Session;
+	import com.model.rawData.Texts;
+	import com.utils.filters.GlowFilter;
 	import com.view.components.Clouds;
 	import com.view.components.FlagsMenu;
 	
@@ -13,6 +16,7 @@ package com.view
 	import starling.events.Event;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
+	import starling.text.TextField;
 	import starling.textures.Texture;
 	
 	public class HomeScreen extends AbstractScreen
@@ -27,23 +31,26 @@ package com.view
 		private var home : Class;
 		[Embed(source="../../assets/confBut.png")]
 		private var wBird : 			Class;
-		private var _clouds:Clouds;
+		//private var _clouds:Clouds;
 		private var _flags:FlagsMenu;
+		private var _menuText:TextField;
+		private var _titleText:TextField;
+		private var _texts:Texts;
 		public function HomeScreen(screens:ScreensModel)
 		{
 			Assets.load();
-			
-			_clouds = new Clouds();
+			_texts = new Texts();
+			//_clouds = new Clouds();
 			var homeBg:Image = new Image(Texture.fromBitmap(new home()))
-			_screenLayer.addChild(_clouds);
+			//_screenLayer.addChild(_clouds);
 			_screenLayer.addChild(homeBg);
 			var tweetsText:Image = new Image(Texture.fromBitmap(new tweets()));
 			tweetsText.x=600;
 			tweetsText.y=200;
 			_flags = new FlagsMenu();
-			_flags.x=400;
-			_flags.y=325;
-			//_screenLayer.addChild(_flags);
+			_flags.y=16;
+			_flags.x=Dimentions.WIDTH-_flags.width-8;
+			_screenLayer.addChild(_flags);
 			//_screenLayer.addChild(tweetsText);
 			//_screenLayer.addChild(btrflies);
 			var whereBird:Button = new Button(Texture.fromBitmap(new wBird()));
@@ -51,7 +58,21 @@ package com.view
 			whereBird.x=8;
 			whereBird.y=8;
 			whereBird.addEventListener(Event.TRIGGERED,openMenu);
-			
+			_menuText = new TextField(whereBird.width,40,_texts.getText("menu"),"Verdana",14,0x002661);
+			addChild(_menuText);
+			_menuText.x=whereBird.x;
+			_menuText.y=whereBird.y+whereBird.height-9;
+			_titleText = new TextField(450,100,_texts.getText("title"),"Verdana",52,0x002661);
+			addChild(_titleText);
+			_titleText.x=Dimentions.WIDTH-_titleText.width//+20;
+			_titleText.y=300;
+			_titleText.filter = new GlowFilter(0xFFFFFF);
+			Session.langChanged.add(
+				function():void{
+					_menuText.text = _texts.getText("menu");
+					_titleText.text = _texts.getText("title");
+				}
+			);
 			var playBut:Button = new Button( Texture.fromBitmap(new playBt()) );
 			addChild(playBut);
 			playBut.x=110//(Dimentions.WIDTH-playBut.width)/3;
@@ -65,7 +86,7 @@ package com.view
 		
 		private function onTouch(t:TouchEvent):void{
 			if(t.getTouch(stage)&&(t.getTouch(stage).phase == TouchPhase.BEGAN)){
-				if(t.getTouch(stage).target is Image && (t.getTouch(stage).target as Image).width == 200){
+				if(t.getTouch(stage).target is Image && ((t.getTouch(stage).target as Image).width == 130||(t.getTouch(stage).target as Image).width == 200)){
 					return;
 				}
 				_flags.close();

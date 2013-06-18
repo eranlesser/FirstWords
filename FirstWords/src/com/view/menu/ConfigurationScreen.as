@@ -7,6 +7,7 @@ package com.view.menu
 	import com.model.ScreensModel;
 	import com.model.Session;
 	import com.model.rawData.Texts;
+	import com.sticksports.nativeExtensions.flurry.Flurry;
 	import com.utils.InApper;
 	import com.view.components.ScreensMenu;
 	
@@ -56,8 +57,8 @@ package com.view.menu
 		private var _menu:ScreensMenu;
 		private var _texts:Texts;
 		private var _crText:TextField;
-		private var _tp:Image;
-		private var _strling:Image;
+		private var _tp:Button;
+		private var _strling:Button;
 		public function ConfigurationScreen(screensModel:ScreensModel)
 		{
 			addChild(new Image(Texture.fromBitmap(new bg())));
@@ -88,9 +89,9 @@ package com.view.menu
 			navButton.addEventListener(starling.events.Event.TRIGGERED,function():void{setState("nav")});
 			addChild(aboutButton);
 			aboutButton.addEventListener(starling.events.Event.TRIGGERED,function():void{setState("about")});
-			navButton.x=Dimentions.WIDTH/2+20;
+			aboutButton.x=Dimentions.WIDTH/2+20;
+			navButton.x=Dimentions.WIDTH/2-navButton.width-20;
 			navButton.y=18;
-			aboutButton.x=Dimentions.WIDTH/2-navButton.width-20;
 			aboutButton.y=18;
 			_navText = new TextField(navButton.width,40,(_texts.getText("nav")),"Verdana",19,0x003B94);
 			_navText.hAlign = "center";
@@ -105,9 +106,17 @@ package com.view.menu
 			_aboutText.x = aboutButton.x;
 			_aboutText.y=_navText.y;
 			Session.langChanged.add(setTexts);
-			_strling = new Image(Texture.fromBitmap(new strlng()))
-			_tp = new Image(Texture.fromBitmap(new tp()))
-			_crText = new TextField(400,80,"Developed by www.creativelamas.com","Verdana",19);
+			_strling = new Button(Texture.fromBitmap(new strlng()))
+			_strling.addEventListener(Event.TRIGGERED,function():void{
+				var url:URLRequest = new URLRequest("http://gamua.com/starling/");
+				navigateToURL(url, "_blank");
+			});
+			_tp = new Button(Texture.fromBitmap(new tp()))
+			_tp.addEventListener(Event.TRIGGERED,function():void{
+				var url2:URLRequest = new URLRequest("http://www.codeandweb.com/texturepacker");
+				navigateToURL(url2, "_blank");
+			});
+			_crText = new TextField(400,80,"Developed by www.creativelamas.com","Verdana",19,0x521B15);
 			addEventListener(Event.REMOVED_FROM_STAGE,onRemoved);
 			addChild(_strling)
 			addChild(_tp)
@@ -116,9 +125,9 @@ package com.view.menu
 			_crText.y=680;
 			_crText.x=50;
 			_strling.y=700;
-			_strling.x=500;
-			_tp.y=700;
-			_tp.x=670;
+			_strling.x=700;
+			_tp.y=695;
+			_tp.x=600;
 			_crText.addEventListener(TouchEvent.TOUCH,goToSite)
 		}
 		
@@ -128,6 +137,7 @@ package com.view.menu
 			if(t.getTouch(stage)&&(t.getTouch(stage).phase == TouchPhase.BEGAN)){
 				var url:URLRequest = new URLRequest("http://www.creativelamas.com");
 				navigateToURL(url, "_blank");
+				Flurry.logEvent("gotoSite");
 			}
 		}
 		
@@ -144,6 +154,7 @@ package com.view.menu
 		}
 		
 		private function setState(stt:String):void{
+			Flurry.logEvent("configMenu",stt);
 			_navText.color = 0x003B94;
 			_aboutText.color = 0x003B94;
 			switch(stt){
@@ -168,14 +179,14 @@ package com.view.menu
 						if(!_aboutHeb){
 							_aboutHeb = new Sprite();
 							_aboutHeb.addChild(new Image(Texture.fromBitmap(new aboutPng())));
-							_aboutHeb.y=120;
+							_aboutHeb.y=110;
 							addChild(_aboutHeb);
 						}
 						_aboutHeb.visible=true;
 					}else{
-						_about = new TextField(700,600,_texts.getAboutText("eng"),"Verdana",18);
+						_about = new TextField(700,600,_texts.getAboutText("eng"),"Verdana",18,0x2C3E50);
 						addChild(_about);
-						_about.y=180;
+						_about.y=140;
 						_about.vAlign = VAlign.TOP;
 						_about.hAlign = HAlign.LEFT;
 						_about.x=185;

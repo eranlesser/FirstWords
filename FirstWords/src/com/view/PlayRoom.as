@@ -93,8 +93,7 @@ package com.view
 		private var _sound:Sound;
 		public function PlayRoom()
 		{
-			var soundPlayer:SoundPlayer = new SoundPlayer();
-			_sound = soundPlayer.getSound("../assets/narration/","/playRoom.mp3");
+			
 			//new Sound(new URLRequest(heb/playRoom.mp3"));
 			
 		}
@@ -130,6 +129,8 @@ package com.view
 		{
 			_delayer = Starling.juggler.delayCall(finish,22);
 			_delayer.repeatCount = 1;
+			var soundPlayer:SoundPlayer = new SoundPlayer();
+			_sound = soundPlayer.getSound("../assets/narration/","/playRoom.mp3");
 			_sound.play();
 			if(!_menu){
 				var broomBut:Button = new Button(Texture.fromBitmap(new broom()));

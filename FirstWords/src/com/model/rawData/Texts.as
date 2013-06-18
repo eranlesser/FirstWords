@@ -19,16 +19,20 @@ package com.model.rawData
 			_hebTexts["rateText"]="דרגו את האפליקציה וקבלו גישה חופשית לחדר המשחקים";
 			_hebTexts["rate"]="דרג";
 			_hebTexts["noThanks"]="לא תודה";
+			_hebTexts["menu"]="תפריט";
+			_hebTexts["title"]="ציוצים ראשונים";
 			_engTexts["nav"]="Screens";
 			_engTexts["about"]="About";
 			_engTexts["rateText"]="Rate us and get free play-room access";
 			_engTexts["rate"]="Rate";
 			_engTexts["noThanks"]="No Thanks";
+			_engTexts["menu"]="MENU";
+			_engTexts["title"]="Baby Tweets";
 		}
 		
 		public function getText(id:String):String{
 			if(Session.lang=="israel"){
-				return flip(_hebTexts[id]);
+				return (_hebTexts[id]);
 			}else{
 				return _engTexts[id];
 			}

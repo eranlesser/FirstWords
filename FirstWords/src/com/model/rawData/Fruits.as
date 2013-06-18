@@ -4,7 +4,7 @@ package com.model.rawData
 	{
 		public static var data:XML = 
 			<data type="whereIsScreen" groupName="fruitsAndVeg" thumbNail="toot" folder="fruits" categorySound="1.mp3">
-							<item image="apple" qsound="2.mp3" asound="153.mp3" groupId="apple"  />
+							<item image="apple" qsound="2.mp3" asound="3.mp3" groupId="apple"  />
 							<item image="banana" qsound="4.mp3" asound="5.mp3"  groupId="banana"/>
 							<item image="cherry" qsound="6.mp3" asound="7.mp3" groupId="cherry" />
 							<item image="grapes" qsound="8.mp3" asound="9.mp3" groupId="grapes" />
