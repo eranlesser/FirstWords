@@ -59,34 +59,38 @@ package com.view.playRoom
 		private function onTouch(e:TouchEvent):void{
 			if(e.getTouch(_material.stage).phase == TouchPhase.ENDED){
 				//_material.removeEventListener(TouchEvent.TOUCH,onTouch);
-				if(!_climbing){
-					_climbing = true;
-					_body.gravMass = -0.5;
-					if(_isBackWards){
-						_body.velocity=(new Vec2(800,-333));
-						_particlesEffect.x=44;
-						_particlesEffect.rotation=45;
-					}else{
-						_body.velocity=(new Vec2(-800,-333));
-						_particlesEffect.x=_planeImage.width-44;
-						_particlesEffect.rotation=-45;
-					}
-					
-					_particlesEffect.y=_material.height-12;
-					
-					_material.addChild(_particlesEffect);
-					_particlesEffect.start("baloon");
-					_sound.play();
-					var ref:IAnimatable = Starling.juggler.delayCall(function removeParticles():void{
-						_body.gravMassMode = GravMassMode.DEFAULT;
-						_particlesEffect.stop();
-						//_particlesEffect.dispose();
-						_particlesEffect.removeFromParent(true);
-						_material.removeChild(_particlesEffect);
-						_climbing = false;
-						Starling.juggler.remove(ref);
-					},5);
+				fly();
+			}
+		}
+		
+		public function fly():void{
+			if(!_climbing){
+				_climbing = true;
+				_body.gravMass = -0.5;
+				if(_isBackWards){
+					_body.velocity=(new Vec2(800,-333));
+					_particlesEffect.x=44;
+					_particlesEffect.rotation=45;
+				}else{
+					_body.velocity=(new Vec2(-800,-333));
+					_particlesEffect.x=_planeImage.width-44;
+					_particlesEffect.rotation=-45;
 				}
+				
+				_particlesEffect.y=_material.height-12;
+				
+				_material.addChild(_particlesEffect);
+				_particlesEffect.start("baloon");
+				_sound.play();
+				var ref:IAnimatable = Starling.juggler.delayCall(function removeParticles():void{
+					_body.gravMassMode = GravMassMode.DEFAULT;
+					_particlesEffect.stop();
+					//_particlesEffect.dispose();
+					_particlesEffect.removeFromParent(true);
+					_material.removeChild(_particlesEffect);
+					_climbing = false;
+					Starling.juggler.remove(ref);
+				},5);
 			}
 		}
 		

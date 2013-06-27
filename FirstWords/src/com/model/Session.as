@@ -13,11 +13,13 @@ package com.model
 	public class Session
 	{
 		public static var currentScreen:int=0;
-		private static var _fullVersionEnabled:Boolean = false;
 		public static const FREE_THUMBS_COUNT:uint=4;
 		public static var changed:Signal = new Signal();
 		public static var langChanged:Signal = new Signal();
+		public static var OS:String="IOS";
 		private static var _lang:String;
+		private static var _fullVersionEnabled:Boolean = false;
+		public static const inAppFullVersionId:String = "babyTweetsAll.fullVersion";
 		public function Session()
 		{
 		}
@@ -43,14 +45,14 @@ package com.model
 		
 		public static function set fullVersionEnabled(value:Boolean):void
 		{
-			Flurry.logEvent("fullVersionEnabled",value);
+			Flurry.logEvent("fullVersionEnabled",{val:value});
 			_fullVersionEnabled = value;
 			exportSessionData();
 			changed.dispatch();
 		}
 		
 		public static function init():void{
-			var inputFile:File = File.applicationStorageDirectory.resolvePath("sessions/userSessionData2.xml") ;
+			var inputFile:File = File.applicationStorageDirectory.resolvePath("sessions/userSessionData12.xml") ;
 			if(inputFile.exists){
 				var inputStream:FileStream = new FileStream();
 				inputStream.open(inputFile, FileMode.READ);
@@ -69,7 +71,7 @@ package com.model
 			if (!folder.exists) { 
 				folder.createDirectory();
 			} 
-			var outputFile:File = folder.resolvePath("userSessionData2.xml");
+			var outputFile:File = folder.resolvePath("userSessionData12.xml");
 			if(outputFile.exists){
 				outputFile.deleteFile();
 			}

@@ -176,10 +176,14 @@ package com.view
 					_balloons.push(baloon);
 					break;
 				case "fly_baloon":
-					_room.addChild(new FlyBaloon(_space,_baloonPopCollisionType,x,y).material);
+					var bln:FlyBaloon = new FlyBaloon(_space,_baloonPopCollisionType,x,y);
+					_room.addChild(bln.material);
+					bln.fly();
 					break;
 				case "plane":
-					_room.addChild(new Plane(_space,_baloonPopCollisionType,x,y).material);
+					var plane:Plane = new Plane(_space,_baloonPopCollisionType,x,y);
+					_room.addChild(plane.material);
+					plane.fly();
 					break;
 				case "train2":
 					_room.addChild(new Train(_space,_baloonPopCollisionType,x,y).material);

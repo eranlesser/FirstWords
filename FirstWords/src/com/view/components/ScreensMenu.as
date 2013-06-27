@@ -5,6 +5,7 @@ package com.view.components
 	import com.model.ScreenModel;
 	import com.model.ScreensModel;
 	import com.model.Session;
+	import com.utils.InAppPurchaser;
 	import com.utils.InApper;
 	
 	import org.osflash.signals.Signal;
@@ -24,30 +25,30 @@ package com.view.components
 		private static const btn:Class;
 		private var _restoreButton:Button;
 		private var _buyButton:Button;
-		private var _inApper:InApper;
+		private var _inApper:InAppPurchaser;
 		private var playRoomThmb:ThumbNail;
 		private var _screenThumbs:Vector.<ThumbNail> = new Vector.<ThumbNail>();
 		public var gotoSignal:Signal = new Signal();
 		public function ScreensMenu(screens:ScreensModel)
 		{
 			init(screens);
-			Starling.juggler.delayCall(initIPurchases,3);
+			setSelectedScreen();
+			//Starling.juggler.delayCall(initIPurchases,3);
 		}
 		
-		private function initIPurchases():void{
-			initInapper();
-			Session.changed.add(onsessionChanged);
-			onsessionChanged();
-		}
+		
 		
 		private function onsessionChanged():void{
+			trace("onsessionChanged","Session.fullVersionEnabled",Session.fullVersionEnabled)
 			//update bonus screen
 			playRoomThmb.locked = false;//!Session.playRoomEnabled;
 			//update selected screen + inapp purchase
-			setSelectedScreen();
-			
-			_restoreButton.visible = !Session.fullVersionEnabled;
-			_buyButton.visible = !Session.fullVersionEnabled;
+			//setSelectedScreen();
+			for(var i:uint = 0;i<_screenThumbs.length;i++){
+				(_screenThumbs[i]).locked=false;
+			}
+			_restoreButton.visible = false//!Session.fullVersionEnabled;
+			_buyButton.visible = false//!Session.fullVersionEnabled;
 		}
 		
 		private function init(screens:ScreensModel):void
@@ -85,7 +86,6 @@ package com.view.components
 			playRoomThmb.x = (n%4)*wdt + (n%4)*gap;//menuThmb.x-5;
 			playRoomThmb.y = Math.floor(n/4)*(hgt+gap);//menuThmb.y-5;
 			x=(Dimentions.WIDTH-width)/2;
-			y=140;
 			_restoreButton = new Button(Texture.fromBitmap(new btn()),"RESTORE TRANSACTIONS");
 			addChild(_restoreButton);
 			_restoreButton.x=12;
@@ -116,24 +116,27 @@ package com.view.components
 		}
 		
 		private function onRestoreClicked(e:Event):void{
-			if(!_inApper){
-				initInapper();
-			}
+			initInapper();
 			_inApper.signal.addOnce(onInApperEvent);
 			_inApper.restoreTransactions();
 		}
 		
 		private function buyFullVersion():void{
-			if(!_inApper){
-				initInapper();
-			}
+			initInapper();
 			_inApper.signal.addOnce(onInApperEvent);
-			_inApper.purchase("babyTweetsHeb.fullVersion",1);
+			//_inApper.purchase("babyTweetsHeb.fullVersion",1);
+			_inApper.purchase(Session.inAppFullVersionId,1);
 		}
 		
 		private function initInapper():void{
-			_inApper = new InApper();
-			
+			if(!_inApper){
+				if(Session.OS=="IOS"){
+					_inApper = new InApper();
+				}else{
+					//_inApper = new InApperAndroid();
+				}
+				Session.changed.add(onsessionChanged);
+			}
 		}
 		
 		
@@ -142,9 +145,9 @@ package com.view.components
 				case InApper.PRODUCT_TRANSACTION_SUCCEEDED:
 					Session.fullVersionEnabled=true;
 					break;
-				case InApper.PRODUCT_RESTORE_SUCCEEDED:
-					Session.fullVersionEnabled=true;
-					break;
+//				case InApper.PRODUCT_RESTORE_SUCCEEDED:
+//					Session.fullVersionEnabled=true;
+//					break;
 			}
 		}
 		

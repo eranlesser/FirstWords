@@ -60,5 +60,13 @@ package com.model.rawData
 			return txt;
 		}
 		
+		public function getMenuTextSize():uint{
+			if(Session.lang=="israel"){
+				return 18;
+			}else{
+				return 14;
+			}
+		}
+		
 	}
 }

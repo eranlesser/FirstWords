@@ -44,7 +44,7 @@ package com.view
 			_vc.push(_atlas.getTexture("egg3"));
 			_vc.push(_atlas.getTexture("egg6"));
 			_enabled=true;
-			_counter.count(10);
+			_counter.count(4);
 			_counter.done.add(onCounter);
 		}
 		

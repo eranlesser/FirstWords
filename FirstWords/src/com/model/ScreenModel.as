@@ -30,9 +30,9 @@ package com.model
 			if(XMLList(data.menu).length()>0){
 				_menu = data.menu;
 			}
-			if(data.@isFree=="true"){
+			//if(data.@isFree=="true"){
 				_isFree = true;
-			}
+			//}
 			_groupsInScreen = new Vector.<String>();
 		}
 		

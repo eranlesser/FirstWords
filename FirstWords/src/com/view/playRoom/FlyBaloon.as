@@ -55,25 +55,28 @@ package com.view.playRoom
 		private function onTouch(e:TouchEvent):void{
 			if(e.getTouch(_material.stage).phase == TouchPhase.ENDED){
 				//_material.removeEventListener(TouchEvent.TOUCH,onTouch);
-				if(!_climbing){
-					_climbing = true;
-					_body.gravMass = -0.6;
-					_particlesEffect.x=_material.width/2;
-					_particlesEffect.y=_material.height/2;
-					_material.addChildAt(_particlesEffect,0);
-					_particlesEffect.start("baloon");
-					_sound.play();
-					var ref:IAnimatable = Starling.juggler.delayCall(function removeParticles():void{
-						_body.gravMassMode = GravMassMode.DEFAULT;
-						_particlesEffect.stop();
-						_particlesEffect.removeFromParent(true);
-						_climbing = false;
-						Starling.juggler.remove(ref);
-					},8);
-				}
+				fly();
 			}
 		}
 		
+		public function fly():void{
+			if(!_climbing){
+				_climbing = true;
+				_body.gravMass = -0.6;
+				_particlesEffect.x=_material.width/2;
+				_particlesEffect.y=_material.height/2;
+				_material.addChildAt(_particlesEffect,0);
+				_particlesEffect.start("baloon");
+				_sound.play();
+				var ref:IAnimatable = Starling.juggler.delayCall(function removeParticles():void{
+					_body.gravMassMode = GravMassMode.DEFAULT;
+					_particlesEffect.stop();
+					_particlesEffect.removeFromParent(true);
+					_climbing = false;
+					Starling.juggler.remove(ref);
+				},8);
+			}
+		}
 		override protected function updateGraphics( body : Body ) : void
 		{
 			body.userData.graphic.x = body.position.x;

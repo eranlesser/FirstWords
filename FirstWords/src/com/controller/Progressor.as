@@ -63,7 +63,7 @@ package com.controller
 			
 			removeScreen(_currentScreen);;
 			_currentScreen = addScreen(nextScreen);
-			Flurry.logEvent("gonext",nextScreen.folder);
+			Flurry.logEvent("gonext",{screen:nextScreen.folder});
 		}
 		
 		public function goTo(screenIndex:int):void{

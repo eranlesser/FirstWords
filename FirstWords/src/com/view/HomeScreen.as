@@ -41,6 +41,7 @@ package com.view
 			var homeBg:Image = new Image(Texture.fromBitmap(new home()))
 			_screenLayer.addChild(homeBg);
 			_flags = new FlagsMenu();
+			_flags.visible=false;
 			_flags.y=16;
 			_flags.x=Dimentions.WIDTH-_flags.width-8;
 			_screenLayer.addChild(_flags);
@@ -49,7 +50,7 @@ package com.view
 			whereBird.x=8;
 			whereBird.y=8;
 			whereBird.addEventListener(Event.TRIGGERED,openMenu);
-			_menuText = new TextField(whereBird.width,40,_texts.getText("menu"),"Verdana",14,0x002661);
+			_menuText = new TextField(whereBird.width,40,_texts.getText("menu"),"Verdana",_texts.getMenuTextSize(),0x002661);
 			addChild(_menuText);
 			_menuText.x=whereBird.x;
 			_menuText.y=whereBird.y+whereBird.height-9;
@@ -62,6 +63,7 @@ package com.view
 				function():void{
 					_menuText.text = _texts.getText("menu");
 					_titleText.text = _texts.getText("title");
+					_menuText.fontSize = _texts.getMenuTextSize();
 				}
 			);
 			var playBut:Button = new Button( Texture.fromBitmap(new playBt()) );

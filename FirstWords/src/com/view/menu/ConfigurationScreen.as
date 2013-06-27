@@ -1,14 +1,11 @@
 package com.view.menu
 {
 	
-	import com.Assets;
 	import com.Dimentions;
-	import com.model.ScreenModel;
 	import com.model.ScreensModel;
 	import com.model.Session;
 	import com.model.rawData.Texts;
 	import com.sticksports.nativeExtensions.flurry.Flurry;
-	import com.utils.InApper;
 	import com.view.components.ScreensMenu;
 	
 	import flash.net.URLRequest;
@@ -62,14 +59,13 @@ package com.view.menu
 			addChild(new Image(Texture.fromBitmap(new bg())));
 			_menu = new ScreensMenu(screensModel);
 			addChild(_menu);
+			_menu.y=110;
 			init();
 		}
 		
 		public function get menu():ScreensMenu{
 			return _menu;
 		}
-		
-		
 		
 		private function init():void{
 			var homeBut:Button = new Button( Texture.fromBitmap(new homeBt()) );
@@ -89,8 +85,8 @@ package com.view.menu
 			aboutButton.addEventListener(starling.events.Event.TRIGGERED,function():void{setState("about")});
 			aboutButton.x=Dimentions.WIDTH/2+20;
 			navButton.x=Dimentions.WIDTH/2-navButton.width-20;
-			navButton.y=18;
-			aboutButton.y=18;
+			navButton.y=8;
+			aboutButton.y=8;
 			_navText = new TextField(navButton.width,40,(_texts.getText("nav")),"Verdana",19,0x003B94);
 			_navText.hAlign = "center";
 			addChild(_navText);
@@ -152,7 +148,7 @@ package com.view.menu
 		}
 		
 		private function setState(stt:String):void{
-			Flurry.logEvent("configMenu",stt);
+			Flurry.logEvent("configMenu",{state:stt});
 			_navText.color = 0x003B94;
 			_aboutText.color = 0x003B94;
 			switch(stt){

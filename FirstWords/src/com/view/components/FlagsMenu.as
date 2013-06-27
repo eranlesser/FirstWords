@@ -34,7 +34,7 @@ package com.view.components
 			btn.y=-6;
 			btn.alpha=0.6;
 			addFlags();
-			setSelectedFlag("israel")
+			setSelectedFlag("uk")
 		}
 		
 		private function setSelectedFlag(lang:String):void{
@@ -50,7 +50,7 @@ package com.view.components
 			_container.visible=false;
 			Session.lang = lang;
 			_selectedFlag.touchable = false;
-			Flurry.logEvent("language=",lang);
+			Flurry.logEvent("language=",{language:lang});
 		}
 		
 		private function onOpen(lang:String):void

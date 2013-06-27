@@ -1,3 +1,21 @@
+/*************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ *  Copyright [first year code created] Adobe Systems Incorporated
+ *  All Rights Reserved.
+ *
+ * NOTICE:  All information contained herein is, and remains
+ * the property of Adobe Systems Incorporated and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Adobe Systems Incorporated and its
+ * suppliers and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe Systems Incorporated.
+ **************************************************************************/
+
 package com.utils
 {
 	import com.adobe.ane.productStore.Product;
@@ -7,30 +25,43 @@ package com.utils
 	import com.adobe.ane.productStore.TransactionEvent;
 	import com.sticksports.nativeExtensions.flurry.Flurry;
 	
+	import flash.events.*;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.net.URLRequestMethod;
 	
 	import org.osflash.signals.Signal;
-
-	public class InApper
-	{
-		private var productStore:ProductStore;
-		public var signal:Signal = new Signal();
-		public static const PRODUCT_DETAIL_SUCCESS:String=				"productDetailsSucceeded";
-		public static const PRODUCT_DETAIL_FAIL:String=				"productDetailsFail";
+	
+	public class InApper implements InAppPurchaser
+	{			
+		private var productStore:ProductStore = null;
+		private var _signal:Signal = new Signal();
 		public static const PRODUCT_TRANSACTION_SUCCEEDED:String=		"purchaseTransactionSucceeded";
-		public static const PRODUCT_TRANSACTION_FAILED:String=			"purchaseTransactionFailed";
-		public static const PRODUCT_RESTORE_SUCCEEDED:String=			"purchaseRestoreSucceeded";
+		
 		public function InApper()
 		{
-			productStore = new ProductStore();
-//			productStore.addEventListener(ProductEvent.PRODUCT_DETAILS_SUCCESS,productDetailsSucceeded);
-//			productStore.addEventListener(ProductEvent.PRODUCT_DETAILS_FAIL, productDetailsFailed);
+			productStore=new ProductStore();
+			Flurry.logEvent("productstore supported="+ProductStore.isSupported);
+			Flurry.logEvent("productstore available="+productStore.available);
+			get_Product();
+		}
+		
+		
+		
+		public function get signal():Signal
+		{
+			return _signal;
+		}
+
+		public function get_Product():void
+		{
+			trace("in get_Product");
+			productStore.addEventListener(ProductEvent.PRODUCT_DETAILS_SUCCESS,productDetailsSucceeded);
+			productStore.addEventListener(ProductEvent.PRODUCT_DETAILS_FAIL, productDetailsFailed);
 			
-//			var vector:Vector.<String> = new Vector.<String>(3);
-//			vector[0] = "babyTweetsHeb.fullVersion";
-//			productStore.requestProductsDetails(vector);
+			var vector:Vector.<String> = new Vector.<String>(1);
+			vector[0] = "babyTweetsHeb.fullVersion";
+			productStore.requestProductsDetails(vector);
 		}
 		
 		public function productDetailsSucceeded(e:ProductEvent):void
@@ -40,7 +71,7 @@ package com.utils
 			while(e.products && i < e.products.length)
 			{
 				var p:Product = e.products[i];
-				trace("\nTITLE: " + p.title + "\nDescription: " + p.description + "\nIdentifier : " + p.identifier + "PriceLocale : " + p.priceLocale + "\nPrice: " + p.price);
+				Flurry.logEvent("\nTITLE: " + p.title + "\nDescription: " + p.description + "\nIdentifier : " + p.identifier + "PriceLocale : " + p.priceLocale + "\nPrice: " + p.price);
 				trace("title : "+p.title);
 				trace("description: "+p.description);
 				trace("identifier: "+p.identifier);
@@ -48,11 +79,6 @@ package com.utils
 				trace("price :"+p.price);
 				i++;
 			}
-			signal.dispatch(PRODUCT_DETAIL_SUCCESS);
-		}
-		
-		public function get purchaseEnabled():Boolean{
-			return productStore.available;
 		}
 		
 		public function productDetailsFailed(e:ProductEvent):void
@@ -64,8 +90,17 @@ package com.utils
 				trace(e.invalidIdentifiers[i]);
 				i++;
 			}
-			signal.dispatch(PRODUCT_DETAIL_FAIL);
 		}
+		
+		public function purchase(product:String,quantety:uint):void
+		{
+			trace("purchase product...");
+			productStore.addEventListener(TransactionEvent.PURCHASE_TRANSACTION_SUCCESS, purchaseTransactionSucceeded);
+			productStore.addEventListener(TransactionEvent.PURCHASE_TRANSACTION_CANCEL, purchaseTransactionCanceled);
+			productStore.addEventListener(TransactionEvent.PURCHASE_TRANSACTION_FAIL, purchaseTransactionFailed);
+			productStore.makePurchaseTransaction(product,1);
+		}
+		
 		
 		protected function purchaseTransactionSucceeded(e:TransactionEvent):void
 		{
@@ -75,14 +110,24 @@ package com.utils
 			while(e.transactions && i < e.transactions.length)
 			{
 				t = e.transactions[i];
+				printTransaction(t);
 				i++;
+				var Base:Base64=new Base64();
+				var encodedReceipt:String = Base64.Encode(t.receipt);
+				var req:URLRequest = new URLRequest("https://buy.itunes.apple.com/verifyReceipt");
+				req.method = URLRequestMethod.POST;
+				req.data = "{\"receipt-data\" : \""+ encodedReceipt+"\"}";
+				var ldr:URLLoader = new URLLoader(req);
+				ldr.load(req);
+				ldr.addEventListener(Event.COMPLETE,function(e:Event):void{
+					trace("LOAD COMPLETE: " + ldr.data);
+					productStore.addEventListener(TransactionEvent.FINISH_TRANSACTION_SUCCESS, finishTransactionSucceeded);
+					productStore.finishTransaction(t.identifier);
+				});
+				
 				trace("Called Finish on/Finish Transaction " + t.identifier); 
 			}
-			if(e.transactions && e.transactions.length>0){
-				signal.dispatch(PRODUCT_TRANSACTION_SUCCEEDED,e.transactions);
-			}
 			getPendingTransaction(productStore);
-			Flurry.logEvent("purchase succeed");
 		}
 		
 		protected function purchaseTransactionCanceled(e:TransactionEvent):void{
@@ -91,14 +136,13 @@ package com.utils
 			while(e.transactions && i < e.transactions.length)
 			{
 				var t:Transaction = e.transactions[i];
-				trace(t);
+				printTransaction(t);
 				i++;
 				trace("FinishTransactions" + t.identifier);
 				productStore.addEventListener(TransactionEvent.FINISH_TRANSACTION_SUCCESS, finishTransactionSucceeded);
 				productStore.finishTransaction(t.identifier);
 			}
 			getPendingTransaction(productStore);
-			Flurry.logEvent("purchase canceled");
 		}
 		
 		protected function purchaseTransactionFailed(e:TransactionEvent):void
@@ -110,11 +154,65 @@ package com.utils
 				var t:Transaction = e.transactions[i];
 				printTransaction(t);
 				i++;
-				trace("purchaseTransactionFailed " + t.identifier);
+				trace("FinishTransactions" + t.identifier);
 				productStore.addEventListener(TransactionEvent.FINISH_TRANSACTION_SUCCESS, finishTransactionSucceeded);
 				productStore.finishTransaction(t.identifier);
 			}
-			signal.dispatch(PRODUCT_TRANSACTION_FAILED,e.transactions);
+			
+			getPendingTransaction(productStore);
+		}
+		
+		protected function finishTransactionSucceeded(e:TransactionEvent):void{
+			trace("in finishTransactionSucceeded" +e);
+			var i:uint=0;
+			while(e.transactions && i < e.transactions.length)
+			{
+				var t:Transaction = e.transactions[i];
+				printTransaction(t);
+				i++;
+			}
+			if(i>=1){
+				_signal.dispatch(PRODUCT_TRANSACTION_SUCCEEDED);
+			}
+		}
+		
+		public function restoreTransactions():void
+		{
+			trace("in restore_Transactions");
+			productStore.addEventListener(TransactionEvent.RESTORE_TRANSACTION_SUCCESS, restoreTransactionSucceeded);
+			productStore.addEventListener(TransactionEvent.RESTORE_TRANSACTION_FAIL, restoreTransactionFailed);
+			productStore.addEventListener(TransactionEvent.RESTORE_TRANSACTION_COMPLETE,  restoreTransactionCompleted);
+			productStore.restoreTransactions();
+			
+		}
+		
+		protected function restoreTransactionSucceeded(e:TransactionEvent):void{
+			trace("in restoreTransactionSucceeded" +e);
+			var i:uint=0;
+			while(e.transactions && i < e.transactions.length)
+			{
+				var t:Transaction = e.transactions[i];
+				printTransaction(t);
+				i++;
+				
+				trace("FinishTransactions" + t.identifier);
+				productStore.addEventListener(TransactionEvent.FINISH_TRANSACTION_SUCCESS, finishTransactionSucceeded);
+				productStore.finishTransaction(t.identifier);
+			}
+			
+			getPendingTransaction(productStore);
+		}
+		
+		protected function restoreTransactionFailed(e:TransactionEvent):void{
+			trace("in restoreTransactionFailed" +e);
+		}
+		
+		protected function restoreTransactionCompleted(e:TransactionEvent):void{
+			trace("in restoreTransactionCompleted" +e);
+		}
+		
+		protected function pending_transaction(event:MouseEvent):void
+		{
 			getPendingTransaction(productStore);
 		}
 		
@@ -145,66 +243,5 @@ package com.utils
 				printTransaction(t.originalTransaction);
 			trace("---------end of print transaction----------------------------");
 		}		
-		
-		protected function finishTransactionSucceeded(e:TransactionEvent):void{
-			trace("in finishTransactionSucceeded" +e);
-			var i:uint=0;
-			while(e.transactions && i < e.transactions.length)
-			{
-				var t:Transaction = e.transactions[i];
-				printTransaction(t);
-				i++;
-			}
-			Flurry.logEvent("purchase succeed");
-		}
-		
-		public function purchase(product:String,quantety:uint):void{
-			productStore.addEventListener(TransactionEvent.PURCHASE_TRANSACTION_SUCCESS, purchaseTransactionSucceeded);
-			productStore.addEventListener(TransactionEvent.PURCHASE_TRANSACTION_CANCEL, purchaseTransactionCanceled);
-			productStore.addEventListener(TransactionEvent.PURCHASE_TRANSACTION_FAIL, purchaseTransactionFailed);
-			productStore.makePurchaseTransaction(product,quantety);
-			Flurry.logEvent("purchase");
-		}
-		
-		public function restoreTransactions():void
-		{
-			trace("in restore_Transactions");
-			productStore.addEventListener(TransactionEvent.RESTORE_TRANSACTION_SUCCESS, restoreTransactionSucceeded);
-			productStore.addEventListener(TransactionEvent.RESTORE_TRANSACTION_FAIL, restoreTransactionFailed);
-			productStore.addEventListener(TransactionEvent.RESTORE_TRANSACTION_COMPLETE,  restoreTransactionCompleted);
-			productStore.restoreTransactions();
-			Flurry.logEvent("restore");
-			
-		}
-		
-		protected function restoreTransactionSucceeded(e:TransactionEvent):void{
-			trace("in restoreTransactionSucceeded" +e);
-			trace("Restore Success");
-			var i:uint=0;
-			while(e.transactions && i < e.transactions.length)
-			{
-				var t:Transaction = e.transactions[i];
-				printTransaction(t);
-				i++;
-				
-				trace("FinishTransactions" + t.identifier);
-				productStore.addEventListener(TransactionEvent.FINISH_TRANSACTION_SUCCESS, finishTransactionSucceeded);
-				productStore.finishTransaction(t.identifier);
-			}
-			if(e.transactions && e.transactions.length>0){
-				signal.dispatch(PRODUCT_RESTORE_SUCCEEDED);
-			}
-			getPendingTransaction(productStore);
-		}
-		
-		protected function restoreTransactionFailed(e:TransactionEvent):void{
-			trace("in restoreTransactionFailed" +e);
-			trace("Restore Fail");
-		}
-		
-		protected function restoreTransactionCompleted(e:TransactionEvent):void{
-			trace("in restoreTransactionCompleted" +e);
-			trace("Restore Complete");
-		}
 	}
 }
