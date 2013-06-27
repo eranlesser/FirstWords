@@ -90,8 +90,6 @@ package com.controller
 				_currentScreen = addScreen(nextScreen);
 			}
 			Flurry.logEvent("goto",screenIndex);
-			//if(_currentScreen && _currentScreen.model)
-				//Flurry.getInstance().logEvent("Nav GoTo ",_currentScreen.model.groupName);
 		}
 		
 		public function goHome():void{
@@ -101,7 +99,7 @@ package com.controller
 			_app.addChild(_homeScreen);
 			_currentScreen = _homeScreen;
 			_homeScreen.gotoSignal.add(goTo);
-			//Flurry.getInstance().logEvent("navigate home");
+			Flurry.logEvent("navigate home");
 		}
 		
 		private function removeScreen(screen:IScreen):void{

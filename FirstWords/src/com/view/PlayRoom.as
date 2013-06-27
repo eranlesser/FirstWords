@@ -89,6 +89,7 @@ package com.view
 		
 		override public function destroy():void{
 			Starling.juggler.remove(_delayer);
+			clean(null);
 		}
 		private function finish():void{
 			closeCurtains();
@@ -130,7 +131,7 @@ package com.view
 				listenForMouseDown();
 				listenForMouseUp();
 				listenForEnterFrame();
-				useAccelerometer();
+				//useAccelerometer();
 				_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_floorCollisionType,_cubeCollisionType,ballToCube));
 				_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_ballCollisionType,_cubeCollisionType,ballToFloor));
 				_space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,_ballCollisionType,_floorCollisionType,ballToFloor));

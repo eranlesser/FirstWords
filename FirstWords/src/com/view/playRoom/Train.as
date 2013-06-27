@@ -55,7 +55,6 @@ package com.view.playRoom
 			//_material.pivotY = _material.height >> 1;
 		}
 		private var _climbing:Boolean = false;
-		private var _particlesEffect:ParticlesEffect = new ParticlesEffect();
 		private function onTouch(e:TouchEvent):void{
 			if(e.getTouch(_material.stage) && (e.getTouch(_material.stage).phase == TouchPhase.ENDED)){
 				//_material.removeEventListener(TouchEvent.TOUCH,onTouch);
@@ -63,23 +62,16 @@ package com.view.playRoom
 					_climbing = true;
 					if(_isBackWards){
 						_body.velocity=(new Vec2(1444,0));
-						_particlesEffect.x=_material.width-28;
 						//_particlesEffect.rotation=-45;
 					}else{
 						_body.velocity=(new Vec2(-1444,0));
-						_particlesEffect.x=28;
 						//_particlesEffect.rotation=45;
 					}
 					
-					_particlesEffect.y=5;
 					
-					_material.addChild(_particlesEffect);
-					_particlesEffect.start("train");
 					_sound.play();
 					var ref:IAnimatable = Starling.juggler.delayCall(function removeParticles():void{
 						_body.gravMassMode = GravMassMode.DEFAULT;
-						_particlesEffect.stop();
-						_particlesEffect.removeFromParent(true);
 						_climbing = false;
 						Starling.juggler.remove(ref);
 					},1);
@@ -96,16 +88,12 @@ package com.view.playRoom
 				_isBackWards=true;
 				_trainImage.scaleX=1;
 				_trainImage.x=0;
-				_particlesEffect.x=_trainImage.width-44;
-				_particlesEffect.rotation=-45;
 				_body.velocity=(new Vec2(1222,0));
 			}else if((body.position.x>=Dimentions.WIDTH-PlayRoom.WALL_WIDTH-10-_material.width)&&_isBackWards){
 				_isBackWards=false;
 				
 				_trainImage.scaleX=-1;
 				_trainImage.x=_trainImage.width;
-				_particlesEffect.x=44;
-				_particlesEffect.rotation=45;
 				_body.velocity=(new Vec2(-1222,0));
 			}
 			//if(body.rotation>-0.5 && body.rotation<0.5)

@@ -281,24 +281,24 @@ class ColoredBaloon extends PlayItem{
 	
 	public function pop():void{
 		
-		var particlesEffect:ParticlesEffect;
-		particlesEffect = new ParticlesEffect();
-		particlesEffect.width=_material.width/10;
-		particlesEffect.height=_material.height/10;
-		particlesEffect.x=_material.x+_material.width/2;
-		particlesEffect.y=_material.y+_material.height/2;
-		_material.parent.addChild(particlesEffect);
-		particlesEffect.start("jfish");
+//		var particlesEffect:ParticlesEffect;
+//		particlesEffect = new ParticlesEffect();
+//		particlesEffect.width=_material.width/10;
+//		particlesEffect.height=_material.height/10;
+//		particlesEffect.x=_material.x+_material.width/2;
+//		particlesEffect.y=_material.y+_material.height/2;
+//		_material.parent.addChild(particlesEffect);
+//		particlesEffect.start("jfish");
 		_popSound.play();
-		Starling.juggler.delayCall(removeParticles,0.3,particlesEffect);
+		Starling.juggler.delayCall(removeParticles,0.3);
 		_material.removeFromParent(true);
 		_space.bodies.remove(_body);
 	}
 	
-	private function removeParticles(particlesEffect:ParticlesEffect):void{
-		particlesEffect.stop();
-		//particlesEffect.dispose();
-		particlesEffect.parent.removeChild(particlesEffect);
+	private function removeParticles():void{
+//		particlesEffect.stop();
+//		//particlesEffect.dispose();
+//		particlesEffect.parent.removeChild(particlesEffect);
 		poped.dispatch();
 	}
 	

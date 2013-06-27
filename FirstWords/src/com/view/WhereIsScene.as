@@ -106,16 +106,16 @@ package com.view
 				wiBtn.addEventListener(starling.events.Event.TRIGGERED,function onGood():void{
 					if(onGoodClick()){
 						wiBtn.removeEventListener(starling.events.Event.TRIGGERED, onGood);
-						var touchEffect:ParticlesEffect = new ParticlesEffect();
-						addChild(touchEffect);
-						touchEffect.x=_touchPoint.x;
-						touchEffect.y=_touchPoint.y;
-						touchEffect.start("touchstar");
-						touchEffect.alpha=0.6;
-						Starling.juggler.delayCall(function():void{
-							touchEffect.stop();
-							removeChild(touchEffect);
-						},1);
+						//var touchEffect:ParticlesEffect = new ParticlesEffect();
+//						//addChild(touchEffect);
+//						touchEffect.x=_touchPoint.x;
+//						touchEffect.y=_touchPoint.y;
+//						touchEffect.start("touchstar");
+//						touchEffect.alpha=0.6;
+//						Starling.juggler.delayCall(function():void{
+//							touchEffect.stop();
+//							removeChild(touchEffect);
+//						},1);
 
 					}
 				});

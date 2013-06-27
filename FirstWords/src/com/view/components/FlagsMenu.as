@@ -35,6 +35,7 @@ package com.view.components
 			btn.alpha=0.6;
 			addFlags();
 			setSelectedFlag("uk")
+			visible=false;
 		}
 		
 		private function setSelectedFlag(lang:String):void{

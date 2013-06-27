@@ -194,12 +194,12 @@ package com.view
 		}
 		
 		protected function closeCurtains():void{
-			_particlesEffect = new ParticlesEffect();
-			_particlesEffect.y = Dimentions.HEIGHT/2;
-			_particlesEffect.x=(Dimentions.WIDTH-_particlesEffect.width)/2;
-			_screenLayer.addChild(_particlesEffect);
-			_particlesEffect.start("drug");
-			
+//			_particlesEffect = new ParticlesEffect();
+//			_particlesEffect.y = Dimentions.HEIGHT/2;
+//			_particlesEffect.x=(Dimentions.WIDTH-_particlesEffect.width)/2;
+//			_screenLayer.addChild(_particlesEffect);
+//			_particlesEffect.start("drug");
+//			
 		}
 		
 		protected function goodSoundComplete(e:flash.events.Event):void{
@@ -209,10 +209,10 @@ package com.view
 		
 		protected function dispatchDone():void{
 			done.dispatch();
-			if(_particlesEffect){
-				_particlesEffect.stop();
-				removeChild(_particlesEffect);
-			}
+//			if(_particlesEffect){
+//				_particlesEffect.stop();
+//				removeChild(_particlesEffect);
+//			}
 		}
 		
 		protected function setItems():Boolean{

@@ -44,8 +44,6 @@ package com.view.menu
 		
 		
 		public var goHome:Signal = new Signal();
-		private var _navText:TextField;
-		private var _aboutText:TextField;
 		private var _displayLayer:Sprite;
 		private var _aboutHeb:Sprite;
 		private var _about:TextField;
@@ -87,19 +85,8 @@ package com.view.menu
 			navButton.x=Dimentions.WIDTH/2-navButton.width-20;
 			navButton.y=8;
 			aboutButton.y=8;
-			_navText = new TextField(navButton.width,40,(_texts.getText("nav")),"Verdana",19,0x003B94);
-			_navText.hAlign = "center";
-			addChild(_navText);
-			_navText.touchable=false;
-			_navText.x = navButton.x;
-			_navText.y=navButton.y + navButton.height - 42;
-			_aboutText = new TextField(aboutButton.width,40,(_texts.getText("about")),"Verdana",19,0x002661);
-			_aboutText.hAlign = "center";
-			addChild(_aboutText);
-			_aboutText.touchable = false;
-			_aboutText.x = aboutButton.x;
-			_aboutText.y=_navText.y;
-			Session.langChanged.add(setTexts);
+			navButton.visible=false;
+			aboutButton.visible=false;
 			_strling = new Button(Texture.fromBitmap(new strlng()))
 			_strling.addEventListener(Event.TRIGGERED,function():void{
 				var url:URLRequest = new URLRequest("http://gamua.com/starling/");
@@ -142,18 +129,11 @@ package com.view.menu
 			
 		}
 		
-		private function setTexts():void{
-			_aboutText.text = _texts.getText("about");
-			_navText.text =  _texts.getText("nav");
-		}
 		
 		private function setState(stt:String):void{
 			Flurry.logEvent("configMenu",{state:stt});
-			_navText.color = 0x003B94;
-			_aboutText.color = 0x003B94;
 			switch(stt){
 				case "nav":
-						_navText.color = 0x002661;
 						//_navText.bold=true;
 						//_aboutText.bold=false;
 						_menu.visible = true;
@@ -184,8 +164,6 @@ package com.view.menu
 						_about.vAlign = VAlign.TOP;
 						_about.hAlign = HAlign.LEFT;
 						_about.x=185;
-						_aboutText.visible=true;
-						_aboutText.color = 0x002661;
 					}
 					
 					//_aboutText.bold=true;

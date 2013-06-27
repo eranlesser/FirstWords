@@ -29,10 +29,13 @@ package com.view
 		private var home : Class;
 		[Embed(source="../../assets/confBut.png")]
 		private var wBird : 			Class;
+		[Embed(source="assets/title_heb.png")]
+		public static const title_heb:Class;
 		//private var _clouds:Clouds;
 		private var _flags:FlagsMenu;
 		private var _menuText:TextField;
 		private var _titleText:TextField;
+		private var _titleHeb:Image;
 		private var _texts:Texts;
 		public function HomeScreen(screens:ScreensModel)
 		{
@@ -41,7 +44,7 @@ package com.view
 			var homeBg:Image = new Image(Texture.fromBitmap(new home()))
 			_screenLayer.addChild(homeBg);
 			_flags = new FlagsMenu();
-			_flags.visible=false;
+			//_flags.visible=false;
 			_flags.y=16;
 			_flags.x=Dimentions.WIDTH-_flags.width-8;
 			_screenLayer.addChild(_flags);
@@ -59,11 +62,36 @@ package com.view
 			_titleText.x=Dimentions.WIDTH-_titleText.width//+20;
 			_titleText.y=300;
 			_titleText.filter = new GlowFilter(0xFFFFFF);
+			_titleHeb = new Image(Texture.fromBitmap(new title_heb()));
+			addChild(_titleHeb);
+			_titleHeb.x=Dimentions.WIDTH-_titleText.width;
+			_titleHeb.y = 300;
+			
+			if(Session.lang=="israel"){
+				_titleHeb.visible=true;
+				_titleText.visible=false;
+				_menuText.visible=false;
+			}else{
+				_menuText.visible=true;
+				_titleHeb.visible=false;
+				_titleText.visible=true;
+			}
+			
+			
 			Session.langChanged.add(
-				function():void{
+				function onLangChanged():void{
 					_menuText.text = _texts.getText("menu");
 					_titleText.text = _texts.getText("title");
 					_menuText.fontSize = _texts.getMenuTextSize();
+					if(Session.lang=="israel"){
+						_titleHeb.visible=true;
+						_titleText.visible=false;
+						_menuText.visible=false;
+					}else{
+						_menuText.visible=true;
+						_titleHeb.visible=false;
+						_titleText.visible=true;
+					}
 				}
 			);
 			var playBut:Button = new Button( Texture.fromBitmap(new playBt()) );
