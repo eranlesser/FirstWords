@@ -33,6 +33,7 @@ package com.view.components
 		{
 			init(screens);
 			setSelectedScreen();
+			initInapper();
 			//Starling.juggler.delayCall(initIPurchases,3);
 		}
 		
@@ -116,13 +117,12 @@ package com.view.components
 		}
 		
 		private function onRestoreClicked(e:Event):void{
-			initInapper();
+			
 			_inApper.signal.addOnce(onInApperEvent);
 			_inApper.restoreTransactions();
 		}
 		
 		private function buyFullVersion():void{
-			initInapper();
 			_inApper.signal.addOnce(onInApperEvent);
 			//_inApper.purchase("babyTweetsHeb.fullVersion",1);
 			_inApper.purchase(Session.inAppFullVersionId,1);

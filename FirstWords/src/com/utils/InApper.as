@@ -23,6 +23,7 @@ package com.utils
 	import com.adobe.ane.productStore.ProductStore;
 	import com.adobe.ane.productStore.Transaction;
 	import com.adobe.ane.productStore.TransactionEvent;
+	import com.model.Session;
 	import com.sticksports.nativeExtensions.flurry.Flurry;
 	
 	import flash.events.*;
@@ -53,14 +54,14 @@ package com.utils
 			return _signal;
 		}
 
-		public function get_Product():void
+		private function get_Product():void
 		{
 			trace("in get_Product");
 			productStore.addEventListener(ProductEvent.PRODUCT_DETAILS_SUCCESS,productDetailsSucceeded);
 			productStore.addEventListener(ProductEvent.PRODUCT_DETAILS_FAIL, productDetailsFailed);
 			
 			var vector:Vector.<String> = new Vector.<String>(1);
-			vector[0] = "babyTweetsHeb.fullVersion";
+			vector[0] = Session.inAppFullVersionId;
 			productStore.requestProductsDetails(vector);
 		}
 		
@@ -104,6 +105,7 @@ package com.utils
 		
 		protected function purchaseTransactionSucceeded(e:TransactionEvent):void
 		{
+			productStore.removeEventListener(TransactionEvent.PURCHASE_TRANSACTION_SUCCESS, purchaseTransactionSucceeded);
 			trace("in purchaseTransactionSucceeded" +e);
 			var i:uint=0;
 			var t:Transaction;
@@ -114,6 +116,7 @@ package com.utils
 				i++;
 				var Base:Base64=new Base64();
 				var encodedReceipt:String = Base64.Encode(t.receipt);
+				//var req:URLRequest = new URLRequest("https://sandbox.itunes.apple.com/verifyReceipt");
 				var req:URLRequest = new URLRequest("https://buy.itunes.apple.com/verifyReceipt");
 				req.method = URLRequestMethod.POST;
 				req.data = "{\"receipt-data\" : \""+ encodedReceipt+"\"}";
@@ -131,6 +134,7 @@ package com.utils
 		}
 		
 		protected function purchaseTransactionCanceled(e:TransactionEvent):void{
+			productStore.removeEventListener(TransactionEvent.PURCHASE_TRANSACTION_CANCEL, purchaseTransactionCanceled);
 			trace("in purchaseTransactionCanceled"+e);
 			var i:uint=0;
 			while(e.transactions && i < e.transactions.length)
@@ -138,8 +142,7 @@ package com.utils
 				var t:Transaction = e.transactions[i];
 				printTransaction(t);
 				i++;
-				trace("FinishTransactions" + t.identifier);
-				productStore.addEventListener(TransactionEvent.FINISH_TRANSACTION_SUCCESS, finishTransactionSucceeded);
+				trace("FinishTransactions >>purchaseTransactionCanceled" + t.identifier);
 				productStore.finishTransaction(t.identifier);
 			}
 			getPendingTransaction(productStore);
@@ -147,6 +150,7 @@ package com.utils
 		
 		protected function purchaseTransactionFailed(e:TransactionEvent):void
 		{
+			productStore.removeEventListener(TransactionEvent.PURCHASE_TRANSACTION_FAIL, purchaseTransactionFailed);
 			trace("in purchaseTransactionFailed"+e);
 			var i:uint=0;
 			while(e.transactions && i < e.transactions.length)
@@ -155,7 +159,6 @@ package com.utils
 				printTransaction(t);
 				i++;
 				trace("FinishTransactions" + t.identifier);
-				productStore.addEventListener(TransactionEvent.FINISH_TRANSACTION_SUCCESS, finishTransactionSucceeded);
 				productStore.finishTransaction(t.identifier);
 			}
 			

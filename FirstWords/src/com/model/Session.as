@@ -52,7 +52,7 @@ package com.model
 		}
 		
 		public static function init():void{
-			var inputFile:File = File.applicationStorageDirectory.resolvePath("sessions/userSessionData12.xml") ;
+			var inputFile:File = File.applicationStorageDirectory.resolvePath("sessions/userSessionData19.xml") ;
 			if(inputFile.exists){
 				var inputStream:FileStream = new FileStream();
 				inputStream.open(inputFile, FileMode.READ);
@@ -71,7 +71,7 @@ package com.model
 			if (!folder.exists) { 
 				folder.createDirectory();
 			} 
-			var outputFile:File = folder.resolvePath("userSessionData12.xml");
+			var outputFile:File = folder.resolvePath("userSessionData19.xml");
 			if(outputFile.exists){
 				outputFile.deleteFile();
 			}
