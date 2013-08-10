@@ -19,7 +19,7 @@ package com.model
 		public static var OS:String="IOS";
 		private static var _lang:String;
 		private static var _fullVersionEnabled:Boolean = false;
-		public static const inAppFullVersionId:String = "babyTweetsAll.fullVersion";
+		public static const inAppFullVersionId:String = "babyTweetsEn.fullVersion";
 		public function Session()
 		{
 		}
@@ -52,7 +52,7 @@ package com.model
 		}
 		
 		public static function init():void{
-			var inputFile:File = File.applicationStorageDirectory.resolvePath("sessions/userSessionData19.xml") ;
+			var inputFile:File = File.applicationStorageDirectory.resolvePath("sessions/userSessionData21.xml") ;
 			if(inputFile.exists){
 				var inputStream:FileStream = new FileStream();
 				inputStream.open(inputFile, FileMode.READ);
@@ -71,7 +71,7 @@ package com.model
 			if (!folder.exists) { 
 				folder.createDirectory();
 			} 
-			var outputFile:File = folder.resolvePath("userSessionData19.xml");
+			var outputFile:File = folder.resolvePath("userSessionData21.xml");
 			if(outputFile.exists){
 				outputFile.deleteFile();
 			}
