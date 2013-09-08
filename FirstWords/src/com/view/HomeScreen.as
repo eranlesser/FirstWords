@@ -41,7 +41,7 @@ package com.view
 			var homeBg:Image = new Image(Texture.fromBitmap(new home()))
 			_screenLayer.addChild(homeBg);
 			_flags = new FlagsMenu();
-			_flags.visible=false;
+			//_flags.visible=false;
 			_flags.y=16;
 			_flags.x=Dimentions.WIDTH-_flags.width-8;
 			_screenLayer.addChild(_flags);

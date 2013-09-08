@@ -34,13 +34,13 @@ package com.view.components
 			btn.y=-6;
 			btn.alpha=0.6;
 			addFlags();
-			setSelectedFlag("uk")
+			setSelectedFlag("russia")
 		}
 		
 		private function setSelectedFlag(lang:String):void{
 			if(_selectedFlag){
-			//	removeChild(_selectedFlag);
-			//	_selectedFlag.clicked.remove(onOpen)
+				removeChild(_selectedFlag);
+				_selectedFlag.clicked.remove(onOpen)
 			}
 			_selectedFlag = new Flag(_atlas.getTexture(lang),lang);
 			addChild(_selectedFlag);
@@ -50,27 +50,44 @@ package com.view.components
 			_container.visible=false;
 			Session.lang = lang;
 			_selectedFlag.touchable = false;
+			var hgt:uint=0;
+			for(var i:uint=0;i<_container.numChildren;i++){
+				var flag:Flag = _container.getChildAt(i) as Flag;
+				if(flag.lang==lang){
+					flag.y=0;
+				}else{
+					hgt=hgt+62;
+					flag.y=hgt;
+				}
+			}
+			
 			Flurry.logEvent("language=",{language:lang});
 		}
 		
 		private function onOpen(lang:String):void
 		{
 			_container.visible=!_container.visible;
+			if(_selectedFlag){
+				_selectedFlag.visible = !_selectedFlag.visible;
+			}
 			// TODO Auto Generated method stub
 			
 		}
 		
 		public function close():void{
 			_container.visible=false;
+			if(_selectedFlag){
+				_selectedFlag.visible = true;
+			}
 		}
 		
 		private function addFlags():void{
 			_container = new Sprite();
 			addChild(_container);
-			_container.y=62;
-			addFlag("israel");
-			//addFlag("russia");
-			addFlag("uk");
+			//_container.y=62;
+			//addFlag("israel");
+			addFlag("russia");
+			addFlag("usa");
 			//addFlag("brazil");
 			//addFlag("france");
 			//addFlag("holland");

@@ -18,7 +18,7 @@ package com.model
 		public static var langChanged:Signal = new Signal();
 		public static var OS:String="IOS";
 		private static var _lang:String;
-		private static var _fullVersionEnabled:Boolean = false;
+		private static var _fullVersionEnabled:Boolean = true;
 		public static const inAppFullVersionId:String = "babyTweetsEn.fullVersion";
 		public function Session()
 		{
