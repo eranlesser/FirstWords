@@ -30,8 +30,8 @@ package
 			Starling.juggler.delayCall(start,4);
 			_logo.x= (Dimentions.WIDTH-_logo.width)/2;
 			_logo.y= (Dimentions.HEIGHT-_logo.height)/2;
-			//Flurry.startSession("FGJG54WS4ZBX3DYR8T8Q");//heb
-			Flurry.startSession("MRGRZM7YSBQK5FQ3FFVC");//all
+			Flurry.startSession("FGJG54WS4ZBX3DYR8T8Q");//heb
+			//Flurry.startSession("MRGRZM7YSBQK5FQ3FFVC");//all
 			
 		}
 		

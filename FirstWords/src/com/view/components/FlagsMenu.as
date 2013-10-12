@@ -24,7 +24,13 @@ package com.view.components
 		private var _selectedFlag:Flag;
 		private var _container:Sprite;
 		public static const FLAG_WIDTH:uint = 80;
-		public function FlagsMenu()
+		
+		public static var RUSSIA:String="russia";
+		public static var USA	:String="usa";
+		public static var ISRAEL:String="israel";
+		public static var FRANCE:String="france";
+		
+		public function FlagsMenu(lang:String)
 		{
 			var texture:Texture=  Texture.fromBitmap(new flags());
 			_atlas = new TextureAtlas(texture,new XML(new flags_xml()) as XML);
@@ -34,7 +40,29 @@ package com.view.components
 			btn.y=-6;
 			btn.alpha=0.6;
 			addFlags();
-			setSelectedFlag("russia")
+			setSelectedFlag(getLanguageFromLocale(lang))
+		}
+		
+		private function getLanguageFromLocale(lang:String):String{
+			var str:String=ISRAEL;
+			/*
+			switch(lang){
+				case "en":
+					str=USA;
+					break;
+				case "fr":
+					str=FRANCE;
+					break;
+				case "ru":
+					str=RUSSIA;
+					break;
+				case "he":
+					str=ISRAEL;
+					break;
+				
+			}
+			*/
+			return str;
 		}
 		
 		private function setSelectedFlag(lang:String):void{
@@ -85,11 +113,11 @@ package com.view.components
 			_container = new Sprite();
 			addChild(_container);
 			//_container.y=62;
-			//addFlag("israel");
-			addFlag("russia");
-			addFlag("usa");
+			addFlag(ISRAEL);
+			addFlag(RUSSIA);
+			addFlag(USA);
 			//addFlag("brazil");
-			//addFlag("france");
+			addFlag(FRANCE);
 			//addFlag("holland");
 		}
 		private var _hgt:uint=0;

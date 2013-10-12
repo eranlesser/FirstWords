@@ -9,6 +9,8 @@ package com.view
 	import com.view.components.Clouds;
 	import com.view.components.FlagsMenu;
 	
+	import flash.system.Capabilities;
+	
 	import org.osflash.signals.Signal;
 	
 	import starling.display.Button;
@@ -40,7 +42,9 @@ package com.view
 			_texts = new Texts();
 			var homeBg:Image = new Image(Texture.fromBitmap(new home()))
 			_screenLayer.addChild(homeBg);
-			_flags = new FlagsMenu();
+			var languageSettings:Array = Capabilities.languages;
+			var locale:String = languageSettings[0].toString().toLowerCase();
+			_flags = new FlagsMenu(locale);
 			//_flags.visible=false;
 			_flags.y=16;
 			_flags.x=Dimentions.WIDTH-_flags.width-8;

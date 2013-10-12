@@ -16,16 +16,10 @@ package com.model.rawData
 		private function init():void{
 			_hebTexts["nav"]="תפריט";
 			_hebTexts["about"]="אודות";
-			_hebTexts["rateText"]="דרגו את האפליקציה וקבלו גישה חופשית לחדר המשחקים";
-			_hebTexts["rate"]="דרג";
-			_hebTexts["noThanks"]="לא תודה";
 			_hebTexts["menu"]="תפריט";
 			_hebTexts["title"]="ציוצים ראשונים";
 			_engTexts["nav"]="Screens";
 			_engTexts["about"]="About";
-			_engTexts["rateText"]="Rate us and get free play-room access";
-			_engTexts["rate"]="Rate";
-			_engTexts["noThanks"]="No Thanks";
 			_engTexts["menu"]="MENU";
 			_engTexts["title"]="Baby Tweets";
 		}
