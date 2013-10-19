@@ -45,7 +45,6 @@ package com.view.playRoom
 				_material.rotation = -90;
 				body.rotation = -90;
 			}
-			trace(body.userData.graphic.x,body.userData.graphic.y)
 		}
 		
 	}

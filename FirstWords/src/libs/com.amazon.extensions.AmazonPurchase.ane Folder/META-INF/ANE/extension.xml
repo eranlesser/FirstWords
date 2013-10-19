@@ -1,0 +1,17 @@
+	<extension xmlns="http://ns.adobe.com/air/extension/2.5">
+	  <id>com.amazon.extensions.AmazonPurchase</id>
+	  <versionNumber>1</versionNumber>
+	  <platforms>
+		<platform name="Android-ARM">
+	      <applicationDeployment>
+	        <nativeLibrary>AmazonPurchaseAPI.jar</nativeLibrary>
+	        <initializer>com.amazon.extensions.android.AmazonPurchaseExtension</initializer>
+	        <finalizer>com.amazon.extensions.android.AmazonPurchaseExtension</finalizer>
+	      </applicationDeployment>
+	    </platform>
+		<platform name="default"> 
+	      <applicationDeployment>
+	      </applicationDeployment>
+		</platform> 
+	  </platforms>
+	</extension>

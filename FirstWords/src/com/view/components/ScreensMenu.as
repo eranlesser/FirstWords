@@ -5,12 +5,12 @@ package com.view.components
 	import com.model.ScreenModel;
 	import com.model.ScreensModel;
 	import com.model.Session;
+	import com.utils.AmazoneInApper;
+	import com.utils.InAppEvents;
 	import com.utils.InAppPurchaser;
-	import com.utils.InApper;
 	
 	import org.osflash.signals.Signal;
 	
-	import starling.core.Starling;
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -131,8 +131,9 @@ package com.view.components
 		private function initInapper():void{
 			if(!_inApper){
 				if(Session.OS=="IOS"){
-					_inApper = new InApper();
+					//_inApper = new InApper();
 				}else{
+					_inApper = new AmazoneInApper();
 					//_inApper = new InApperAndroid();
 				}
 				Session.changed.add(onsessionChanged);
@@ -142,7 +143,7 @@ package com.view.components
 		
 		private function onInApperEvent(eventType:String,data:Object=null):void{
 			switch(eventType){
-				case InApper.PRODUCT_TRANSACTION_SUCCEEDED:
+				case InAppEvents.PRODUCT_TRANSACTION_SUCCEEDED:
 					Session.fullVersionEnabled=true;
 					break;
 //				case InApper.PRODUCT_RESTORE_SUCCEEDED:

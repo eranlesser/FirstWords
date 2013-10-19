@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding ="utf-8"?>
+<swc xmlns="http://www.adobe.com/flash/swccatalog/9">
+  <versions>
+    <swc version="1.2" />
+    <flex version="4.5.1" build="21328" minimumSupportedVersion="3.0.0" />
+  </versions>
+  <features>
+    <feature-script-deps />
+    <feature-files />
+  </features>
+  <libraries>
+    <library path="library.swf">
+      <script name="com/amazon/nativeextensions/android/AmazonPurchaseReceipt" mod="1355346562421" signatureChecksum="1776579325" >
+        <def id="com.amazon.nativeextensions.android:AmazonPurchaseReceipt" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/amazon/nativeextensions/android/AmazonPurchase" mod="1355346562418" signatureChecksum="4275190369" >
+        <def id="com.amazon.nativeextensions.android:AmazonPurchase" /> 
+        <dep id="com.amazon.nativeextensions.android.events:AmazonPurchaseEvent" type="e" /> 
+        <dep id="flash.events:Event" type="e" /> 
+        <dep id="ArgumentError" type="e" /> 
+        <dep id="__AS3__.vec:Vector" type="e" /> 
+        <dep id="com.amazon.nativeextensions.android:AmazonItemData" type="e" /> 
+        <dep id="flash.events:StatusEvent" type="e" /> 
+        <dep id="com.amazon.nativeextensions.android:AmazonPurchaseReceipt" type="e" /> 
+        <dep id="XML" type="e" /> 
+        <dep id="XMLList" type="e" /> 
+        <dep id="flash.external:ExtensionContext" type="e" /> 
+        <dep id="flash.desktop:NativeApplication" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="com.amazon.nativeextensions.android.events:AmazonPurchaseEvent" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="__AS3__.vec:Vector" type="s" /> 
+        <dep id="com.amazon.nativeextensions.android:AmazonItemData" type="s" /> 
+        <dep id="com.amazon.nativeextensions.android:AmazonPurchaseReceipt" type="s" /> 
+        <dep id="flash.events:StatusEvent" type="s" /> 
+        <dep id="XML" type="s" /> 
+        <dep id="XMLList" type="s" /> 
+        <dep id="flash.external:ExtensionContext" type="s" /> 
+        <dep id="Error" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/amazon/nativeextensions/android/events/AmazonPurchaseEvent" mod="1355346562424" signatureChecksum="1267037524" >
+        <def id="com.amazon.nativeextensions.android.events:AmazonPurchaseEvent" /> 
+        <dep id="__AS3__.vec:Vector" type="e" /> 
+        <dep id="com.amazon.nativeextensions.android:AmazonPurchaseReceipt" type="e" /> 
+        <dep id="__AS3__.vec:Vector" type="s" /> 
+        <dep id="com.amazon.nativeextensions.android:AmazonItemData" type="s" /> 
+        <dep id="com.amazon.nativeextensions.android:AmazonPurchaseReceipt" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="i" /> 
+      </script>
+      <script name="com/amazon/nativeextensions/android/AmazonItemData" mod="1355346562413" signatureChecksum="2549191416" >
+        <def id="com.amazon.nativeextensions.android:AmazonItemData" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="_5d44e9fed8977fb4d2377c5fd44961d9813b8a774f604fe0856657a93f53fa22_flash_display_Sprite" mod="1355353361982" signatureChecksum="631405015" >
+        <def id="_5d44e9fed8977fb4d2377c5fd44961d9813b8a774f604fe0856657a93f53fa22_flash_display_Sprite" /> 
+        <dep id="flash.system:Security" type="e" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:Sprite" type="i" /> 
+      </script>
+      <digests>
+        <digest type="SHA-256" signed="false" value="848c3cf38969bd580a3a1b2069efd0810538cc9a90b59c7b9179f34ba90a1996"   />
+      </digests>
+    </library>
+  </libraries>
+  <files>
+  </files>
+</swc>

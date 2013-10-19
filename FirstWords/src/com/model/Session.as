@@ -16,11 +16,13 @@ package com.model
 		public static const FREE_THUMBS_COUNT:uint=4;
 		public static var changed:Signal = new Signal();
 		public static var langChanged:Signal = new Signal();
-		public static var OS:String="IOS";
+		public static var OS:String="Amazon";
+		//public static var OS:String="IOS";
 		private static var _lang:String;
 		private static var _fullVersionEnabled:Boolean = false;
 		//public static const inAppFullVersionId:String = "babyTweetsEn.fullVersion";
-		public static const inAppFullVersionId:String = "babyTweetsHeb.fullVersion";
+		//public static const inAppFullVersionId:String = "babyTweetsHeb.fullVersion";
+		public static const inAppFullVersionId:String = "com.babytweets.fullversion";//amazon
 		public function Session()
 		{
 		}
