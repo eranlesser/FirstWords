@@ -70,6 +70,7 @@ package com.controller
 			if(screenIndex==-1){
 				_app.addChild(_configScr);
 				_configScr.menu.setSelectedScreen();
+				_configScr.onAdded();
 			}else if(screenIndex==-2){
 //				if(!Session.playRoomEnabled){
 //					var rateThisApp:RateThisApp = new RateThisApp();
@@ -89,7 +90,7 @@ package com.controller
 				removeScreen(_currentScreen);
 				_currentScreen = addScreen(nextScreen);
 			}
-			Flurry.logEvent("goto",screenIndex);
+			Flurry.logEvent("goto",{ screen : screenIndex});
 			//if(_currentScreen && _currentScreen.model)
 				//Flurry.getInstance().logEvent("Nav GoTo ",_currentScreen.model.groupName);
 		}

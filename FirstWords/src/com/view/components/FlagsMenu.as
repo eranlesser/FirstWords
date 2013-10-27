@@ -45,7 +45,6 @@ package com.view.components
 		
 		private function getLanguageFromLocale(lang:String):String{
 			var str:String=ISRAEL;
-			/*
 			switch(lang){
 				case "en":
 					str=USA;
@@ -61,7 +60,6 @@ package com.view.components
 					break;
 				
 			}
-			*/
 			return str;
 		}
 		

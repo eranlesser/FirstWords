@@ -8,17 +8,12 @@ package com.view.menu
 	import com.sticksports.nativeExtensions.flurry.Flurry;
 	import com.view.components.ScreensMenu;
 	
-	import flash.net.URLRequest;
-	import flash.net.navigateToURL;
-	
 	import org.osflash.signals.Signal;
 	
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import starling.events.TouchEvent;
-	import starling.events.TouchPhase;
 	import starling.text.TextField;
 	import starling.textures.Texture;
 	import starling.utils.HAlign;
@@ -51,9 +46,7 @@ package com.view.menu
 		private var _about:TextField;
 		private var _menu:ScreensMenu;
 		private var _texts:Texts;
-		private var _crText:TextField;
-		private var _tp:Button;
-		private var _strling:Button;
+		private var _areUAdult:AreUNAdult;
 		public function ConfigurationScreen(screensModel:ScreensModel)
 		{
 			addChild(new Image(Texture.fromBitmap(new bg())));
@@ -61,6 +54,21 @@ package com.view.menu
 			addChild(_menu);
 			_menu.y=110;
 			init();
+			
+			_areUAdult = new AreUNAdult();
+			_areUAdult.goHome.add(
+				function():void{
+					_areUAdult.stop();
+					removeChild(_areUAdult);
+					goHome.dispatch();
+				}
+			)
+			_areUAdult.goodAnswer.add(
+				function():void{
+					_areUAdult.stop();
+					removeChild(_areUAdult);
+				}
+			)
 		}
 		
 		public function get menu():ScreensMenu{
@@ -100,46 +108,23 @@ package com.view.menu
 			_aboutText.x = aboutButton.x;
 			_aboutText.y=_navText.y;
 			Session.langChanged.add(setTexts);
-			_strling = new Button(Texture.fromBitmap(new strlng()))
-			_strling.addEventListener(Event.TRIGGERED,function():void{
-				var url:URLRequest = new URLRequest("http://gamua.com/starling/");
-				navigateToURL(url, "_blank");
-			});
-			_tp = new Button(Texture.fromBitmap(new tp()))
-			_tp.addEventListener(Event.TRIGGERED,function():void{
-				var url2:URLRequest = new URLRequest("http://www.codeandweb.com/texturepacker");
-				navigateToURL(url2, "_blank");
-			});
-			_crText = new TextField(400,80,"Developed by www.creativelamas.com","Verdana",19,0x521B15);
 			addEventListener(Event.REMOVED_FROM_STAGE,onRemoved);
-			addChild(_strling)
-			addChild(_tp)
-			addChild(_crText)
 			setState("nav");
-			_crText.y=680;
-			_crText.x=50;
-			_strling.y=700;
-			_strling.x=700;
-			_tp.y=695;
-			_tp.x=600;
-			_crText.addEventListener(TouchEvent.TOUCH,goToSite)
 		}
 		
-		private function goToSite(t:TouchEvent):void
-		{
-			// TODO Auto Generated method stub
-			if(t.getTouch(stage)&&(t.getTouch(stage).phase == TouchPhase.BEGAN)){
-				var url:URLRequest = new URLRequest("http://www.creativelamas.com");
-				navigateToURL(url, "_blank");
-				Flurry.logEvent("gotoSite");
-			}
-		}
 		
 		private function onRemoved(e:Event):void
 		{
 			// TODO Auto Generated method stub
 			setState("nav");
-			
+			_areUAdult.stop();
+		}
+		
+		public function onAdded():void{
+			if(!Session.fullVersionEnabled){
+				addChild(_areUAdult);
+				_areUAdult.start();
+			}
 		}
 		
 		private function setTexts():void{
@@ -161,14 +146,8 @@ package com.view.menu
 							_about.visible=false;
 						if(_aboutHeb)
 							_aboutHeb.visible=false;
-						(_strling).visible=false;
-						(_tp).visible=false;
-						(_crText).visible=false;
 					break;
 				case "about":
-						(_strling).visible=true;
-						(_tp).visible=true;
-						(_crText).visible=true;
 					if(Session.lang=="israel"){
 						if(!_aboutHeb){
 							_aboutHeb = new Sprite();
