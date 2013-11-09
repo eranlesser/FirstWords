@@ -8,6 +8,8 @@ package com.view
 	import com.view.components.ParticlesEffect;
 	import com.view.utils.SoundPlayer;
 	
+	import flash.display.BitmapData;
+	import flash.display.Shape;
 	import flash.events.Event;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
@@ -18,8 +20,12 @@ package com.view
 	import starling.animation.IAnimatable;
 	import starling.core.Starling;
 	import starling.display.Button;
+	import starling.display.DisplayObject;
+	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.filters.BlurFilter;
+	import starling.filters.ColorMatrixFilter;
 	import starling.textures.Texture;
 	
 	public class AbstractScreen extends Sprite implements IScreen
@@ -28,7 +34,7 @@ package com.view
 		protected var _categorySound:		Sound;
 		protected var _particlesEffect:		ParticlesEffect;
 		protected var _model:				ScreenModel;
-		protected var _enabled:				Boolean;
+		private var _enabled:				Boolean;
 		protected var _categorySoundPlaying:Boolean=false;
 		protected var _whoIs:				Item;
 		protected var _guiLayer:			Sprite;
@@ -76,7 +82,7 @@ package com.view
 		}
 		
 		protected function  onDistractorTouch(imageItem:ImageItem):void{
-			if(!_enabled){
+			if(!enabled){
 				return;
 			}
 			var sound:Sound;
@@ -92,9 +98,9 @@ package com.view
 					var hSound:Sound = new Sound(new URLRequest("../assets/sounds/effects/"+imageItem.enhanceSound));
 					hSound.play();
 				}
-				_enabled=true;
+				enabled=true;
 			});
-			_enabled = false;
+			enabled = false;
 		}
 		
 		public function set model(screenModel:ScreenModel):void{
@@ -115,7 +121,7 @@ package com.view
 			whereBird.x = Dimentions.WIDTH - whereBird.width//-2;
 			_wBirdNote.x = Dimentions.WIDTH - _wBirdNote.width//-2;
 			whereBird.addEventListener(starling.events.Event.TRIGGERED,function():void{
-				if(_enabled){
+				if(enabled){
 					playWhoIsSound();
 				}
 			});
@@ -130,7 +136,22 @@ package com.view
 		
 		public function destroy():void{
 			removeEventListeners();
-			removeChildren();
+			var chld:DisplayObject;
+			while(_screenLayer.numChildren>0){
+				chld = _screenLayer.getChildAt(0);
+				if(chld is ImageItem){
+					(chld as ImageItem).touched.removeAll();
+				}
+				_screenLayer.removeChild(chld,true);
+			}
+			while(this.numChildren>0){
+				chld = getChildAt(0);
+				if(chld is ImageItem){
+					(chld as ImageItem).touched.removeAll();
+				}
+				removeChild(chld,true);
+			}
+			//removeChildren();
 			_model.reset();
 			Starling.juggler.remove(_setItemsDelayer);
 			_soundManager.stopSounds();
@@ -153,7 +174,7 @@ package com.view
 			var sound:Sound = _soundManager.getSound("../assets/narration/",_whoIs.qSound);
 			var chanel:SoundChannel = sound.play(); 
 			chanel.addEventListener(flash.events.Event.SOUND_COMPLETE,onWhereSoundDone);
-			_enabled=false;
+			enabled=false;
 		}
 		private var _goodFeedBack:String;
 		private function get goodFeedBack():String{
@@ -177,7 +198,7 @@ package com.view
 		}
 		
 		protected function onGoodClick():Boolean{ 
-			if(!_enabled){
+			if(!enabled){
 				return false;
 			}
 			var goodSound:Sound;
@@ -189,7 +210,11 @@ package com.view
 			}
 			var channel:SoundChannel = goodSound.play();
 			channel.addEventListener(flash.events.Event.SOUND_COMPLETE,goodSoundComplete);
-			_enabled=false;
+			enabled=false;
+			var fltr:ColorMatrixFilter = new ColorMatrixFilter();
+			//filter.invert();
+			fltr.adjustSaturation(0.5);
+			_screenLayer.filter=fltr;
 			return true;
 		}
 		
@@ -211,13 +236,13 @@ package com.view
 			done.dispatch();
 			if(_particlesEffect){
 				_particlesEffect.stop();
-				removeChild(_particlesEffect);
+				//removeChild(_particlesEffect);
 			}
 		}
 		
 		protected function setItems():Boolean{
 			_model.resetDistractors();
-			_enabled = false;
+			enabled = false;
 			if(_counter>=_model.numItems){
 				complete();
 				dispatchDone();
@@ -231,10 +256,41 @@ package com.view
 			
 		}
 		
+		private function drawDarkBg():Image{
+			var shp:Shape = new Shape();
+			shp.graphics.beginFill(0x333333);
+			shp.graphics.drawRect(0,0,Dimentions.WIDTH,Dimentions.HEIGHT);
+			shp.graphics.endFill();
+			var bmp:BitmapData = new BitmapData(Dimentions.WIDTH,Dimentions.HEIGHT,false,0x333333);
+			bmp.draw(shp)
+			var txture:Texture = Texture.fromBitmapData(bmp);
+			var img:Image = new Image(txture);
+			img.alpha=0.2;
+			return img;
+			//_screenLayer.addChild(img);
+		}
+		public function set enabled(bool:Boolean):void{
+			var fltr:ColorMatrixFilter = new ColorMatrixFilter();
+			//filter.invert();
+			fltr.adjustSaturation(-0.7);
+			if(bool == false){
+				_screenLayer.filter=fltr;
+			}else{
+				_screenLayer.filter=null;
+				//removeChild(_bg)
+			}
+			
+			_enabled=bool;
+		}
+		
+		public function get enabled():Boolean{
+			
+			return _enabled;
+		}
 		
 		protected function onWhereSoundDone(e:flash.events.Event):void{
 			var chanel:SoundChannel= e.target as SoundChannel;
-			_enabled = true
+			enabled = true
 			chanel.removeEventListener(flash.events.Event.SOUND_COMPLETE,onWhereSoundDone);
 			_wBirdNote.visible=false;
 		}

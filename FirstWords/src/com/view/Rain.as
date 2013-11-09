@@ -56,18 +56,18 @@ package com.view
 			_seed.x = (Dimentions.WIDTH-_seed.width)/2;
 			_seed.y=Dimentions.HEIGHT-_seed.height-20;
 			_rain.visible=false;
-			_enabled=true;
+			enabled=true;
 		}
 		
 		private function onCloudTouch(e:TouchEvent):void{
-			if(!_enabled||_categorySoundPlaying){
+			if(!enabled||_categorySoundPlaying){
 				return;
 			}
 			if(e.getTouch(stage) &&e.getTouch(stage).phase == TouchPhase.BEGAN){
 				var sound:Sound = new Sound(new URLRequest("../../../assets/sounds/heb/rain.mp3"));
 				_chnl = sound.play();
 				_rain.visible = true;
-				 _enabled=false;
+				 enabled=false;
 				 Starling.juggler.delayCall(progress,1);
 				//progress();
 			}
@@ -92,7 +92,7 @@ package com.view
 					Starling.juggler.delayCall(dispatchDone,2.5);
 				},1);
 				closeCurtains();
-				_enabled=false;
+				enabled=false;
 				if(_chnl){
 					_chnl.stop();
 				}
@@ -114,7 +114,7 @@ package com.view
 			}
 			_seed.x = (Dimentions.WIDTH-_seed.width)/2;
 			_seed.y=Dimentions.HEIGHT-_seed.height-20;
-			_enabled=true;
+			enabled=true;
 		}
 		
 		

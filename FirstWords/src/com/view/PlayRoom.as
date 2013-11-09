@@ -348,8 +348,11 @@ package com.view
 		
 		private function listenForEnterFrame() : void
 		{
-			addEventListener( Event.ENTER_FRAME, function( event : Event ) : void
-			{
+			addEventListener( Event.ENTER_FRAME, onEnterFrame);
+		}
+		
+		private function onEnterFrame(e:Event):void{
+			if(visible){
 				_hand.anchor1.setxy( _nativeStage.mouseX, _nativeStage.mouseY );
 				_space.step( STEP_TIME );
 				for (var i:int = 0; i < _space.liveBodies.length; i++) {
@@ -358,7 +361,7 @@ package com.view
 						body.userData.graphicUpdate(body);
 					}
 				}
-			});
+			}
 		}
 		
 		private function useAccelerometer():void

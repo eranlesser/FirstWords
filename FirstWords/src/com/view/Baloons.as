@@ -34,7 +34,6 @@ package com.view
 		private static const STEP_TIME : Number = 0.01;
 		[Embed(source="../../assets/balloons/baloonsBg.jpg")]
 		private var bg : Class;
-		private var _localEnabled:Boolean = false;
 		public function Baloons()
 		{
 			super();
@@ -114,7 +113,7 @@ package com.view
 		
 		override public function set model(screenModel:ScreenModel):void{
 			super.model = screenModel;
-			_enabled = true;
+			enabled = true;
 		}
 		
 		
@@ -124,17 +123,12 @@ package com.view
 		}
 		
 		override protected function playWhoIsSound():void{
-			_localEnabled = true;
 			_wBirdNote.visible=true;
 			_ballons[_playIndex].playQuestion();
 		}
 		
-		public function get enabled():Boolean{
-			return _localEnabled;
-		}
 		
 		private function onEnabled(val:Boolean):void{
-			_localEnabled = val;
 			_wBirdNote.visible = !val;
 		}
 		

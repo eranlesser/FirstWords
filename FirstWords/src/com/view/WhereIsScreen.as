@@ -4,14 +4,11 @@ package com.view
 	import com.Dimentions;
 	import com.model.Item;
 	import com.model.ScreenModel;
-	import com.model.Session;
-	import com.view.components.Clouds;
 	import com.view.components.ImageItem;
 	import com.view.components.Tweet;
 	import com.view.layouts.Layout;
 	import com.view.layouts.ThreeLayout;
 	
-	import flash.events.Event;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	
@@ -37,23 +34,24 @@ package com.view
 			//_clouds = new Clouds()
 			//_screenLayer.addChild(_clouds);
 			_birds = new Tweet(null,null);
-			_screenLayer.addChild(_birds);
-			_birds.clicked.add(
-				function():void{
-					if(_enabled){
-						_birds.tweet(true);
-						//playWhoIsSound();
-					}
-				}
-			);
+			addChild(_birds);
+			_birds.clicked.add(onBirdClicked);
 			_birds.y=50;
 			_birds.x = Dimentions.WIDTH+12;
 			_birds.scaleX=-1;
 			
 		}
 		
+		private function onBirdClicked():void{
+			if(enabled){
+				_birds.tweet(true);
+				//playWhoIsSound();
+			}
+		}
+		
 		override public function destroy():void{
 		//	_clouds.stop();
+			_birds.clicked.removeAll();
 			super.destroy();
 		}
 		

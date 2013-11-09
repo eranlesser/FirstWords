@@ -43,24 +43,24 @@ package com.view
 			_vc.push(_atlas.getTexture("egg2"));
 			_vc.push(_atlas.getTexture("egg3"));
 			_vc.push(_atlas.getTexture("egg6"));
-			_enabled=true;
+			enabled=true;
 			_counter.count(4);
 			_counter.done.add(onCounter);
 		}
 		
 		private function onKnock(e:TouchEvent):void{
-			if(!_enabled||_categorySoundPlaying){
+			if(!enabled||_categorySoundPlaying){
 				return;
 			}
 			if(e.getTouch(stage) &&e.getTouch(stage).phase == TouchPhase.BEGAN){
 				_counter.progress();
 				_knockSound.play();
-				_enabled = false;
+				enabled = false;
 				_egg.scaleX=1.1;
 				_egg.scaleY=1.1;
 				_counter.tick.addOnce(function():void{
 					if(!_counter.isDone){
-						_enabled=true
+						enabled=true
 						_egg.scaleX=1;
 						_egg.scaleY=1;
 					}
@@ -82,7 +82,7 @@ package com.view
 			);
 			var delayer:DelayedCall =Starling.juggler.delayCall(progress,1.2);
 			delayer.repeatCount=3;
-			_enabled=false;
+			enabled=false;
 		}
 		
 		override public function destroy():void{
@@ -104,7 +104,7 @@ package com.view
 			if(_curFrame == 3){
 				Starling.juggler.delayCall(function():void{dispatchDone()},3);
 				closeCurtains();
-				_enabled=false;
+				enabled=false;
 			}
 		}
 		
