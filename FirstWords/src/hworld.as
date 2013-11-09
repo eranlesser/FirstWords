@@ -50,6 +50,7 @@ package
 			Starling.multitouchEnabled = true;
 			//Starling.handleLostContext = true;
 			_starling = new Starling(FirstWordsApp,stage,viewPort);
+			//_starling.showStats=true;
 			_starling.start();
 			Starling.current.nativeStage.align = StageAlign.TOP_LEFT;
 			Starling.current.nativeStage.scaleMode = StageScaleMode.NO_SCALE;
@@ -63,9 +64,20 @@ package
 		private function setDisplaySize():void{
 			var wdt:int = Math.max(stage.fullScreenWidth,stage.fullScreenHeight);
 			var hgt:int = Math.min(stage.fullScreenWidth,stage.fullScreenHeight);
+			if(wdt==1024 || wdt == 2048){
+				Session.deviceId = 2;
+			}else{
+				Session.deviceId=1;
+			}
 			if(_starling && (_starling.viewPort.width != wdt || _starling.viewPort.height != hgt)){
 				_starling.viewPort = new Rectangle(0,0,wdt,hgt);
+				if(wdt==1024 || wdt == 2048){
+					Session.deviceId = 2;
+				}else{
+					Session.deviceId=1;
+				}
 			}
+			
 		}
 		
 		private function orientationChange(e:StageOrientationEvent):void{

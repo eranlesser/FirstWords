@@ -90,13 +90,17 @@ package com.view.components
 			_restoreButton = new Button(Texture.fromBitmap(new btn()),"RESTORE TRANSACTIONS");
 			addChild(_restoreButton);
 			_restoreButton.x=12;
-			_restoreButton.y=-72;
+			_restoreButton.y=-100; // iphone 100 , ipad 72
+			_restoreButton.fontSize=24;
+			_restoreButton.fontColor=0x003B94;
 			_restoreButton.addEventListener(Event.TRIGGERED,onRestoreClicked);
 			_restoreButton.visible = !Session.fullVersionEnabled;
 			_buyButton = new Button(Texture.fromBitmap(new btn()),"Buy Full Version");
+			_buyButton.fontSize=24;
+			_buyButton.fontColor=0x003B94;
 			addChild(_buyButton);
 			_buyButton.x=this.width-12-_buyButton.width;
-			_buyButton.y=-72;
+			_buyButton.y=-100;// iphone 100 , ipad 72
 			_buyButton.addEventListener(Event.TRIGGERED,buyFullVersion);
 			_buyButton.visible = !Session.fullVersionEnabled;
 		}//function

@@ -10,6 +10,8 @@ package com.view
 	import com.view.components.FlagsMenu;
 	
 	import flash.system.Capabilities;
+	import flash.text.AutoCapitalize;
+	import flash.text.TextFieldAutoSize;
 	
 	import org.osflash.signals.Signal;
 	
@@ -20,6 +22,7 @@ package com.view
 	import starling.events.TouchPhase;
 	import starling.text.TextField;
 	import starling.textures.Texture;
+	import starling.utils.HAlign;
 	
 	public class HomeScreen extends AbstractScreen
 	{
@@ -58,16 +61,18 @@ package com.view
 			addChild(_menuText);
 			_menuText.x=whereBird.x;
 			_menuText.y=whereBird.y+whereBird.height-9;
-			_titleText = new TextField(450,100,_texts.getText("title"),"Verdana",52,0x002661);
+			_titleText = new TextField(550,100,_texts.getText("title"),"Verdana",52,0x002661);
 			addChild(_titleText);
+			_titleText.autoSize =  TextFieldAutoSize.CENTER;
 			_titleText.x=Dimentions.WIDTH-_titleText.width//+20;
-			_titleText.y=300;
+			_titleText.y=318;
 			_titleText.filter = new GlowFilter(0xFFFFFF);
 			Session.langChanged.add(
 				function():void{
 					_menuText.text = _texts.getText("menu");
 					_titleText.text = _texts.getText("title");
 					_menuText.fontSize = _texts.getMenuTextSize();
+					_titleText.x = Dimentions.WIDTH-_titleText.width;
 				}
 			);
 			var playBut:Button = new Button( Texture.fromBitmap(new playBt()) );
@@ -76,6 +81,13 @@ package com.view
 			playBut.y=168;
 			playBut.addEventListener(Event.TRIGGERED,function():void{gotoSignal.dispatch(Session.currentScreen)});
 			this.addEventListener(TouchEvent.TOUCH,onTouch);
+			
+			var playText:TextField = new TextField(playBut.width,32,_texts.getText("play"),"Verdana",20,0x002661);
+			addChild(playText);
+			playText.filter = new GlowFilter(0xFFFFFF);
+			playText.hAlign = HAlign.CENTER;
+			playText.x=playBut.x+12;
+			playText.y=playBut.y+playBut.height-5;
 		}
 		
 		private function onTouch(t:TouchEvent):void{

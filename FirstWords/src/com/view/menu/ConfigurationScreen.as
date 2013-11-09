@@ -87,9 +87,7 @@ package com.view.menu
 			var navButton:Button = new Button( Texture.fromBitmap(new screens()) );
 			var aboutButton:Button = new Button( Texture.fromBitmap(new about()));
 			
-			addChild(navButton);
 			navButton.addEventListener(starling.events.Event.TRIGGERED,function():void{setState("nav")});
-			addChild(aboutButton);
 			aboutButton.addEventListener(starling.events.Event.TRIGGERED,function():void{setState("about")});
 			aboutButton.x=Dimentions.WIDTH/2+20;
 			navButton.x=Dimentions.WIDTH/2-navButton.width-20;
@@ -97,18 +95,22 @@ package com.view.menu
 			aboutButton.y=8;
 			_navText = new TextField(navButton.width,40,(_texts.getText("nav")),"Verdana",19,0x003B94);
 			_navText.hAlign = "center";
-			addChild(_navText);
 			_navText.touchable=false;
 			_navText.x = navButton.x;
 			_navText.y=navButton.y + navButton.height - 42;
 			_aboutText = new TextField(aboutButton.width,40,(_texts.getText("about")),"Verdana",19,0x002661);
 			_aboutText.hAlign = "center";
-			addChild(_aboutText);
 			_aboutText.touchable = false;
 			_aboutText.x = aboutButton.x;
 			_aboutText.y=_navText.y;
 			Session.langChanged.add(setTexts);
 			addEventListener(Event.REMOVED_FROM_STAGE,onRemoved);
+			if(Session.deviceId==2){
+				addChild(navButton);
+				addChild(aboutButton);
+				addChild(_navText);
+				addChild(_aboutText);
+			}
 			setState("nav");
 		}
 		
@@ -157,7 +159,7 @@ package com.view.menu
 						}
 						_aboutHeb.visible=true;
 					}else{
-						_about = new TextField(700,600,_texts.getAboutText("eng"),"Verdana",18,0x2C3E50);
+						_about = new TextField(700,600,_texts.getAboutText(),"Verdana",18,0x2C3E50);
 						addChild(_about);
 						_about.y=140;
 						_about.vAlign = VAlign.TOP;

@@ -19,8 +19,9 @@ package com.model
 		public static var OS:String="IOS";
 		private static var _lang:String;
 		private static var _fullVersionEnabled:Boolean = false;
-		//public static const inAppFullVersionId:String = "babyTweetsEn.fullVersion";
-		public static const inAppFullVersionId:String = "babyTweetsHeb.fullVersion";
+		public static const inAppFullVersionId:String = "babyTweetsEn.fullVersion";
+		//public static const inAppFullVersionId:String = "babyTweetsHeb.fullVersion";
+		public static var deviceId:uint=1; // phone 1 , tablet 2
 		public function Session()
 		{
 		}
